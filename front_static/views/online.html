@@ -1,0 +1,203 @@
+<title>线上实战</title>
+<div class="meeting bg-620 online">
+    <!--会议列表-->
+    <div class="meeting-list">
+        <div class="meeting-top">
+            <div class="top-list">
+                <b>题型：</b>
+                <!--<span>全部</span>-->
+                <ul>
+                    <li ng-class="{'meeting_check':topic_type==undefined}" ng-click="chose_topic()">全部</li>
+                    <li ng-class="{'meeting_check':topic_type==4}" ng-click="chose_topic(4)">处方审核</li>
+                    <li ng-class="{'meeting_check':topic_type==5}" ng-click="chose_topic(5)">用药交代</li>
+                    <li ng-class="{'meeting_check':topic_type==6}" ng-click="chose_topic(6)">用药情景咨询</li>
+                </ul>
+            </div>
+            <div class="dashed"></div>
+            <div class="top-list">
+                <b>治疗领域：</b>
+                <!--<span>全部</span>-->
+                <ul>
+                    <li ng-class="{'meeting_check':therapeutic==undefined}" ng-click="to_field()">全部</li>
+                    <li ng-class="{'meeting_check':therapeutic=='心血管系统'}" ng-click="to_field('心血管系统')">心血管系统</li>
+                    <li ng-class="{'meeting_check':therapeutic=='神经系统'}" ng-click="to_field('神经系统')">神经系统</li>
+                    <li ng-class="{'meeting_check':therapeutic=='内分泌系统'}" ng-click="to_field('内分泌系统')">内分泌系统</li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="meeting-body">
+            <div ng-if="chose_this == 1">
+                <div class="online-title">
+                    <ul>
+                        <li ng-class="{'yellow':order!='weight'}" ng-click="check_hot(1)">最新</li>
+                        <li ng-class="{'yellow':order=='weight'}" ng-click="check_hot(2)">最热</li>
+                    </ul>
+                </div>
+                <div class="rowline"></div>
+                <div class="online-content">
+                    <!--病例列表-->
+                    <ul>
+                        <li ng-repeat="l in list track by $index" ng-click="par_detail(l.id)">
+                            <h3>错误处方</h3>
+                            <div class="lineImg">
+                                <p>{{l.name}}</p>
+                                <b>{{l.comments_count}}条评论</b>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="pages">
+                        <div class="tcdPageCode" style="display: inline-block;">
+                        </div>
+                        <span style="display: inline-block;">到第<input type="text" ng-model="to_page"
+                                                                      ng-pattern="/^[0-9]+$/">页 <button
+                                ng-click="lead(to_page)"
+                                ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+                    </div>
+                </div>
+            </div>
+            <!--病例详情-->
+            <div class="online-item" ng-if="chose_this == 2">
+                <h3>{{user_info.name}}<i class="blue2"></i></h3>
+                <p>已有<b class="blue2">{{user_info.weight}}</b>位药师挑战过此处方，来看一下自己的实力如何？</p>
+                <img ng-src="{{user_info.photo}}" class="marginl-56" width="200px" height="200px"
+                     alt="">
+                <div class="answer-text">
+                    答案：
+                    <textarea class="marginl-8" ng-model="user_answer"></textarea>
+                    <p class="marginl-56"><i class="circlebtn marginr-10 greyclick" ng-click="chsoe_synchro()"
+                                             ng-class="{'redclick':synchro==1}"></i>同步到改题目</p>
+                </div>
+                <div class="btns marginl-56">
+                    <button class="button-click marginr-16" ng-click="end_ti(user_answer)" tabindex="0">提交答案</button>
+                    <button class="button-click huang-bg" ng-click="see_analysis()">查看解析</button>
+                </div>
+            </div>
+
+            <!--提交答案,查看解析-->
+            <div class="online-item hand-in" ng-if="chose_this == 3">
+                <h3>{{user_info.name}}<i class="blue2"></i></h3>
+                <p>已有<b class="blue2">{{user_info.weight}}</b>位药师挑战过此处方，来看一下自己的实力如何？</p>
+                <img ng-src="{{user_info.photo}}" class="marginl-56" width="200px" height="200px"
+                     alt="">
+                <div class="btns marginl-56">
+                    <button class="button-click marginr-16" ng-click="close_fade()" tabindex="0"
+                            disabled="disabled">提交答案
+                    </button>
+                    <button class="button-click huang-bg" ng-click="see_analysis()">查看解析</button>
+                </div>
+                <div class="answer-text">
+                    你的答案：
+                    <p>{{user_answer}}</p>
+                    <!--<div ng-bind-html="user_info.right_key|to_trusted"></div>-->
+                </div>
+                <div class="answer-key">
+                    答题要点：
+                    <div ng-bind-html="user_info.right_key|to_trusted"></div>
+                </div>
+                <!--查看解析-->
+                <div class="analysis" ng-if="see_analysis==1">解析：{{analy}}</div>
+                <!--评论-->
+                <div class="comment-word" ng-if="chose_this == 3">
+                    <ol ng-repeat="l in lists track by $index">
+                        <li>
+                            <img ng-src="{{l.user_info.head}}" width="40px" height="40px"
+                                 alt="">
+                            <h5>{{l.user_info.nickname}}</h5>
+                        </li>
+                        <br>
+                        <li>
+                            <p>{{l.user_answer}}</p>
+                            <div>
+                                <i class="ion-14 pinglun" ng-click="l.type==2||pings(l.id)"></i><b ng-click="l.is_show=1" ng-if="l.comments_count!=0">{{l.comments_count}}条评论</b><b ng-click="l.is_show==1" ng-if="l.comments_count==0" ng-click="pings(l.id)">暂无评论</b>
+                                <i class="ion-14 redzan marginl-26" ng-click="add_zan(l.id,1)" ng-if="l.type!=2"></i><b ng-if="l.type!=2">{{l.number}}</b>
+                            </div>
+                        </li>
+                        <li ng-if="l.is_show==1">
+                            <div>
+                                <b class="blue marginl-38" ng-click="l.is_show=0">收起评论</b>
+                                <ol ng-repeat="tree in l.comments_tree track by $index" class="ol-item">
+                                    <li>
+                                        <img ng-src="{{tree.head}}" width="40px" height="40px"
+                                             alt="">
+                                        <h5>{{tree.nickname}}</h5>
+                                    </li>
+                                    <li>
+                                        <p>{{tree.content}}</p>
+                                        <div>
+                                            <i class="ion-14 redzan marginl-26" ng-if="tree.type!=2" ng-click="add_zan(tree.id,2)"></i><b ng-if="tree.type!=2">{{tree.number}}</b>
+                                        </div>
+                                    </li>
+                                    <ol ng-repeat="item in tree.item track by $index" class="ol-item">
+                                        <li>
+                                            <img src="front_static/assets/img/avatar5.png" width="40px" height="40px"
+                                                 alt="">
+                                        </li>
+                                        <li>
+                                            <p>管理员回复：{{item.content}}</p>
+                                        </li>
+                                    </ol>
+                                </ol>
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="pages">
+                        <div class="tcdPageCodes" style="display: inline-block;">
+                        </div>
+                        <span style="display: inline-block;">到第<input type="text" ng-model="to_page"
+                                                                      ng-pattern="/^[0-9]+$/">页 <button
+                                ng-click="leads(to_page)"
+                                ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+                    </div>
+                </div>
+            </div>
+
+            <!--查看解析弹窗-->
+            <div class="bg_popup popup-fade-contianer" ng-if="" ng-click="close_proup()"></div>
+            <div class="container_popup popup-fade analysisWin" ng-if="">
+                <div class="top_title">
+                    <div class="title-left"></div>
+                    <div class="tltle-center">提示</div>
+                    <div class="title-close" ng-click="close_proup()"></div>
+                </div>
+                <div class="container_text">
+                    <p class="lineheight-24">查看解析需要20积分，现在您的积分值为300。</p>
+                </div>
+                <div class="btns">
+                    <div class="step">
+                        <button class="last-step" ng-click="close_proup()">确定查看</button>
+                    </div>
+                </div>
+            </div>
+            <!--评论弹窗-->
+            <div class="bg_popup popup-fade-contianer" ng-if="ping_tan==1" ng-click="close_proup()"></div>
+            <div class="container_popup popup-fade commentWin" ng-if="ping_tan==1">
+                <div class="top_title">
+                    <div class="title-left"></div>
+                    <div class="tltle-center">评论</div>
+                    <div class="title-close" ng-click="close_proup()"></div>
+                </div>
+                <div class="container_text">
+                    <div class="answer-text">
+                        评论内容：
+                        <textarea placeholder="请输入评论内容" ng-model="ping_text.content"></textarea>
+                        <p><i class="circlebtn marginr-10 greyclick" ng-click="chsoe_synchro2()"
+                              ng-class="{'redclick':synchro2==1}"></i>同步到该题目</p>
+                    </div>
+                </div>
+                <div class="btns">
+                    <div class="step">
+                        <button class="button-click" ng-click="close_proup()">取消</button>
+                        <button class="button-click" ng-click="end_chose_group(ping_text.content)">确定</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--            <div class="pages">
+                            <div class="tcdPageCode" style="display: inline-block;"><span class="disabled">上一页</span><span class="current">1</span><a href="javascript:;" class="tcdNumber">2</a><a href="javascript:;" class="nextPage">下一页</a></div>
+                            <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/" class="ng-pristine ng-untouched ng-valid ng-valid-pattern" tabindex="0" aria-invalid="false">页 <button ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page" tabindex="0" aria-disabled="true" disabled="disabled">确定</button></span>
+                        </div>-->
+        </div>
+    </div>
+</div>

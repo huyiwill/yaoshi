@@ -1,0 +1,118 @@
+<title>考卷管理</title>
+
+<div class="hassessExam">
+    <ul class="exam-title">
+        <li class="yellow" ng-click="chose_type(2)" ng-class="{'yellow':is_state==2}">未批阅</li>
+        <li ng-click="chose_type(3)" ng-class="{'yellow':is_state==3}">已批阅</li>
+    </ul>
+    <div class="exam-content">
+        <!--未批阅-->
+        <div class="exam-no choice-exam">
+            <div class="lists" ng-show="!add_hass">
+                <div class="list-top color-y">
+                    姓名<input type="text" ng-model="search_name">
+                    <button class="button-click" ng-click="soso()">查询</button>
+                     考卷名称 <select ng-model="search_select">
+                                <option selected="selected">请选择考卷</option>
+                                <option>考卷1</option>
+                                <option>考卷2</option>
+                            </select>
+                </div>
+                <div class="list-body">
+                   
+                    <form method="post">
+                        <table >
+                            <thead class="tr_order">
+                                <tr>
+                                    <th style="width: 70px">姓名</th>
+                                    <th style="width: 120px;">理论成绩（分）</th>
+                                    <th style="width: 120px;">实践成绩（分）</th>
+                                    <th style="width: 120px;">总成绩（分）</th>
+                                    <th>答题用时</th>
+                                    <th>交卷时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tr_msg">
+                                <tr ng-repeat="l in list track by $index">
+                                    <td>{{l.name}}</td>
+                                    <td>{{l.theory_score||0}}分</td>
+                                    <td>{{l.practice_score||0}}分</td>
+                                    <td>{{l.total_score||0}}分</td>
+                                    <td>{{l.answer_time||0}}min</td>
+                                    <td ng-if="l.complete_time!=0">{{l.complete_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td ng-if="l.complete_time==0">未考核</td>
+                                    <td>
+                                        <button ui-sref="main.bs.assessMark({id:l.id})" ng-if="is_state==2">批阅试卷</button>
+                                        <button ui-sref="main.bs.assessMark({id:l.id})"ng-if="is_state==3">重新批阅</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <p class="tip-no" ng-if="list.length==0&&is_state==2">还没有等待批阅的试卷</p>
+                    <p class="tip-no" ng-if="list.length==0&&is_state==3">还没有已批阅的试卷</p>
+                </div>
+            </div>
+        </div>
+        <!--已批阅-->
+        <!--<div class="exam-has" style="display: none;">-->
+             <!--<div class="lists">-->
+                <!--<div class="list-top color-y">-->
+                    <!--姓名<input type="text" ng-model="search_name">-->
+                    <!--<button class="button-click" ng-click="soso()">查询</button>-->
+                <!--</div>-->
+                <!--<div class="list-body">-->
+                    <!--<form method="post">-->
+                        <!--<table >-->
+                            <!--<thead class="tr_order">-->
+                                <!--<tr>-->
+                                    <!--<th style="width: 70px">姓名</th>-->
+                                    <!--<th style="width: 120px;">理论成绩（分）</th>-->
+                                    <!--<th style="width: 120px;">实践成绩（分）</th>-->
+                                    <!--<th style="width: 120px;">总成绩（分）</th>-->
+                                    <!--<th>答题用时</th>-->
+                                    <!--<th>交卷时间</th>-->
+                                    <!--<th>操作</th>-->
+                                <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody class="tr_msg">-->
+                                <!--<tr>-->
+                                    <!--<td>张1</td>-->
+                                    <!--<td>25</td>-->
+                                    <!--<td>50</td>-->
+                                    <!--<td>75</td>-->
+                                    <!--<td>20min</td>-->
+                                    <!--<td>2017-10-08 11:34:32</td>-->
+                                    <!--<td>-->
+                                        <!--<button ui-sref="main.bs.seeMark">查看试卷</button>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                 <!--<tr>-->
+                                    <!--<td>张2</td>-->
+                                    <!--<td>30</td>-->
+                                    <!--<td>40</td>-->
+                                    <!--<td>75</td>-->
+                                    <!--<td>25min</td>-->
+                                    <!--<td>2017-10-08 11:34:32</td>-->
+                                    <!--<td>-->
+                                        <!--<button ui-sref="main.bs.assessMark">查看批阅</button>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</form>-->
+                    <!--<p class="tip-no">还没有已批阅的试卷</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        
+          <!--分页器-->
+        <div class="pages">
+            <div class="tcdPageCode" style="display: inline-block;">
+            </div>
+            <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                    ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+        </div>
+    </div>
+</div>

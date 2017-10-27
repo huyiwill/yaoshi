@@ -1,0 +1,87 @@
+<title>我的账户</title>
+<div class="my-account">
+    <ul class="jifen-top">
+        <li class="yellow" ng-click="score_type(1)" ng-class="{'yellow':types == 1}">我的邀请码</li>
+        <!--<li ng-click="score_type(2)" ng-class="{'yellow':types == 2}">我的账单</li>-->
+    </ul>
+    <div class="account-items" ng-init="jifen = 100">
+        <div class="account-word">给他分享您的邀请码或者邀请链接，TA注册后将获得{{jifen}}积分,同时您也将会获得{{jifen}}积分！</div>
+        <div class="account-invitation">
+            <p class="color-3">我的邀请码</p>
+            <p class="blue">{{sign_msg.code||'...'}}</p>
+            <div class="btns">
+                <button class="button-click blue-bg" ng-click="yao()">邀请好友</button>
+                <button class="button-check green-bg" ng-click="shose_show = 1">TA的邀请码</button>
+            </div>
+            <div class="account-table">
+                <table>
+                    <thead>
+                        <tr class="formjl">
+                            <th width="120px;">邀请对象</th>
+                            <th>邀请时间</th>
+                            <th width="120px;">邀请奖励</th>
+                            <th>获取时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="code in code_list track by $index">
+                            <td>王语嫣</td>
+                            <td>2017-09-04 13:45:54</td>
+                            <td>{{jifen}}积分</td>
+                            <td>2017-09-04 13:45:54</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="no-invitation" ng-if="code_list.length == 0">暂无邀请对象</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--邀请码弹窗-->
+<div class="bg_popup popup-fade-contianer" ng-if="shose_show" ng-click="close_proup()"></div>
+<div class="container_popup popup-fade" ng-if="shose_show">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">填写邀请码</div>
+        <div class="title-close" ng-click="close_proup()"></div>
+    </div>
+    <div class="container_text">
+          <form class="form markWin" name="markWin" novalidate>
+            <div class="form-item">
+                <label class="marginl-8">邀请码&nbsp;&nbsp;</label>
+                <input name="my_score" type="text" class="" value="" ng-model="do_score">
+                <p class="marginl-8 invitation-code">备注：填写TA的邀请码，你和TA都将获得{{jifen}}积分奖励</p>
+            </div>
+          </form>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_proup()">取消</button>
+                <button class="next-step" ng-click="ti_score(do_score)" ng-disabled="do_score==undefined||do_score==''">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg_popup popup-fade-contianer" ng-if="shose_shows" ng-click="close_proup()"></div>
+<div class="container_popup popup-fade" ng-if="shose_shows">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">您的邀请码</div>
+        <div class="title-close" ng-click="close_proup()"></div>
+    </div>
+    <div class="container_text">
+        <form class="form markWin" name="markWin" novalidate>
+            <div class="form-item">
+                <p class="marginl-8 invitation-code" style="padding-right: 20px;">您的专属邀请码为：{{sign_msg.code}}</p>
+                <p class="marginl-8 invitation-code" style="padding-right: 20px;">邀请链接：{{share_url}}</p>
+                <p class="marginl-8 invitation-code" style="padding-right: 20px;">备注：发送此链接给好友，注册成功后，你和TA都将获得{{jifen}}积分奖励</p>
+            </div>
+        </form>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_proup()">取消</button>
+                <button class="next-step" ng-click="close_proup()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

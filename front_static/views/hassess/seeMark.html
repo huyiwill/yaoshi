@@ -1,0 +1,97 @@
+
+<title>查看考卷</title>
+
+<div class="assessMark assessGrade examGrade">
+    <!--公用头部-->
+    <div class="do-title">
+        <h3>{{exercises_info.exercises_subject[0].info.name}}</h3>
+        <span>总分数：{{exercises_info.score}}分</span>
+        <span>答题时间：<b class="yellow">{{exercises_info.answer_time}}分钟</b></span>
+        <span>总题数：<b class="green">{{exercises_info.exercises_subject[0].count}}</b>题</span>
+    </div>
+    <div class="grade-content">
+        <!--查看答案-->
+        <div class="see-answer">
+            <div class="radio">
+                <h1 class="topic">一、单选题（{{dan_score||0}}分，共{{dan.length||0}}题） <b>{{dan_actual||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="d in dan track by $index">
+                    <p>{{$index+1}}. {{d.name}}? <b class="b-icon" ng-class="{'cuo':d.do_right=='false','dui':d.do_right=='true'}"></b></p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                        <i class="circlebtn openbtn greybtn" ng-class="{'redbtn':d.do==e.key}"></i>{{e.key}}. {{e.value}}
+                        </li>
+                    </ul>
+                    <span>正确答案：{{d.right_key}}</span>
+                </div>
+            </div>
+            <div class="checkbox">
+                <h1 class="topic">二、多选题（{{duo_score||0}}分，共{{duo.length||0}}题） <b>{{duo_actual||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="d in duo track by $index">
+                    <p>{{$index+1}}. {{d.name}}? <b class="b-icon" ng-class="{'cuo':d.do_right=='false','dui':d.do_right=='true'}"></b></p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                            <i class="circlebtn openbtn greybtn" ng-class="{'redbtn':d.do.indexOf(e.key)!=-1}"></i>{{e.key}}. {{e.value}}
+                        </li>
+                    </ul>
+                    <span>正确答案：{{d.right_key}}</span>
+                </div>
+            </div>
+            <div class="shenhe">
+                <h1 class="topic">三、处方审核题（40分，共5题） <b>10分</b></h1>
+                <div class="answer-item">
+                    <p>1.XXXXXX（10分）</p>
+                    <img src="front_static/assets/img/assess.png" alt="">
+                    <div class="answe1">答题要点：
+                        <p>1.XXXXXX</p>
+                        <p>2.XXXXXX</p>
+                    </div>
+                    <div class="answe1 yellow">答案：
+                        <p>1.XXXXXX</p>
+                        <p>2.XXXXXX</p>
+                    </div>
+                    <button class="do-mark button-click">打分</button>
+                </div>
+            </div>
+            
+            <div class="shenhe">
+                <h1 class="topic">四、用药交代题（20分，共2题） <b>10分</b></h1>
+                <div class="answer-item">
+                    <p>1.XXXXXX（10分）</p>
+                    <img src="front_static/assets/img/assess.png" alt="">
+                    <div class="answe1">答题要点：
+                        <p>1.XXXXXX</p>
+                        <p>2.XXXXXX</p>
+                    </div>
+                    <div class="answe1 yellow">答案：
+                        <p>1.XXXXXX</p>
+                        <p>2.XXXXXX</p>
+                    </div>
+                    <button class="do-mark button-click">打分</button>
+                </div>
+            </div>
+            
+            <div class="shenhe">
+                <h1 class="topic">五、用药情景咨询题（10分，共1题） <b>10分</b></h1>
+                <div class="answer-item">
+                    <p>1.XXXXXX（10分）</p>
+                    <div class="answe1">答题要点：
+                        <p>1.XXXXXX</p>
+                        <p>2.XXXXXX</p>
+                    </div>
+                    <div class="answe1 yellow">答案：
+                        <p>1.XXXXXX</p>
+                        <p>2.XXXXXX</p>
+                    </div>
+                    <button class="do-mark button-click">打分</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="btns">
+        <div class="step">
+            <button class="last-step">取消</button>
+            <button class="next-step" ng-click="next(2)" ng-disabled="name==undefined||name==''||hostipal==''||hostipal==undefined||otnerhostipal==1&amp;&amp;teaching_hospital==undefined||otnerhostipal==1&amp;&amp;teaching_hospital==''" tabindex="0" aria-disabled="true" disabled="disabled">提交</button>
+        </div>
+    </div>
+</div>

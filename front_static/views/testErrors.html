@@ -1,0 +1,126 @@
+<title>错题练习</title>
+
+
+<div class="textPractice bg-620">
+    <div class="test-inner practice">
+        <div class="practice-title">
+            <span class="button-check" ng-click="chose_type(1)"
+                  ng-class="{'red-check':is_dan==1,'grey-check':is_dan!=1}">单选题</span>
+            <span class="button-check" ng-click="chose_type(0)"
+                  ng-class="{'red-check':is_dan==0,'grey-check':is_dan!=0}">多选题</span>
+        </div>
+        <div class="practice-content">
+            <!--单选-->
+            <p ng-if="is_dan&&one_count==0" class="null_msg">暂无错题</p>
+            <div class="radio lineheight-24 marginr-16" ng-if="is_dan&&one_count>0">
+                <ul>
+                    <li><i>{{ex_num}}</i>/<b>{{one_count}}</b>. {{exercise_text.name}}?</li>
+                    <li ng-repeat="e in exercise_text.choice"><span ng-click="click_end(e.key,exercise_text.id,ex_num)"><i
+                            class="circlebtn openbtn"
+                            ng-class="{'greybtn':click_this!=e.key,'redbtn':click_this==e.key}"></i>{{e.key}}. {{e.value}}
+                    </li>
+                    </span>
+                    <!--<li><span><i class="circlebtn greybtn openbtn" ng-click="click_end(2)"></i>B. 永远到底有多远</li></span>-->
+                    <!--<li><span><i class="circlebtn greybtn openbtn" ng-click="click_end(3)"></i>C. 永远到底有多远</li></span>-->
+                    <!--<li><span><i class="circlebtn greybtn openbtn" ng-click="click_end(4)"></i>D. 永远到底有多远</li></span>-->
+                </ul>
+            </div>
+            <!--多选-->
+            <p ng-if="!is_dan&&two_count==0" class="null_msg">暂无错题</p>
+            <div class="checkbox lineheight-24 marginr-16" ng-if="!is_dan&&two_count>0">
+                <ul>
+                    <li><i>{{ex_num}}</i>/<b>{{two_count}}</b>. {{exercise_text.name}}?</li>
+                    <li ng-repeat="e in exercise_text.choice"><span><i class="circlebtn openbtn greyclick"
+                                                                       toggle-class="redclick"
+                                                                       ng-click="click_chose($event,e.key,ex_num)"></i>{{e.key}}. {{e.value}}
+                    </li>
+                    </span>
+                </ul>
+            </div>
+            <div class="practice-line"></div>
+            <div class="practice-icon ta-right" ng-show="is_dan&&one_count>0||!is_dan&&two_count>0">
+                <span><b class="b-icon cut" ng-click="change_exs_list=1"></b>切换题目</span>
+                <span ng-show="collection_add==0"><b class="b-icon" ng-class="{'collect':collection_add==0}"
+                                                     ng-click="collection()"></b>收藏</span>
+                <span ng-show="collection_add==1"><b class="b-icon" ng-class="{'redcollect':collection_add==1}"
+                                                     ng-click="not_collection()"></b>取消收藏</span>
+                <span><b class="b-icon error" ng-click="correction_list=1"></b>纠错</span>
+            </div>
+            <div class="practice-btn ta-right" ng-show="is_dan&&one_count>0||!is_dan&&two_count>0">
+                <button class="button-click" ng-if="!is_dan" ng-click="click_end_more(exercise_text.id,ex_num)"><a
+                        class="a-click">提交</a></button>
+                <button class="button-click" ng-disabled="!see_anw" ng-click="next_exercise(ex_num)"><a class="a-click">上一题</a>
+                </button>
+                <button class="button-click" ng-disabled="!see_anw" ng-click="next_exercise(ex_num)"><a class="a-click">下一题</a>
+                </button>
+                <button class="button-click huang-bg" ng-click="analysis()"><a class="a-click">查看解析</a></button>
+            </div>
+            <div class="practice-analysis lineheight-24" ng-show="is_dan&&one_count>0||!is_dan&&two_count>0">
+                <div ng-show="see_anw"><p><b class="yellow">【</b> 查看答案 <b class="yellow">】</b></p><i class="blue">
+                    {{right_anw}} </i>, 你的答案 <span ng-repeat="an in your_anw track by $index">{{an}}</span></div>
+                <div ng-if="analy"><p><b class="yellow">【</b> 解析 <b class="yellow">】</b></p><div ng-bind-html="analy|to_trusted"></div></div>
+            </div>
+
+            <div class="practice-num" ng-show="is_dan&&one_count>0||!is_dan&&two_count>0">
+                <span ng-click="automatic = !automatic"><b class="b-icon sq" ng-class="{'sqgrey':automatic==1}"></b>答对自动下一题</span>
+                <span>答对：{{answer_right}} 题</span>
+                <span>答错：{{answer_error}} 题</span>
+                <span>正确率：{{correct}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="modal-overlay" class="cut-topic popup-fade" ng-if="correction_list||change_exs_list||hosity_popup">
+    <!--切换题目-->
+    <div class="modal-data cut-topic-data" ng-if="change_exs_list">
+        <h1>选择题目<img src="front_static/assets/img/wclose.png" alt="" ng-click="close_change_exs_list()"></h1>
+        <div class="topic-title">
+            <!--<ul>-->
+            <!--<li>1-100</li>-->
+            <!--<li>101-200</li>-->
+            <!--<li>201-300</li>-->
+            <!--<li>301-400</li>-->
+            <!--<li>401-500</li>-->
+            <!--</ul>-->
+        </div>
+        <div class="topic-content">
+            <ul>
+                <li ng-repeat="ex in ex_length track by $index"><span><b class="b-icon sq"
+                                                                         ng-class="{'sqgrey':ex_chose_this_item==ex.index}"
+                                                                         ng-click="ex_chose_this(ex.index)"></b>{{ex.index}}</span>
+                </li>
+            </ul>
+        </div>
+        <button class="button-click cut-btn" ng-click="change_exs()">确定</button>
+    </div>
+
+    <!--纠错-->
+    <div class="modal-data cut-topic-data error-topic-data popup-fade" ng-if="correction_list">
+        <h1>错误反馈<img src="front_static/assets/img/wclose.png" alt="" ng-click="correction_list_close()"></h1>
+        <textarea placeholder="请指出您发现题目中的错误（包括题干中的错误、答案里面的错误等" id="text_error"></textarea>
+        <div class="error-btn">
+            <button class="button-click bg-b9" ng-click="correction_list_close()">取消</button>
+            <button class="button-click" ng-click="correction()">确定</button>
+        </div>
+    </div>
+
+    <!--是否重做-->
+    <div class="modal-data cut-topic-data error-topic-data anew-topic-data popup-fade" ng-if="hosity_popup">
+        <p>上次做到第{{userMsg.num}}题，是否继续？</p>
+        <div class="error-btn">
+            <button class="button-click bg-b9" ng-click="chose_over()">重新开始</button>
+            <button class="button-click" ng-click="chose_again()">继续上一次</button>
+        </div>
+    </div>
+</div>
+
+<!--<script>-->
+<!--$('.cut').click(function(){-->
+<!--console.log(1);-->
+<!--$("#modal-overlay").css("visibility","visible")-->
+<!--})-->
+<!--</script>-->
+

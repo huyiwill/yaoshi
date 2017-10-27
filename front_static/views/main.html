@@ -1,0 +1,99 @@
+<div class="inner" style="position: relative;">
+    <!-- denglu zhuagtai -->
+    <div class="logo-status">
+        <!-- <div class="inner"> -->
+        <div class="logo-status-left f-l">
+            <p>您好，欢迎来到易百加！</p>
+        </div>
+        <div class="logo-status-right f-r">
+            <ul ng-show="sign==0">
+                <li class="d-ib"><span class="color-3" ui-sref="main.logo({signin:1})">登录</span></li>
+                <li class="d-ib"><span class="color-3" ui-sref="main.logo({signin:0})">注册</span</li>
+            </ul>
+            <ul class="user" ng-show="sign==1">
+                <li class="d-ib">
+                    <img src="front_static/assets/img/bell.png" alt="">
+                    <span class="num">2<span>
+                </li>
+                <li class="d-ib personals">
+                    <img ng-src="{{sign_msg.head}}" alt="" class="pic">
+                    <p class="d-ib">{{sign_msg.nickname}}</p></li>
+                <!--<li class="d-ib" ng-click="signout()">退出</li>-->
+            </ul>
+            <div class="sign_updown">
+                <p class="top_list" ng-show="sign_msg.perfect==1" ui-sref="main.data">
+                    完善个人信息
+                </p>
+                <p class="top_list"ui-sref="main.me">
+                    个人中心
+                </p>
+                <p class="top_list"ui-sref="main.bs">
+                    后台管理
+                </p>
+                <p class="bottom_list" ng-click="signout()">
+                    退出
+                </p>
+            </div>
+        </div>
+
+        <!-- </div> -->
+    </div>
+    <!-- lianjie  -->
+    <nav>
+        <!-- <div class="inner"> -->
+        <div class="nav-logo">
+            <img src="front_static/assets/img/logo.png" alt="">
+        </div>
+        <div class="nav-link">
+            <ul>
+                <li><a ui-sref-active="link-active" ui-sref="main.home">首页</a></li>
+                <li><a ui-sref-active="link-active" ui-sref="main.test">题库</a></li>
+                <li><a ui-sref-active="link-active" ui-sref="main.assess">考核</a></li>
+                <li><a >比赛</a></li>
+                <li><a ui-sref-active="link-active" ui-sref="main.online">线上实战</a></li>
+                <li><a ui-sref-active="link-active" ui-sref="main.member">会员特权</a><img src="front_static/assets/img/hot.png" alt=""
+                                                                    class="hot"></li>
+                <li><input type="text"><img src="front_static/assets/img/search.png" alt="" class="search"></li>
+                <li><a href="##" ui-sref="main.activity">发布活动</a></li>
+            </ul>
+        </div>
+        <!-- </div> -->
+    </nav>
+
+    <div ui-view ng-cloak scroll>
+        <!-- 加载模块区域 -->
+    </div>
+
+    <footer>
+        <ul class="foot1">
+            <li>
+                <div class="top">
+                    <div class="top-up">
+                        <img src="front_static/assets/img/logo2.png" alt="">
+                        <h3>医药人才的线上学习基地</h3>
+                    </div>
+                    <div class="top-right">
+                        <a href="##" ui-sref="main.abouts">关于我们</a>
+                        <span></span>
+                        <a href="##" ui-sref="main.question">常见问题</a>
+                        <span></span>
+                        <a href="##">联系我们</a>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="bottom">
+                    <!--<p>课程存档 课程内容 版权均归北京药课在线科技有限公司所有</p>-->
+                    <p>京ICP备16048493号－1</p>
+                </div>
+            </li>
+            <li>
+                <h5>友情链接</h5>
+                <ul class="foot2">
+                    <li>国家食品药品监督管理总局</li>
+                    <li>中国健康促进基金会医药知识管理专项基金</li>
+                    <li>药学工具网</li>
+                </ul>
+            </li>
+            <!--<li class="phone">客服热线：400-000-0000</li>-->
+        </ul>
+    </footer>

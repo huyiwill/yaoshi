@@ -1,0 +1,190 @@
+<title>考卷列表</title>
+
+<!--考卷列表-->
+<div class="lists">
+    <div class="list-top color-y">
+        试卷名称<input type="text" ng-model="search_name">
+        <!--状态<select ng-model="search_select">-->
+        <!--<option selected="selected">全部</option>-->
+        <!--<option>已考</option>-->
+        <!--<option>未考</option>-->
+        <!--<option>考试中</option>-->
+    </select>
+        <button class="button-click" ng-click="soso()">查询</button>
+        <button class="button-click" ng-click="add()">新增试卷</button>
+    </div>
+    <div class="list-body">
+        <form method="post">
+            <table>
+                <thead class="tr_order">
+                <tr>
+                    <th style="width: 130px;">试卷名称</th>
+                    <th style="width: 100px;">所在分组</th>
+                    <th style="width: 100px;">备注</th>
+                    <th style="width: 180px;">更新时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody class="tr_msg">
+                <tr ng-repeat="l in list track by $index">
+                    <td>{{l.name}}</td>
+                    <td>{{l.group_name}}</td>
+                    <td>{{l.remark}}</td>
+                    <td>{{l.create_time*1000|date:"yyyy-MM-dd"}}</td>
+                    <td>
+                        <button ng-click="edit(l.id)">编辑</button>
+                        <button ui-sref="main.bs.examTitle({id:l.id,name:l.name})">关联题目</button>
+                        <!--<button>复制</button>-->
+                        <!--<button ng-click="">更换分组</button>-->
+                        <button ng-click="">打印试卷</button>
+                        <button ng-click="delete(l.id)">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <!--分页器-->
+    <div class="pages">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+
+<!--新增试卷-->
+<div class="bg_popup popup-fade-container" ng-if="add==1"></div>
+<div class="container_popup popup-fade" ng-if="add==1">
+    <div class="addlist addExam">
+        <div class="data-inner" style="min-height: 340px;">
+            <h3 class="yellow">新增试卷</h3>
+            <form class="form" name="resets" novalidate>
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label for="name">试卷名称</label>
+                    <input type="text" name="name" placeholder="请输入本次考核名称" id="name" ng-model="updates.name" required
+                           ng-maxlength="100">
+                    <i class="delbtn" ng-show="updates.name.length>0" ng-click="updates.name=''"></i>
+                    <p ng-show="resets.name.$invalid && submitted">考核名称不正确，请重新输入</p>
+                </div>
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label>备注</label>
+                    <input id="dd" name="remark" type="text" class="birthday" ng-model="updates.remark" required>
+                    <i class="delbtn" ng-show="updates.remark.length>0" ng-click="updates.remark=''"></i>
+                </div>
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label for="name">试卷分组</label>
+                    <select name="viewType" ng-model="updates.test_group_id" required>
+                        <option value selected>请选择</option>
+                        <option value="{{r.id}}" ng-repeat="r in roles track by $index">{{r.name}}</option>
+                    </select>
+                    <p ng-show="resets.viewType.$invalid && submitted">请选择试卷分组</p>
+                    <!--<button class="button-click add-group">添加分组</buttom>-->
+                        <!--<p ng-show="resets.viewType.$invalid && submitted">请选择关联试卷</p>-->
+                </div>
+                <div class="step">
+                    <button class="last-step" ng-click="cancel()">取消</button>
+                    <button class="next-step" ng-click="chose(resets)">生成</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--新增分组 -->
+<div class="bg_popup popup-fade-container" style="display: none;"></div>
+<div class="container_popup popup-fade" style="display: none;">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">新增分组</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+        <form class="form groupWin">
+            <div class="form-item">
+                <label class="marginl-8">分组名称 </label>
+                <input id="" type="text" class="" value="" ng-model="updates.name">
+            </div>
+        </form>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_fade()">取消</button>
+                <button class="next-step" ng-click="chose()" ng-disabled="updates.name==undefined||updates.name==''">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--关联题目-->
+<div class="container_popup popup-fade linkExam" style="display: none;">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">关联题目</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+        <h5>温习提示：以下5种题目类型不都是必选项，您可以根据您的实际情况自由组合！</h5>
+        <ul>
+            <li>
+                <p>一、单选题（共（0）分*（0）题）</p>
+                <button class="button-click" ui-sref="main.bs.examChoice">选择单选题</button>
+            </li>
+            <li>
+                <p>二、多选题（共（0）分*（0）题）</p>
+                <button class="button-click" ui-sref="main.bs.examChoice">选择多选题</button>
+            </li>
+            <li>
+                <p>三、处方审核题（共（0）分*（0）题）</p>
+                <button class="button-click" ui-sref="main.bs.examChoice">选择处方审核题</button>
+            </li>
+            <li>
+                <p>四、用药交代题（共（0）分*（0）题）</p>
+                <button class="button-click" ui-sref="main.bs.examChoice">选择用药交代题</button>
+            </li>
+            <li>
+                <p>五、用药情景咨询题（共（0）分*（0）题）</p>
+                <button class="button-click" ui-sref="main.bs.examChoice">选择用药情景咨询题</button>
+            </li>
+        </ul>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_fade()">取消</button>
+                <button class="last-step center-step" ui-sref="main.bs.examSee">预览</button>
+                <button class="next-step" ng-click="chose()" ng-disabled="updates.name==undefined||updates.name==''">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

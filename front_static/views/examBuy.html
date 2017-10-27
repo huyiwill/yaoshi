@@ -1,0 +1,113 @@
+<title>购买真题</title>
+
+<div class="examBuy bg-454">
+    <div class="test-inner">
+        
+        <div class="buy-title">
+            <ul>
+                <li class="grey-line" ng-class="{'yellow-line':shose_step>0}">
+                    <span class="grey-bg" ng-class="{'yellow-bg':shose_step>0}">1</span>
+                    订单确认
+                </li>
+                 <li class="grey-line" ng-class="{'yellow-line':shose_step>1}">
+                    <span class="grey-bg" ng-class="{'yellow-bg':shose_step>1}">2</span>
+                    订单支付
+                </li>
+                 <li class="grey-line" ng-class="{'yellow-line':shose_step>2}">
+                    <span class="grey-bg" ng-class="{'yellow-bg':shose_step>2}">3</span>
+                    订单完成
+                </li>
+            </ul>
+        </div>
+        <div class="buy-content">
+        <!--订单确认-->
+            <ul class="confirm" ng-if="shose_step==1">
+                <li>
+                    <span>{{ex_msg.name}}</span>
+                    <p class="money-p"><i class="money-i">¥</i>  {{ex_msg.price|number:2}}</p>
+                </li>
+                <li class="content-line"></li>
+                <li>
+                    <p ng-if="is_btn_sc">可使用积分抵 ￥{{pay_discounts|number:2}}</p>
+                    <button ng-if="is_btn_sc" class="close-button" ng-class="{'open-button':is_score,'close-button':!is_score}" ng-click="score_d()"></button>
+                </li>
+                <li>
+                    <button class="button-click" ng-click="place_order()">提交订单</button>
+                    <p>合计：￥{{pay_score|number:2}}</p>
+                </li>
+            </ul>
+         <!--订单支付-->
+            <ul class="pay" ng-if="shose_step==2">
+                <li>
+                    <span>{{ex_msg.name}}</span>
+                    <div class="pay-order">
+                        <p>订单名称：{{order_info.product_subject}}</p>
+                        <p>订单号：{{order_info.sn}} </p>
+                        <p>订单价格：<b class="money-p"><i class="money-i">¥</i> {{order_info.cash_payment}}</b></p>
+                    </div>
+                </li>
+                <li class="content-line"></li>
+                <li>
+                    <div class="money">支付方式：
+                        <button ng-class="{'hasbuy':pay_order==1,'nobuy':pay_order!=1}" ng-click="pay_order=1"><img src="front_static/assets/img/zhibuy.png" alt="">支付宝</button>
+                        <button ng-class="{'hasbuy':pay_order==2,'nobuy':pay_order!=2}" ng-click="pay_order=2"><img src="front_static/assets/img/weibuy.png" alt="">微信支付</button>
+                    </div>
+                </li>
+                <li>
+                    <button class="button-click" ng-click="pay_now(pay_order)">立即支付</button>
+                    <p>应付金额：￥{{order_info.cash_payment}}</p>
+                </li>
+            </ul>
+         <!--订单完成-->
+            <div class="finish" ng-if="shose_step==3">
+                <div class="finish-center">
+                    <p class="yellow">恭喜您已购买成功</p>
+                    <button class="button-click"><a ui-sref="main.testExam" class="a-click">立即做题</a></button>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="popup-fade-container wei_login_container" ng-if="logn_wei_show" ng-click="close_proup()">
+
+</div>
+<div id="login_container" class="popup-fade" ng-if="logn_wei_show" style="height: 340px;">
+    <img ng-src="{{choses_types}}" alt="" style="width: 300px; height: 300px;">
+    <p style="font-size: 20px;text-align: center;">请使用微信扫一扫支付</p>
+</div>
+<div ng-bind-html="choses_type_alipay|to_trusted"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

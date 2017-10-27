@@ -1,0 +1,560 @@
+/* 
+
+*/
+
+html, body {
+    background-color: #ecf0f5;
+}
+a,b,i,span,div,button,p,img{
+    outline: none;
+}
+.content {
+    margin-bottom: 22px;
+}
+ol{
+    list-style-type: none;
+}
+
+.tr_order > tr:nth-of-type(odd) {
+    background-color: #eee;
+}
+
+.content-wrapper {
+    overflow-y: auto !important;
+}
+
+.ngdialog-content {
+    max-height: 100%;
+    overflow: auto;
+}
+
+.resign {
+    width: 376px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 25px 0 20px;
+}
+
+.resign .form-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.resign .form-title h1 {
+    font-size: 18px;
+    color: #333;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.common-err {
+    color: red;
+    margin-top: 2px;
+}
+
+.proup-left {
+    margin-left: 108px;
+}
+
+.resign .form-title p {
+    font-size: 12px;
+    color: #666;
+    margin: 15px 0;
+}
+
+.resign .form-title p a {
+    color: #f15917;
+}
+
+.resign .form .form-item {
+    margin-bottom: 14px;
+}
+
+.resign .form label {
+    width: 105px;
+    line-height: 24px;
+    font-size: 14px;
+    color: #333;
+    text-align: right;
+}
+
+.common-select {
+    width: 230px;
+    display: inline-block;
+    border-radius: 4px;
+    height: 40px;
+}
+
+.bgmsg {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 25px 0 20px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.resign .form button, .resign .form input, .resign .form select {
+    height: 40px;
+    width: 230px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-indent: 5px;
+}
+
+.resign .form .veri input {
+    width: 130px;
+}
+
+.resign .form .veri button {
+    display: inline-block;
+    width: 88px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #ff6a05;
+    cursor: pointer;
+    margin-left: 6px;
+}
+
+.resign .form .invi p {
+    font-size: 12px;
+    color: #aaa;
+    margin-left: 64px;
+    margin-top: 10px;
+}
+
+.resign .form .deal {
+    padding-left: 64px;
+}
+
+.resign .form .deal span {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+}
+
+.resign .form .deal span img {
+    margin-bottom: 8px;
+    /*display: none;*/
+}
+
+.resign .form .deal p {
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.resign .form .deal p a {
+    color: #f15917;
+}
+
+.resign .form .submit {
+    padding-left: 64px;
+}
+
+.resign .form .submit button {
+    background-color: #f15917;
+    color: #fff;
+    font-size: 16px;
+}
+
+.resign .form-weixin {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.resign .form-weixin .word {
+    margin-bottom: 15px;
+}
+
+.resign .form-weixin span {
+    display: inline-block;
+    width: 70px;
+    height: 1px;
+    background: #ccc;
+    vertical-align: middle;
+}
+
+.resign .form-weixin p {
+    display: inline-block;
+    color: #999;
+    font-size: 14px;
+    margin: 0 10px;
+}
+
+.button-items {
+    width: 100px;
+    height: 40px;
+    border: 1px solid rgb(12, 153, 253);
+    float: left;
+    line-height: 40px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.button-items-active {
+    background-color: rgb(12, 153, 253);
+    color: #fff;
+}
+
+.cont-btn-item {
+    height: 50px;
+    margin: 20px auto 0 15px;
+}
+
+.bor-none {
+    border-left: none;
+}
+
+.radio {
+    width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+input[type=file], legend {
+    display: inline-block;
+}
+
+.tcdPageCode {
+    padding: 15px 20px;
+    text-align: left;
+    color: #ccc;
+    text-align: center;
+}
+
+.tcdPageCode a {
+    display: inline-block;
+    color: #428bca;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.tcdPageCode a:hover {
+    text-decoration: none;
+    border: 1px solid #428bca;
+}
+
+.tcdPageCode span.current {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    margin: 0 2px;
+    color: #fff;
+    background-color: #428bca;
+    border: 1px solid #428bca;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.tcdPageCode span.disabled {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    margin: 0 2px;
+    color: #bfbfbf;
+    background: #f2f2f2;
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.dataTable i {
+    cursor: pointer;
+}
+
+.btn-primary {
+    margin: 2px;
+}
+
+.disabled-1 {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+
+td {
+    max-width: 250px;
+    overflow: auto;
+    max-height: 300px;
+}
+
+.ingreen {
+    color: green;
+}
+
+.inred {
+    color: red;
+    border: none;
+    background: none;
+}
+
+.create, .change {
+    display: none;
+}
+
+.show_img {
+    display: none;
+}
+
+.head-photo {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    border-radius: 50%;
+}
+
+.red {
+    color: red;
+}
+
+.not-border {
+    border: none;
+    background-color: inherit;
+    outline: none;
+}
+.btns {
+    background: #fff;
+    margin-bottom: 20px;
+    /*    position: absolute;
+        bottom: 40px;
+        left: 34px;*/
+}
+.btns .step {
+    text-align: center;
+    margin-top: 34px;
+}
+.btns .step button {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+.groups {
+    margin-top: 30px;
+    color: #333;
+    font-size: 15px;
+}
+.groups input {
+    margin: 0;
+    margin-left: 120px;
+    margin-right: 6px;
+    height: 26px!important;
+}
+
+.groupWin {
+    color: #333;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+.groupDel {
+    color: #333;
+    text-align: center;
+    margin-top: 50px;
+}
+.putin {
+    text-align: center;
+    margin-top: 50px;
+}
+.putin button {
+    margin-right: 40px;
+}
+#co{
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-left: 22px;
+}
+
+.data-inner .redstar {
+    color: #ec1717;
+    font-size: 14px;
+}
+
+.data-inner .form-item {
+    margin-bottom: 15px;
+    /*height: 70px;*/
+}
+.data-inner label {
+    width: 70px;
+    font-size: 14px;
+    color: #333;
+}
+.data-inner input,.data-inner select {
+    width: 226px;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 6px;
+}
+
+.data-inner b {
+    display: inline-block;
+    margin: 0 6px;
+}
+
+.data-inner img {
+    vertical-align: middle;
+    cursor: pointer;
+}
+.data-inner .step {
+    text-align: center;
+    margin-top: 34px;
+}
+.data-inner .step button {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+.last-step {
+    color: #fff;
+    border: none;
+    background: #ffb504;
+}
+.next-step {
+    color: #fff;
+    border: none;
+    background: #f15917;
+}
+.bg_popup{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.8;
+    z-index:8888;
+}
+.container_popup{
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 350px;
+    color: #fff;
+    font-size: 16px;
+    background-color: #fff;
+    z-index:9999;
+}
+.container_popup .top_title{
+    height:40px;
+    background: url(/front_static/assets/img/formjl.png) repeat;
+    line-height: 40px;
+    text-align: center;
+
+}
+.top_title .tltle-center{
+    float: left;
+    width:270px;
+}
+.top_title .title-left{
+    float: left;
+    width: 40px;
+    height:40px;
+}
+
+.top_title .title-close{
+    float: left;
+    width: 40px;
+    height:40px;
+    background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+    background-position: center center;
+}
+.container_text{
+    height:220px;
+    overflow:auto;
+}
+
+/*jianttou*/
+.arrows {
+    float: left;
+    cursor: pointer;
+}
+
+.arrows img:last-child {
+    margin-bottom: -18px;
+    margin-left: -18px;
+}
+
+.redcolor {
+    color: #FF0000;
+}
+
+.bluecolor {
+    color: #199ED8;
+}
+
+/*meeting_add*/
+.froala-element {
+    min-height: 150px !important;
+}
+
+.meeting-container label {
+    width: 112px;
+}
+
+.meeting-input {
+    width: 220px;
+    height: 45px;
+    line-height: 25px;
+    padding: 10px 5px;
+
+}
+
+.meeting-container .mar-l {
+    margin-left: 115px;
+}
+
+.add_day-container{
+    position: relative;
+}
+.day-container{
+    margin:10px 0;
+}
+.add_day-container input[type="file"]{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 110px;
+    height: 30px;
+    opacity: 0;
+    z-index:15;
+    cursor: pointer;
+}
+.comment-word img{
+    border-radius: 50%;
+}
+/*#add_day,#add_person,#add_invitation{*/
+    /**/
+/*}*/

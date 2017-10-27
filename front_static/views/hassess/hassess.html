@@ -1,0 +1,219 @@
+<title>考核管理</title>
+
+<!--考核列表-->
+<div class="lists" ng-show="!add_hass">
+    <div class="list-top color-y">
+        考核名称<input type="text" ng-model="search_name">
+        <!--考核状态<select ng-model="search_select">-->
+        <!--<option selected="selected">全部</option>-->
+        <!--<option>未开启</option>-->
+        <!--<option>考核中</option>-->
+        <!--<option>已考核</option>-->
+        <!--</select>-->
+        <button class="button-click" ng-click="soso()">查询</button>
+        <button class="button-click" ng-click="add()">新增考核</button>
+    </div>
+    <div class="line"></div>
+    <div class="list-body">
+        <form method="post">
+            <table>
+                <thead class="tr_order">
+                <tr>
+                    <th style="width: 150px;">考核名称</th>
+                    <th style="width: 100px;">备注信息</th>
+                    <!--<th style="width: 100px;">考核状态</th>-->
+                    <th style="width: 180px;">考核时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody class="tr_msg">
+                <tr ng-repeat="l in list track by $index">
+                    <td>{{l.name}}</td>
+                    <td>{{l.remark}}</td>
+                    <!--<td ></td>-->
+                    <td>{{l.start_time*1000|date:'yyyy-MM-dd HH:mm:ss'}} - {{l.end_time*1000|date:'yyyy-MM-dd
+                        HH:mm:ss'}}
+                    </td>
+                    <td>
+                        <button ng-click="edit(l.id)">编辑</button>
+                        <button ng-click="chose_men(l.id)">关联成员</button>
+                        <button ng-click="delete(l.id)">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <!--分页器-->
+    <div class="pages">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+<!--新增考核-->
+<div class="addlist" ng-show="add_hass">
+    <div class="data-inner">
+        <h3 class="yellow" ng-if="types == 'edit'">编辑考核</h3>
+        <h3 class="yellow" ng-if="types == 'add'">新增考核</h3>
+        <form class="form" name="resets" novalidate>
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label for="name">考核名称</label>
+                <input type="text" name="name" placeholder="请输入本次考核名称" id="name" ng-model="updates.name" required
+                       ng-maxlength="100">
+                <i class="delbtn" ng-show="updates.name.length>0" ng-click="updates.name=''"></i>
+                <p ng-show="resets.name.$invalid && submitted">考核名称不正确，请重新输入</p>
+            </div>
+            <div class="form-item">
+                <label for="date" class="marginl-8">备注</label>
+                <input id="dd" name="remark" type="text" class="birthday" ng-model="updates.remark">
+                <i class="delbtn" ng-show="updates.remark.length>0" ng-click="updates.remark=''"></i>
+            </div>
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label for="name">关联试卷</label>
+                <select name="viewType" ng-model="updates.test_id" required>
+                    <option value selected>请选择</option>
+                    <optgroup label="未考过分组">
+                        <option value="1">试卷1（100分，50题）</option>
+                        <option value="2">试卷2（80分，40题）</option>
+                    </optgroup>
+                    <optgroup label="已考过分组">
+                        <option value="3">试卷3（100分，30题）（2次）</option>
+                        <option value="4">试卷4（100分，45题）（1次）</option>
+                    </optgroup>
+                </select>
+                <p ng-show="resets.viewType.$invalid && submitted">请选择关联试卷</p>
+            </div>
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label for="name">合格标准</label>
+                <input type="text" name="pass_score" placeholder="请设置本次考核合格的分数" id="name" ng-model="updates.pass_score"
+                       required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">合格标准不正确</p>
+            </div>
+            <div class="form-item">
+                <label class="marginl-8">考核时间</label>
+                <input id="start_time" type="text" class="birthday" placeholder="请选择考核开始时间"
+                       ng-model="updates.start_time" name="start_time" required> —
+                <input id="end_time" type="text" class="birthday" placeholder="请选择考核结束时间" ng-model="updates.end_time"
+                       name="end_time" required>
+                <p ng-show="resets.end_time.$invalid && submitted">请选择考核结束时间</p>
+                <p ng-show="resets.start_time.$invalid && submitted">请选择考核开始时间</p>
+            </div>
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label for="name">答题时长</label>
+                <input type="text" name="time" placeholder="请选择答题时间" id="name" ng-model="updates.time" required
+                       ng-pattern="/^[0-9]+$/">&nbsp;&nbsp;&nbsp;分钟
+                <i class="delbtn" ng-show="updates.time.length>0" ng-click="updates.time=''"></i>
+                <p ng-show="resets.time.$invalid && submitted">请填写答题时长</p>
+            </div>
+            <div class="step">
+                <button class="last-step" ng-click="add_hass = 0">取消</button>
+                <button class="next-step" ng-click="chose(resets)">生成</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--关联成员-->
+<div class="bg_popup popup-fade-container" ng-if="chose_types == 'chose_men'"></div>
+<div class="container_popup popup-fade" ng-if="chose_types == 'chose_men'">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">关联成员</div>
+        <div class="title-close" ng-click="close_proup()"></div>
+    </div>
+    <div class="container_text">
+        <div class="groups">
+            <input type="checkbox" ng-model="select_total"  ng-click="total_all(select_total)">全选
+            <div ng-repeat="drop in men_drop track by $index" style="text-indent: 2em;">
+                <p><input type="checkbox" ng-model="selectAll" ng-checked="drop.state" ng-click="all(selectAll,$index)">{{drop.name}}</p>
+                <div ng-repeat="d in drop.members track by $index" style="text-indent: 3em;">
+                    <input type="checkbox" ng-checked="selectAll" ng-model="d.state" ng-click="total()">{{d.name}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btns">
+        <div class="step">
+            <button class="last-step" ng-click="close_proup()">取消</button>
+            <button class="next-step" ng-click="end_chose_group()" ng-disabled="cheackTotal!=1">确定</button>
+        </div>
+    </div>
+</div>
+<style>
+    .bg_popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #292929;
+        opacity: 0.8;
+        z-index: 8888;
+    }
+
+    .container_popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 350px;
+        color: #fff;
+        font-size: 16px;
+        background-color: #fff;
+        z-index: 9999;
+    }
+
+    .container_popup .top_title {
+        height: 40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+
+    .top_title .tltle-center {
+        float: left;
+        width: 270px;
+    }
+
+    .top_title .title-left {
+        float: left;
+        width: 40px;
+        height: 40px;
+    }
+
+    .top_title .title-close {
+        float: left;
+        width: 40px;
+        height: 40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+
+    .container_text {
+        height: 220px;
+        overflow: auto;
+    }
+</style>
+<link rel="stylesheet" href="/front_static/assets/css/jHsDate.css">
+<script src="/front_static/assets/js/jHsDate.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+

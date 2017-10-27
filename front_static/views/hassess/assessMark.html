@@ -1,0 +1,176 @@
+<title>考卷批阅</title>
+<div class="assessMark assessGrade examGrade">
+    <!--公用头部-->
+    <div class="do-title">
+        <h3>{{exercises_info.test_subject[0].info.name}}</h3>
+        <span>总分数：{{total_score}}分</span>
+        <span>答题时间：<b class="yellow">{{exercises_info.answer_time}}分钟</b></span>
+        <span>总题数：<b class="green">{{exercises_info.test_subject[0].count}}</b>题</span>
+    </div>
+    <div class="grade-content">
+        <!--查看答案-->
+        <div class="see-answer">
+            <div class="radio" ng-if="dan.length>0">
+                <h1 class="topic">一、单选题（{{dan_score||0}}分，共{{dan.length||0}}题） <b>{{dan_actual||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="d in dan track by $index">
+                    <p>{{$index+1}}. {{d.name}}? <b class="b-icon"
+                                                    ng-class="{'cuo':d.do_right!=true,'dui':d.do_right==true}"></b></p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                            <i class="circlebtn openbtn greybtn" ng-class="{'redbtn':d.do==e.key}"></i>{{e.key}}.
+                            {{e.value}}
+                        </li>
+                    </ul>
+                    <span>正确答案：{{d.right_key}}</span>
+                </div>
+            </div>
+            <div class="checkbox" ng-if="duo.length>0">
+                <h1 class="topic">二、多选题（{{duo_score||0}}分，共{{duo.length||0}}题） <b>{{duo_actual||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="d in duo track by $index">
+                    <p>{{$index+1}}. {{d.name}}? <b class="b-icon"
+                                                    ng-class="{'cuo':d.do_right!=true,'dui':d.do_right==true}"></b></p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                            <i class="circlebtn openbtn greyclick" ng-class="{'redclick':d.do.indexOf(e.key)!=-1}"></i>{{e.key}}.
+                            {{e.value}}
+                        </li>
+                    </ul>
+                    <span>正确答案：{{d.right_key}}</span>
+                </div>
+            </div>
+            <div class="shenhe" ng-if="chu.length>0">
+                <h1 class="topic">三、处方审核题（{{chu_score}}分，共{{chu.length||0}}题） <b>{{chu_right_score||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="c in chu track by $index">
+                    <p>{{$index+1}}. {{c.name}}?  <b>{{c.do_score||0}}分</b></p>
+                    <img ng-src="{{c.photo}}" alt="" style="max-width: 200px;max-height: 200px;">
+                    <div class="answe1">你的作答：
+                        <p>{{c.do}}</p>
+                    </div>
+                    <div class="answe1 yellow">答案要点：
+                        <div ng-bind-html="c.right_key|to_trusted"></div>
+                    </div>
+                    <button class="do-mark button-click" ng-click="add_fen(4,c,$index)">打分</button>
+                </div>
+            </div>
+
+            <div class="shenhe" ng-if="yong.length>0">
+                <h1 class="topic">四、用药交代题（{{yong_score}}分，共{{yong.length||0}}题） <b>{{yong_right_score||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="c in yong track by $index">
+                    <p>{{$index+1}}. {{c.name}}? <b>{{c.do_score||0}}分</b></p>
+                    <img ng-src="{{c.photo}}" alt="" style="max-width: 200px;max-height: 200px;">
+                    <div class="answe1">你的作答：
+                        <p>{{c.do}}</p>
+                    </div>
+                    <div class="answe1 yellow">答案要点：
+                        <div ng-bind-html="c.right_key|to_trusted"></div>
+                    </div>
+                    <button class="do-mark button-click" ng-click="add_fen(5,c,$index)">打分</button>
+                </div>
+            </div>
+
+            <div class="shenhe" ng-if="wen.length>0">
+                <h1 class="topic">五、用药情景咨询题（{{wen_score}}分，共{{wen.length||0}}题） <b>{{wen_right_score||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="c in wen track by $index">
+                    <p>{{$index+1}}. {{c.name}}? <b>{{c.do_score||0}}分</b></p>
+                    <div class="answe1">你的作答：
+                        <p>{{c.do}}</p>
+                    </div>
+                    <div class="answe1 yellow">答案要点：
+                        <div ng-bind-html="c.right_key|to_trusted"></div>
+                    </div>
+                    <button class="do-mark button-click" ng-click="add_fen(6,c,$index)">打分</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="btns">
+        <div class="step">
+            <button class="last-step" ng-click="close_back()">取消</button>
+            <button class="next-step" ng-click="end_ti()">提交</button>
+        </div>
+    </div>
+</div>
+
+<!--打分弹窗-->
+<div class="bg_popup popup-fade-contianer" ng-if="shose_show" ng-click="close_proup()"></div>
+<div class="container_popup popup-fade" ng-if="shose_show">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">打分</div>
+        <div class="title-close" ng-click="close_proup()"></div>
+    </div>
+    <div class="container_text">
+          <form class="form markWin" name="markWin" novalidate>
+            <div class="form-item">
+                <label class="marginl-8">分数&nbsp;&nbsp;</label>
+                <input name="my_score" type="text" class="" value="" ng-model="do_score" ng-pattern="/^[1-9]*[0-9]$|^0$/" placeholder="请根据药师的答题情况，给出合理的分数">&nbsp;&nbsp;分
+                <p ng-if="do_score>max_score" style="font-size: 14px;padding: 10px 0 0 58px;color: #f15917;">打分不能超过此题的分数：{{max_score||'错误'}}分</p>
+                <p ng-show="do_score==undefined&&markWin.my_score.$dirty" style="font-size: 14px;padding: 10px 0 0 58px;color: #f15917;">格式错误</p>
+            </div>
+          </form>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_proup()">取消</button>
+                <button class="next-step" ng-click="ti_score(do_score)" ng-disabled="do_score==undefined||do_score==''||do_score>max_score">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .bg_popup{
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom: 0;
+        background-color: #292929;
+        opacity: 0.8;
+        z-index:8888;
+    }
+    .container_popup{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        color: #fff;
+        font-size: 16px;
+        background-color: #fff;
+        z-index:9999;
+    }
+    .container_popup .top_title{
+        height:40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+    .top_title .tltle-center{
+        float: left;
+        width:270px;
+    }
+    .top_title .title-left{
+        float: left;
+        width: 40px;
+        height:40px;
+    }
+
+    .top_title .title-close{
+        float: left;
+        width: 40px;
+        height:40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+    .container_text{
+        height:220px;
+        overflow:auto;
+    }
+</style>
+<script>
+    $(".do-mark").click(function(){
+         $(".popup-fade").css("display","block");
+         console.log(1);
+    })
+</script>

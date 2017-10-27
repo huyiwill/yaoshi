@@ -1,0 +1,20 @@
+<title>我的题目</title>
+<div class="my-error title-list">
+    <ul class="meeting-ul error-ul">
+        <li ng-repeat="ex in examine_list track by $index">
+            <div class="meeting-text">
+                <p>{{number+$index+1}}.{{ex.name}}</p>
+                <span>状态：<i>已上传，</i><b class="blue" ng-if="ex.state==1">待审核</b><b class="green2" ng-if="ex.state==2">已采纳，奖励积分：5分</b><b class="yellow" ng-if="ex.state==3">未采纳</b></span>
+            </div>
+            <button class="button-click blue-bg">查看题目</button>
+            <button class="button-click grey2-bg" ui-sref="main.me.title_change({id:ex.id})" ng-if="ex.state==1">修改题目</button>
+        </li>
+    </ul>
+    <div class="pages" ng-show="total_page>1">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+

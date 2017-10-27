@@ -1,0 +1,127 @@
+<title>线上实战-详情</title>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header" style="width:100%;">
+        <h1 style="text-align:left;">
+            线上实战-详情
+            <small>list</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">运营管理</li>
+            <li>线上实战-详情</li>
+        </ol>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="nav-tabs-custom">
+                        <!-- tab 标签 -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="javascript:;" data-toggle="tab">线上实战-详情</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="bicycle">
+                                <form id="table_form" class="table_form" method="post">
+                                    <div>题干信息：{{updates.name}}</div>
+                                    <div>
+                                        <img ng-src="{{updates.photo}}" alt="" style="max-height: 150px;max-width: 150px;">
+                                    </div>
+                                    <div>
+                                        参考答案：
+                                        <div ng-bind-html="updates.right_key|to_trusted"></div>
+                                    </div>
+                                </form>
+                                <form class="table_form" method="post">
+                                    <div>答题列表</div>
+                                    <div ng-if="list.length==0">
+                                        暂无用户答题。
+                                    </div>
+                                    <div ng-if="list.length>0">
+                                        <div class="comment-word">
+                                            <ol ng-repeat="l in list track by $index">
+                                                <li class="clearfix" style="border-bottom:1px solid #eee;">
+                                                    <div class="col-sm-8 col-sm-8 col-xs-4">
+                                                        <img src="{{l.user_info.head}}" width="40px" height="40px" alt="">
+                                                        <span>{{l.user_info.nickname}}</span>
+                                                        <!--<p>答案：{{l.user_answer}}</p>-->
+                                                        <!--<div>-->
+                                                            <!--<button ng-click="admin_ans(l.id)">回复</button>-->
+                                                            <!--<button ng-click="admin_jin(l.id,2)" ng-if="l.status==1">禁用</button>-->
+                                                            <!--<button ng-click="admin_jin(l.id,1)" ng-if="l.status==2">恢复</button>-->
+                                                            <!--<button ng-click="admin_del(l.id)">删除</button>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <span class="zan_num" ng-click="l.is_show_com=1">{{l.comments_tree.length||0}}条评论</span>
+                                                        <span class="zan_num">{{l.number||0}}个赞</span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-8 col-sm-8 col-xs-12">
+                                                            答案：{{l.user_answer}}
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                                            <button class="btn btn-xs btn-primary" ng-click="admin_ans(l.id,0)">回复</button>
+                                                            <button class="btn btn-xs btn-primary" ng-click="admin_jin(l.id,2)" ng-if="l.status==1">禁用</button>
+                                                            <button class="btn btn-xs btn-primary" ng-click="admin_jin(l.id,1)" ng-if="l.status==2">恢复</button>
+                                                            <button class="btn btn-xs btn-primary" ng-click="admin_del(l.id)">删除</button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li ng-if="l.is_show_com==1">
+                                                    <div>
+                                                        <b class="blue marginl-38" ng-click="l.is_show_com=0" style="    padding: 10px 5px;color: #666;">收起评论</b>
+                                                        <ol ng-repeat="tree in l.comments_tree track by $index">
+                                                            <div class="col-sm-8 col-sm-8 col-xs-4">
+                                                                <img src="{{tree.head}}" width="40px" height="40px" alt="">
+                                                                <span>{{tree.nickname}}</span>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                <span class="zan_num">{{tree.number||0}}个赞</span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-sm-8 col-xs-12">
+                                                                    评论：{{tree.content}}
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                                                    <button class="btn btn-xs btn-primary" ng-click="admin_ans(l.id,tree.id)">回复</button>
+                                                                    <button class="btn btn-xs btn-primary" ng-click="admin_jin(tree.id,2)" ng-if="tree.status==1">禁用</button>
+                                                                    <button class="btn btn-xs btn-primary" ng-click="admin_jin(tree.id,1)" ng-if="tree.status==2">恢复</button>
+                                                                    <button class="btn btn-xs btn-primary" ng-click="admin_del(tree.id)">删除</button>
+                                                                </div>
+                                                            </div>
+                                                            <ol ng-repeat="item in tree.item track by $index">
+                                                                <div class="col-sm-8 col-sm-8 col-xs-4">
+                                                                    <img src="/backend_static/assets/img/avatar5.png" width="40px" height="40px" alt="">
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                    <!--<span class="zan_num">{{tree.number||0}}个赞</span>-->
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-8 col-sm-8 col-xs-12">
+                                                                        管理员回复：{{item.content}}
+                                                                    </div>
+                                                                </div>
+                                                            </ol>
+                                                        </ol>
+
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tcdPageCode"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

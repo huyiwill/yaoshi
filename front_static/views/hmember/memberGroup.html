@@ -1,0 +1,194 @@
+<title>成员分组</title>
+
+<!--成员列表-->
+<div class="lists" ng-show="list_num==1">
+    <div class="list-top color-y">
+        分组名称<input type="text" ng-model="search_name">
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+        <button class="button-click newGroup" ng-click="add_group()">新建分组</button>
+    </div>
+    <!--<div class="line"></div>-->
+    <div class="list-body">
+        <form method="post">
+            <table >
+                <thead class="tr_order">
+                    <tr>
+                        <th style="width:">分组名称</th>
+                        <th style="width:">创建时间</th>
+                        <!--<th style="width: ">分组人员</th>-->
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tr_msg" ng-repeat="l in list track by $index">
+                    <tr>
+                        <td>{{l.name}}</td>
+                        <td>{{l.create_time*1000|date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <button ng-click="edit(l.id)">编辑</button>
+                            <button ng-click="guanlian(l.id)">关联成员</button>
+                            <button ng-click="delete(l.id)">删除</button>
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<td>默认组</td>-->
+                        <!--<td>1</td>-->
+                        <!--<td>-->
+                            <!--<button>关联成员</button>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<!--关联成员-->
+<div class="lists" ng-if="list_num==2">
+    <div class="list-top color-y">
+        姓名<input placeholder="请输入手机号/姓名/昵称">
+        <!--手机号<input>-->
+        <button class="button-click">查询</button>
+    </div>
+    <div class="member-unit">
+        <div class="lists">
+            <div  class="unit-top">
+                <input type="checkbox" ng-model="selectAll" ng-click="all(selectAll)">
+                <button class="">全部添加</button>
+            </div>
+            <div class="list-body">
+                <form method="post">
+                    <table >
+                        <thead class="tr_order">
+                            <tr>
+                                <td style="width: 50px;"></td>
+                                <th>昵称</th>
+                                <th>姓名</th>
+                                <th style="width: 98px">手机号</th>
+                                <th>职位</th>
+                                <!--<th>所在医院</th>-->
+                                <th>来源</th>
+                                <th>所在分组</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tr_msg">
+                            <tr ng-repeat="l in am_list track by $index">
+                                <td><input type="checkbox" ng-checked="selectAll" ng-model="l.state" ng-click="total()"></td>
+                                <td>{{l.user_info.nickname}}</td>
+                                <td>{{l.user_info.name}}</td>
+                                <td >{{l.user_info.mobile}}</td>
+                                <td>{{role_arr[l.user_info.role]}}</td>
+                                <td ng-if="l.user_info.from==1">前台</td>
+                                <td ng-if="l.user_info.from==2">后台</td>
+                                <td>{{l.members_group_name||'暂无分组'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="putin">
+        <button class="button-click" ng-click="putin()">取消</button>
+        <button class="button-click" ng-click="end_ti()" ng-disabled="cheackTotal!=1">提交</button>
+    </div>
+</div>
+
+<!--新建分组 / 编辑分组-->
+<div class="bg_popup popup-fade-container" ng-if="types=='add_group'||types=='update_group'" ng-click="close_fade()"></div>
+<div class="container_popup popup-fade" ng-if="types=='add_group'||types=='update_group'">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center" ng-if="types=='add_group'">新增分组</div>
+        <div class="tltle-center" ng-if="types=='update_group'">编辑分组</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+          <form class="form groupWin">
+            <div class="form-item">
+                <label class="marginl-8">分组名称 </label>
+                <input id="" type="text" class="" value="" ng-model="updates.name">
+            </div>
+          </form>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_fade()">取消</button>
+                <button class="next-step" ng-click="chose()" ng-disabled="updates.name==undefined||updates.name==''">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--&lt;!&ndash;删除分组&ndash;&gt;-->
+<!--<div class="container_popup popup-fade" ng-if="types=='del_group'">-->
+    <!--<div class="top_title">-->
+        <!--<div class="title-left"></div>-->
+        <!--<div class="tltle-center">删除分组</div>-->
+        <!--<div class="title-close" ng-click="close_fade()"></div>-->
+    <!--</div>-->
+    <!--<div class="container_text">-->
+        <!--<p class="groupDel">确定删除分组吗？</p>-->
+        <!--<div class="btns">-->
+            <!--<div class="step">-->
+                <!--<button class="last-step" ng-click="close_fade()">取消</button>-->
+                <!--<button class="next-step" ng-click="end">确定</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<style>
+    .bg_popup{
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom: 0;
+        background-color: #000;
+        opacity: 0.8;
+        z-index:8888;
+    }
+    .container_popup{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        color: #fff;
+        font-size: 16px;
+        background-color: #fff;
+        z-index:9999;
+    }
+    .container_popup .top_title{
+        height:40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+    .top_title .tltle-center{
+        float: left;
+        width:270px;
+    }
+    .top_title .title-left{
+        float: left;
+        width: 40px;
+        height:40px;
+    }
+
+    .top_title .title-close{
+        float: left;
+        width: 40px;
+        height:40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+    .container_text{
+        height:220px;
+        overflow:auto;
+    }
+</style>
+<script>
+    $(".newGroup").click(function(){
+         $(".popup-fade").css("display","block");
+         console.log(1);
+    })
+</script>

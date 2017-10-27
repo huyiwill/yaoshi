@@ -1,0 +1,40 @@
+<title>修改题目</title>
+<div class="data-inner person_data">
+    <div class="personal">
+        <div class="form title-change">
+            <div class="form-item">
+                <label for="name">标题：</label>
+                <input type="text" name="name" id="name"  required>
+                <p>注：处方题干中需要包含处方中信息患者年龄、性别、诊断（疾病）</p>
+            </div>
+            <div class="form-item">
+                <label for="inoffice">题目类型：</label>
+                <select name="inoffice" ng-model="department">
+                    <option value="">请选择</option>
+                    <option value="用药交代">用药交代</option>
+                    <option value="问答题">问答题</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label for="inoffice">处方图片：</label>
+                 <img src="front_static/assets/img/img228.png" alt="">
+                 <p class="marginl-72">备注：请上传大小小于xM的图片</p>
+            </div>
+            <div class="form-item">
+                <label for="name">答案:</label>
+                <textarea></textarea>
+            </div>
+            <div class="form-item">
+                <label for="name">解析：</label>
+                <textarea></textarea>
+            </div>
+            <div class="form-item">
+                <p class="rz">更多 >></p>
+            </div>
+            <div class="step">
+                <button class="button-click grey2-bg">取消</button>
+                <button class="button-click yellow-bg">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

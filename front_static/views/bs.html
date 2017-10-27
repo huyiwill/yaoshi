@@ -1,0 +1,91 @@
+<title>后台管理</title>
+
+<div class="me">
+    <div class="me-foot">
+        <!--左侧导航-->
+        <div class="me-nav">
+            <ul class="father-nav">
+                <li class="color-3">
+                    <p>成员管理 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav">
+                        <li class="color-w" ui-sref="main.bs.hmember">成员管理</li>
+                        <li ui-sref="main.bs.memberGroup">分组管理</li>
+                        <li>评委管理</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>试卷管理 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav">
+                        <li class="color-w" ui-sref="main.bs.examGroup">试卷分组</li>
+                        <li class="color-y" ui-sref="main.bs.examList">试卷列表</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>考核 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav">
+                        <li class="color-w" ui-sref="main.bs.hassess">考核列表</li>
+                        <li class="color-y" ui-sref="main.bs.hassessExam">考卷管理</li>
+                        <li class="color-y" ui-sref="main.bs.hassessGrade">成绩管理</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>比赛 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav">
+                        <li class="color-w">线上比赛</li>
+                        <li>线上线下比赛</li>
+                        <li>现场比赛</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>会议 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav">
+                        <li class="color-w" ui-sref="main.bs.meetList">会议管理</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--右侧内容-->
+        <div class="me-item">
+            <!--账户中心-->
+            <div class="me-account">
+                <div ui-view ng-cloak scroll>
+                    <!-- 加载模块区域 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .son-nav{
+        overflow: hidden;
+        height:0;
+    }
+</style>
+<script>
+    $(".father-nav p").click(function () {
+        var O_ul = $(this).next('ul');
+        if(O_ul.css("height") == '0px'){
+            var ohright = O_ul.css('height', '100%').height();
+            O_ul.css({height:'0'});
+
+            $(".father-nav li").find('ul').stop().animate({ height: '0' }, 1000);
+            $(".father-nav li").find('i').removeClass("barrow");
+            $(".father-nav li").find('i').addClass("rarrow");
+
+            O_ul.stop().animate({height:ohright},1000);
+            $(this).find('i').addClass("barrow");
+            $(this).find('i').removeClass("rarrow");
+            
+            $(this).parent("li").addClass("color-3");
+            $(this).parent("li").siblings().removeClass("color-3");
+            $(this).next('ul').find("li").addClass("color-y");
+        } else {
+            $(this).find('i').removeClass("barrow");
+            $(this).find('i').addClass("rarrow");
+            O_ul.stop().animate({ height: '0' }, 1000);
+        }
+    });
+    $(".son-nav li").click(function(){
+        $(this).addClass("color-w").siblings().removeClass("color-w").addClass("color-y");
+    })
+</script>

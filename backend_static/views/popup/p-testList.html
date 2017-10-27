@@ -1,0 +1,104 @@
+
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="submitForm(resets.$valid)" novalidate ng-if="chose_this == 1">
+        <p style="text-align: center">修改单选信息</p>
+        <div class="form-item">
+            <label>题干</label>
+            <input type="text" name="accounts" ng-model="updates.name">
+            <div class="common-err" ng-show="resets.accounts.$invalid && submitted">请填写题干</div>
+        </div>
+        <div class="form-item" ng-repeat="d in updates.choice">
+            <label>选项{{d.key}}</label>
+            <input type="text" ng-model="d.value">
+            <br>
+            <input type="radio" style="margin-left: 108px;"  class="radio" name="danxuan" value="{{d.key}}" ng-checked="d.key==updates.right_key" ng-model="updates.right_key">正确答案
+        </div>
+        <div class="form-item submit">
+            <button ng-click="chose()">确定
+            </button>
+        </div>
+    </form>
+    <form class="form" name="reset2" ng-submit="submitForm(reset2.$valid)" novalidate ng-if="chose_this == 2">
+        <p style="text-align: center">修改多选信息</p>
+        <div class="form-item">
+            <label>题干</label>
+            <input type="text" name="accounts" ng-model="updates.name">
+            <div class="common-err" ng-show="reset2.accounts.$invalid && submitted">请填写题干</div>
+        </div>
+        <div class="form-item" ng-repeat="d in updates.choice">
+            <label>选项{{d.key}}</label>
+            <input type="text" ng-model="d.value">
+            <br>
+            <input type="checkbox" style="margin-left: 108px;"  class="radio" name="danxuan" ng-checked="updates.right_key.indexOf(d.key)!=-1" ng-model="d.c">正确答案
+        </div>
+        <div class="form-item submit">
+            <button ng-click="chose()">确定
+            </button>
+        </div>
+    </form>
+    <form class="form" name="reset4" ng-submit="submitForm(reset4.$valid)" novalidate ng-show="chose_this == 4">
+        <p style="text-align: center">修改处方审核信息</p>
+        <div class="form-item">
+            <label>题干</label>
+            <input type="text" name="accounts" ng-model="updates.name">
+            <div class="common-err" ng-show="reset4.accounts.$invalid && submitted">请填写题干</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>处方</label>
+            <input id="photo" type="file" ng-click="photo()">
+        </div>
+        <img ng-src="{{updates.photo}}" alt="" class="head-photo" id="head">
+        <div class="form-item">
+            <label>参考答案</label>
+            <div name="right_key" id="right_key4" ng-model="updates.right_key"></div>
+            <div class="common-err" ng-show="id_key && submitted">请填写答案</div>
+        </div>
+        <div class="form-item submit">
+            <button ng-click="chose()">确定
+            </button>
+        </div>
+    </form>
+    <form class="form" name="reset5" ng-submit="submitForm(reset5.$valid)" novalidate ng-show="chose_this == 5">
+        <p style="text-align: center">修改用药交代信息</p>
+        <div class="form-item">
+            <label>题干</label>
+            <input type="text" name="accounts" ng-model="updates.name">
+            <div class="common-err" ng-show="reset5.accounts.$invalid && submitted">请填写题干</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>用药交代</label>
+            <input id="photo" type="file" ng-click="photo()">
+        </div>
+        <img ng-src="{{updates.photo}}" alt="" class="head-photo" id="head">
+        <div class="form-item">
+            <label>参考答案</label>
+            <div name="right_key" id="right_key5" ng-model="updates.right_key"></div>
+            <div class="common-err" ng-show="id_key && submitted">请填写答案</div>
+        </div>
+        <div class="form-item submit">
+            <button ng-click="chose()">确定
+            </button>
+        </div>
+    </form>
+    <form class="form" name="reset6" ng-submit="submitForm(reset6.$valid)" novalidate ng-show="chose_this == 6">
+        <p style="text-align: center">修改问答信息</p>
+        <div class="form-item">
+            <label>题干</label>
+            <input type="text" name="accounts" ng-model="updates.name">
+            <div class="common-err" ng-show="reset6.accounts.$invalid && submitted">请填写题干</div>
+        </div>
+        <div class="form-item">
+            <label>参考答案</label>
+            <div name="right_key" id="right_key6" ng-model="updates.right_key"></div>
+            <div class="common-err" ng-show="id_key && submitted">请填写答案</div>
+        </div>
+        <div class="form-item submit">
+            <button ng-click="chose()">确定
+            </button>
+        </div>
+    </form>
+</div>
+
+

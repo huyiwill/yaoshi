@@ -1,0 +1,21 @@
+<title>我的试卷</title>
+<div class="my-error practice-exam">
+    <h1>共X套试卷</h1>
+    <ul class="meeting-ul exam-ul">
+        <li ng-repeat="ex in examine_list track by $index">
+            <div class="meeting-text">
+                <h1>{{ex.exercises_info.name}}</h1>
+                <b>{{ex.exercises_info.create_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</b>
+            </div>
+            <button class="button-click" ui-sref="main.examDo({id:ex.exercises_info.id})">开始考试</button>
+        </li>
+    </ul>
+    <p ng-show="total_page==0">暂无试卷</p>
+    <div class="pages" ng-show="total_page>1">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+

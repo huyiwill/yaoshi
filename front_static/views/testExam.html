@@ -1,0 +1,28 @@
+
+<title>历年真题</title>
+<div class="exam  bg-454">
+    <div class="test-inner">
+        <ul class="exam-item">
+            <li ng-repeat="e in exam track by $index">
+                <div class="item-img">
+                    <img ng-src="{{e.photo}}" alt="" width="100%" height="100%">
+                </div>
+                <div class="item-text">
+                    <h1>{{e.name}}</h1>
+                    <p class="money-p" ng-if="e.can==3"><i class="money-i">¥ </i>{{e.price}}</p>
+                    <p class="money-p" ng-if="e.can==1"><b>免费</b></p>
+                    <p class="money-p" ng-if="e.can==2"><b>已购买</b></p>
+                    <button class="button-click" ng-if="e.can==3"><a ui-sref="main.examBuy({id:e.id})" class="a-click">立即购买</a></button>
+                    <button class="button-click" ng-if="e.can==1||e.can==2"><a ui-sref="main.examDo({id:e.id})" class="a-click">立即考试</a></button>
+                </div>
+                <div class="item-line"></div>
+            </li>
+            <div class="pages">
+                <div class="tcdPageCode" style="display: inline-block;">
+                </div>
+                <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                        ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+            </div>
+        </ul>
+    </div>
+</div

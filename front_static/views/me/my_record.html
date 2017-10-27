@@ -1,0 +1,40 @@
+<title>会员记录</title>
+<div class="my-record">
+    <ul class="jifen-top">
+        <li>会员记录</li>
+    </ul>
+    <div class="account-table record-items">
+        <table>
+            <thead>
+                <tr class="formjl">
+                    <th width="120px;">购买时间</th>
+                    <th>购买方式</th>
+                    <th width="120px;">到期时间</th>
+                    <th>套餐</th>
+                    <th>开通时长</th>
+                    <th>支付费用</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="m in member_list track by $index">
+                    <td>{{m.create_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{buy_type[m.method]}}</td>
+                    <td>{{m.expiration_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>按{{time_types[m.time_type]}}</td>
+                    <td>{{m.number}}{{time_types[m.time_type]}}</td>
+                    <td>365元</td>
+                </tr>
+            </tbody>
+        </table>
+        <!--未购买-->
+        <div class="no-record" ng-if="member_list.length==0">
+            <img src="front_static/assets/img/boy.png" alt="">
+            <p>土豪，您竟然没有购买易百加的会员~~加入会员享受更多优惠哦！</p>
+        </div>
+        <div class="pages" ng-show="total_page>1">
+            <div class="tcdPageCode" style="display: inline-block;"></div>
+            <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                    ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+        </div>
+    </div>
+</div>

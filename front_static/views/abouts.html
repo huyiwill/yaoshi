@@ -1,0 +1,98 @@
+
+<title>关于我们</title>
+<!-- content -->
+	<div id="question" class="about" style="background: #f5f5f5;height: 454px;padding: 20px 10px;">
+		<div class="question-menu">
+			<!-- <div class="question-menu-title">问题</div> -->
+			<div class="question-menu-ul">
+				<ul>
+					<li class="menu-active">关于我们<i>></i></li>
+<!--					<li>企业合作<i>></i></li>-->
+					<li>讲师招聘<i>></i></li>
+					<li>联系我们<i>></i></li>
+					<li>友情链接<i>></i></li>
+				</ul>
+			</div>
+		</div>
+		<div class="question-content about-content">
+			<!-- <div class="question-content-title">问答</div> -->
+			<ol class="breadcrumb question-content-title">
+			    <li>位置：</li>
+			    <li class="kong"><a href="#">首页</a></li>
+			    <li class="active ol-active">关于我们</li>
+			</ol>
+			<div class="about-content-uls question-content-uls">
+				<ul class="ul-show">
+					<li>
+						<span></span>
+						<h2>关于我们</h2>
+					</li>
+					<li>
+						<p>2016年6月，北京药课在线科技有限公司成立旗下的xxxx-医药人才的线上学习基地，是广大医药人才成长和技能提升的教育平台，专注于提升医药人才在患者合理用药、医保控费等方面的专业能力。xxxx与药课在线携手共同打造医药人才的线上学习基地，我们的愿景是：成为药师技能培训标杆，让更多的药师更快的提高工作技能，更快的融入到</p>
+						<p>2014年9月，三节课诞生。四位发起人（Luke、布棉、黄有璨还有于冬琪）和一群热爱互联网产品的发烧友共同建立起这个属于互联网产品人和运营人的在线大学。</p>
+						<p>2015年，三节课信息咨询（北京）有限公司成立。 这里有成体系的线上课程，有挑战的线下实战活动，以及有深度的产品运营观察+评论。三者都获得了极佳的口碑。三节课学员已遍布百度、美团、京东、搜狐、新浪、腾讯、阿里、网易等一线互联网公司。</p>
+					</li>
+				</ul>
+<!--				<ul>
+					<li>
+						<span></span>
+						<h2>企业合作</h2>
+					</li>
+					<li>
+						<p>北京药课在线科技有限工时旗下的xxxx-医药人才的线上学习基地，是广大医药人才成长和技能提升的教育平台，专注于提升医药人才在患者合理用药、医保控费等方面的专业能力。</p>
+						<p>xxxx与药课在线携手共同打造医药人才的线上学习基地，我们的愿景是：成为药师技能培训标杆，让更多的药师更快的提高工作技能，更快的融入到</p>
+						
+					</li>
+				</ul>-->
+				<ul>
+					<li>
+						<span></span>
+						<h2>讲师招聘</h2>
+					</li>
+					<li>
+						<p>北京药课在线科技有限工时旗下的xxxx-医药人才的线上学习基地，是广大医药人才成长和技能提升的教育平台，专注于提升医药人才在患者合理用药、医保控费等方面的专业能力。</p>
+						<p>xxxx与药课在线携手共同打造医药人才的线上学习基地，我们的愿景是：成为药师技能培训标杆，让更多的药师更快的提高工作技能，更快的融入到</p>
+						
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<span></span>
+						<h2>联系我们</h2>
+					</li>
+					<li>
+						<p>您在遇易百加到的任何问题可以通过以下方式联系我们：</p>
+						<p>微信号：药小课</p>
+						<p>微信号：药小师</p>
+						<p>微信订阅号：合理用药百科</p>
+						<p>微信服务号：xxxxx</p>
+						<p>地址：北京市通州区九棵树西路90号宏祥1979 8809室</p>
+						<p>投稿邮箱：yuzhe@yaokezx.com</p>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<span></span>
+						<h2>友情链接</h2>
+					</li>
+					<li>
+						<p><a href="##">国家食品药品监督管理总局</a></p>
+						<p><a href="##">MKM</a></p>
+						<p><a href="##">药学工具网</a></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<script>
+    $(".question-menu-ul li").click(function(){
+	$(this).addClass("menu-active");
+	$(this).siblings().removeClass("menu-active");
+	var index = $(this).index();
+	console.log(index);
+	$(".question-content-uls ul").eq(index).addClass("ul-show").siblings().removeClass("ul-show")
+	var text = $(this).html().replace(/>/g,"");
+	$(".ol-active").html(text);
+})
+</script>

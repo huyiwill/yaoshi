@@ -1,0 +1,139 @@
+<title>我的</title>
+
+<div class="me">
+    <div class="me-top">
+        <div class="me-top-left">
+            <span><img ng-src="{{sign_msg.head}}" alt="" style="width: 100%;height:100%;border-radius: 50%;"></span>
+            <div>
+                <i class="greyvip"></i>
+                <b style="max-width:100px;padding-left: 10px;" class="p-hide">{{sign_msg.nickname}}</b>
+                <p class="blue">{{arr_auth[sign_msg.authentication]}}</p>
+            </div>
+        </div>
+        <div class="me-top-right">
+            <ul class="me-circle">
+                <li class="me1">
+                    <b class="yellow">0.00</b>
+                    <p>账户余额</p>
+                </li>
+                <li class="me2">
+                    <b class="blue">{{sign_msg.score}}积分</b>
+                    <p>总积分</p>
+                </li>
+                <li class="me2">
+                    <b class="blue">1</b>
+                    <p>次比赛</p>
+                </li>
+                <li class="me2">
+                    <b class="blue">1</b>
+                    <p>次考核</p>
+                </li>
+                <li class="me2">
+                    <b class="blue">1</b>
+                    <p>次会议</p>
+                </li>
+            </ul>
+            <ul class="me-charge">
+                <li>
+                    <button class="button-check yellow-bg">账户充值</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="me-foot">
+        <!--左侧导航-->
+        <div class="me-nav">
+            <ul class="father-nav">
+                <li class="">
+                    <p>个人设置 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 1}">
+                        <li class="color-y" ui-sref-active="color-w" class="color-y" ui-sref="main.me.person_data">个人资料</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.person_account">账号设置</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.person_safe">安全设置</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>账户中心 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 2}">
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.my_account">我的账户</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.my_order">我的订单</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.my_record">会员记录</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.my_points">我的积分</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>题目管理 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 3}">
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.title_upload">题目上传</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.title_list">我的题目</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>练习记录 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 4}">
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.practice_error">我的错题</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.practice_collect">我的收藏</li>
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.practice_exam">我的试卷</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>我的考核 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 5}">
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.assess_list">我的考核</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>我的比赛 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 6}">
+                        <li ui-sref-active="color-w" class="color-y">我的比赛</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>我的会议 <i class="arr rarrow"></i></p>
+                    <ul class="son-nav" ng-class="{'nev_active':load_active == 7}">
+                        <li ui-sref-active="color-w" class="color-y" ui-sref="main.me.meeting_list">我的会议</li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!--右侧内容-->
+        <div class="me-item">
+            <!--账户中心-->
+            <div class="me-account">
+                <!--我的积分-->
+                <!--<div ng-include="'front_static/views/me/my_points.html'" ng-controller="my_pointsCtrl"></div>-->
+                <div ui-view ng-cloak scroll>
+                    <!-- 加载模块区域 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".father-nav p").click(function () {
+        var O_ul = $(this).next('ul');
+        if(O_ul.css("height") == '0px'){
+            var ohright = O_ul.css('height', '100%').height();
+            O_ul.css({height:'0'});
+
+            $(".father-nav li").find('ul').stop().animate({ height: '0' }, 1000);
+            $(".father-nav li").find('i').removeClass("barrow");
+            $(".father-nav li").find('i').addClass("rarrow");
+
+            O_ul.stop().animate({height:ohright},1000);
+            $(this).find('i').addClass("barrow");
+            $(this).find('i').removeClass("rarrow");
+            
+            $(this).parent("li").addClass("color-3");
+            $(this).parent("li").siblings().removeClass("color-3");
+            $(this).next('ul').find("li").addClass("color-y");
+        } else {
+            $(this).find('i').removeClass("barrow");
+            $(this).find('i').addClass("rarrow");
+            O_ul.stop().animate({ height: '0' }, 1000);
+            
+        }
+    });
+</script>
+

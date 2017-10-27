@@ -1,0 +1,15 @@
+<div class="popup-container resign">
+    <p class="bgmsg">回复</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label>回复内容</label>
+            <textarea name="nickname" placeholder="请输入回复内容" ng-model="updates.content" required style="width: 230px;resize:none;"></textarea>
+            <div class="common-err proup-left" ng-show="resets.nickname.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

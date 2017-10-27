@@ -1,0 +1,30 @@
+<div class="resign popup-container">
+    <p class="bgmsg">编辑信息</p>
+    <form class="form" name="resets" ng-submit="submitForm(resets.$valid)" novalidate>
+        <div class="form-item">
+            <label for="accounts">账号</label>
+            <input id="accounts" type="text" name="accounts" placeholder="请输入账号" id="phone"
+                   ng-model="updates.account" ng-disabled="types=='edit'">
+        </div>
+        <div class="form-item">
+            <label for="password1">密码</label>
+            <input type="text" name="password1" placeholder="6-16位数字、字母或者组合" id="password1" ng-model="updates.pwd">
+        </div>
+        <div class="form-item">
+            <label for="nickname">昵称</label>
+            <input id="nickname" type="text" name="nickname" placeholder="请输入昵称" id="nickname"
+                   ng-model="updates.nickname">
+        </div>
+        <div class="form-item">
+            <label for="nickname">角色</label>
+            <select name="" class="form-control common-select" ng-model="updates.role_id"
+                    ng-options="role.id as role.name for role in roles">
+                <option value="" selected>请选择</option>
+            </select>
+        </div>
+        <div class="form-item submit">
+            <button ng-click="chose()">确定
+            </button>
+        </div>
+    </form>
+</div>

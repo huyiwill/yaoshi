@@ -1,0 +1,79 @@
+<div class="resign popup-container">
+    <p class="bgmsg">编辑信息</p>
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label><span class="red">*</span>头像</label>
+            <input id="photo" type="file" name="head" ng-click="photo()">
+            <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
+        </div>
+        <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
+        <div class="form-item">
+            <label><span class="red">*</span>昵称</label>
+            <input type="text" name="nickname" placeholder="请输入账号"
+                   ng-model="updates.nickname" required>
+            <div class="common-err proup-left" ng-show="resets.nickname.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>手机号</label>
+            <input type="text" name="mobile" placeholder="请输入正确的手机号"
+                   ng-model="updates.mobile" required ng-pattern="/^1[34578]\d{9}$/">
+            <div class="common-err proup-left" ng-show="resets.mobile.$invalid && submitted">请输入正确的手机号</div>
+        </div>
+        <div class="form-item" ng-if='types == "add"'>
+            <label for="password1"><span class="red">*</span>密码</label>
+            <input type="text" name="password1" placeholder="6-16位数字、字母或者组合" id="password1" ng-model="updates.pwd"
+                   ng-maxlength="16" ng-minlength="6" required ng-pattern="/^[0-9a-zA-Z]+$/">
+            <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">6-16位数字、字母或者组合</div>
+        </div>
+        <div class="form-item" ng-if='types == "edit"'>
+            <label for="password1"><span class="red">*</span>密码</label>
+            <input type="text" name="password1" placeholder="填写则修改密码" id="password1" ng-model="updates.pwd"
+                   ng-maxlength="16" ng-minlength="6" ng-pattern="/^[0-9a-zA-Z]+$/">
+            <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">6-16位数字、字母或者组合</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>姓名</label>
+            <input type="text" name="name" placeholder="请输入账号"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>入学时间</label>
+            <input type="text" name="entrance_time" placeholder="请输入入学时间" id="entrance_time"
+                   ng-model="updates.perfect.entrance_time" required>
+            <div class="common-err proup-left" ng-show="resets.entrance_time.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>所在院校</label>
+            <input type="text" name="school" placeholder="请输入所在院校"
+                   ng-model="updates.perfect.school" required>
+            <div class="common-err proup-left" ng-show="resets.school.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>所学专业</label>
+            <input type="text" name="major" placeholder="请输入所学专业" id="phone"
+                   ng-model="updates.perfect.major" required>
+            <div class="common-err proup-left" ng-show="resets.major.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>学历</label>
+            <input type="radio" class="radio" name="six" value="1" ng-model="updates.perfect.education" required>专科及以下
+            <input type="radio" class="radio" name="six" value="2" ng-model="updates.perfect.education"required>学士
+            <input type="radio" class="radio" name="six" value="3" ng-model="updates.perfect.education"required>硕士
+            <input type="radio" class="radio" name="six" value="4" ng-model="updates.perfect.education"required>博士
+            <div class="common-err proup-left" ng-show="resets.six.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>分组</label>
+            <select name="group_list" class="form-control common-select" ng-model="updates.group"
+                    ng-options="g.id as g.name for g in group_list" required>
+                <option value="" selected>请选择分组</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.group_list.$invalid && submitted">请选择分组</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

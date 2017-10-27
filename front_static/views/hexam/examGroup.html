@@ -1,0 +1,92 @@
+<title>试卷分组</title>
+
+<!--考核列表-->
+<div class="lists">
+    <div class="list-top color-y">
+        分组名称<input type="text" ng-model="search_name">
+        <!--考核状态<select ng-model="search_select">-->
+        <!--<option selected="selected">全部</option>-->
+        <!--<option>未开启</option>-->
+        <!--<option>考核中</option>-->
+        <!--<option>已考核</option>-->
+        <!--</select>-->
+        <button class="button-click" ng-click="soso()">查询</button>
+        <button class="button-click" ng-click="add()">新增分组</button>
+    </div>
+    <div class="line"></div>
+    <div class="list-body">
+        <form method="post">
+            <table>
+                <thead class="tr_order">
+                <tr>
+                    <th>分组名称</th>
+                    <th>试卷数量</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody class="tr_msg">
+                <tr ng-repeat="l in list track by $index">
+                    <td>{{l.name}}</td>
+                    <td>23</td>
+                    <td>
+                        <button ng-click="edit(l.id)">编辑</button>
+                        <button ng-click="chose_men(l.id)" ui-sref="main.bs.examLead">导入试卷</button>
+                        <button ng-click="delete(l.id)">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <!--分页器-->
+    <div class="pages">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+
+<!--新建分组 / 编辑分组-->
+<div class="bg_popup popup-fade-container" ng-if="types=='edit'||types == 'add'"></div>
+<div class="container_popup popup-fade" ng-if="types=='edit'||types == 'add'">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center" ng-if="types == 'add'">新增分组</div>
+        <div class="tltle-center" ng-if="types=='edit'">编辑分组</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+          <form class="form groupWin">
+            <div class="form-item">
+                <label class="marginl-8">分组名称 </label>
+                <input id="" type="text" class="" value="" ng-model="updates.name">
+            </div>
+          </form>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_fade()">取消</button>
+                <button class="next-step" ng-click="chose()" ng-disabled="updates.name==undefined||updates.name==''">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--&lt;!&ndash;删除分组&ndash;&gt;-->
+<!--<div class="container_popup popup-fade" ng-if="types=='del_group'">-->
+    <!--<div class="top_title">-->
+        <!--<div class="title-left"></div>-->
+        <!--<div class="tltle-center">删除分组</div>-->
+        <!--<div class="title-close" ng-click="close_fade()"></div>-->
+    <!--</div>-->
+    <!--<div class="container_text">-->
+        <!--<p class="groupDel">确定删除该分组吗？</p>-->
+        <!--<div class="btns">-->
+            <!--<div class="step">-->
+                <!--<button class="last-step" ng-click="close_fade()">取消</button>-->
+                <!--<button class="next-step" ng-click="end">确定</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

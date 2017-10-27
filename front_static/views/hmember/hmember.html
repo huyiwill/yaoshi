@@ -1,0 +1,308 @@
+<title>成员管理</title>
+
+<!--成员列表-->
+<div class="lists" ng-if="chose_step=='load'">
+    <div class="list-top color-y">
+        姓名<input placeholder="请输入手机号/姓名/昵称" ng-model="search_name">
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+        <button class="button-click" ng-click="add()">新增成员</button>
+    </div>
+    <div class="list-body">
+        <form method="post">
+            <table >
+                <thead class="tr_order">
+                    <tr>
+                        <th>昵称</th>
+                        <th>姓名</th>
+                        <th>手机号</th>
+                        <th>职业</th>
+                        <!--<th>所在医院</th>-->
+                        <th>所在分组</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tr_msg" ng-repeat="l in list">
+                    <tr>
+                        <td>{{l.user_info.nickname}}</td>
+                        <td>{{l.user_info.name}}</td>
+                        <td >{{l.user_info.mobile}}</td>
+                        <td>{{role_arr[l.user_info.role]}}</td>
+                        <!--<td>{{l.user_info.mobile}}</td>-->
+                        <td>{{l.members_group_name||'暂无分组'}}</td>
+                        <td>
+                            <button ng-click="edit(l.id)">查看详情</button>
+                            <button class="changeBtn" ng-click="chose_group(l.id)">更换分组</button>
+                            <button ng-click="delete(l.id)">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+<!--查看详情-->
+<div class="addlist memberSee" ng-if="chose_step=='see'" ng-click="close_see()">
+    <div class="data-inner">
+         <h3 class="yellow">成员详情</h3>
+        <form class="form">
+            <div class="form-item">
+                <label for="name"class="marginl-8">头像</label>
+                <img ng-src="{{updates.user_info.head}}" alt="" style="width: 50px;height: 50px;border-radius: 50%;">
+            </div>
+            <div class="form-item">
+                <label class="marginl-8">手机号</label>
+                <input type="text" class="" readonly ng-model="updates.user_info.mobile">
+            </div>
+            <div class="form-item">
+                <label class="marginl-8">姓名</label>
+                <input type="text" class=""readonly ng-model="updates.user_info.name">
+            </div>  
+            <!--<div class="form-item">-->
+                <!--<label class="marginl-8">性别</label>-->
+                <!--<input type="radio" disabled ng-model="updates.user_info.mobile">男-->
+                <!--<input type="radio" disabled ng-model="updates.user_info.mobile">女-->
+            <!--</div>-->
+            <!--<div class="form-item">-->
+                <!--<label class="marginl-8">出生日期</label>-->
+                <!--<input type="text" class="" readonly ng-model="updates.user_info.birthday">-->
+            <!--</div>-->
+            <!--<div class="form-item">-->
+                <!--<label class="marginl-8">所在医院</label>-->
+                <!--<input type="text" class="" readonly ng-model="updates.user_info.mobile">-->
+            <!--</div>-->
+            <div class="form-item">
+                <label class="marginl-8">职业</label>
+                <input type="text" class="" ng-if="updates.user_info.role==1" readonly value="其他">
+                <input type="text" class="" ng-if="updates.user_info.role==2" readonly value="药师">
+                <input type="text" class="" ng-if="updates.user_info.role==3" readonly value="医生">
+                <input type="text" class="" ng-if="updates.user_info.role==4" readonly value="护士">
+                <input type="text" class="" ng-if="updates.user_info.role==5" readonly value="学生">
+            </div>
+            <div class="form-item">
+                <label class="marginl-8">所在分组</label>
+                <input type="text" class="" readonly ng-model="updates.members_group_name">
+            </div>
+            <!--<div class="form-item">-->
+                <!--<label class="marginl-8">他院实习</label>-->
+                <!--<input type="radio" class="" disabled ng-model="updates.user_info.mobile">是-->
+                <!--<input type="radio" class=""  disabled ng-model="updates.user_info.mobile">否-->
+            <!--</div>-->
+        </form>
+    </div>
+</div>
+
+
+<!--新增成员-->
+<div class="lists memberAdd">
+    <div class="list-top color-y" ng-if="chose_step=='add'">
+        <input placeholder="手机号/姓名/昵称" ng-model="search">
+        <button class="button-click" ng-click="chose_search(search)" ng-disabled="search==undefined||search==''">搜索</button>
+    </div>
+    <!--搜索结果-->
+    <div class="member-result" ng-if="chose_step=='result'">
+         <div class="member-list">
+            <img ng-src="{{search_msg.head}}" alt="" style="width: 50px;height: 50px;border-radius: 50%;">
+            <p>姓名：{{search_msg.name}}</p>
+            <p>昵称：{{search_msg.nickname}}</p>
+            <button class="button-click" ng-click="add_mum(search_msg.id)">添加成员</button>
+        </div>
+        <!--<div class="member-no">该用户不存在!</div>-->
+    </div>
+    <!--同单位人员-->
+    <div class="member-unit" style="display: none;">
+        <div class="lists">
+            <div  class="unit-top">
+                <input type="checkbox">
+                <button class="">全部添加</button>
+            </div>
+            <div class="list-body">
+                <form method="post">
+                    <table >
+                        <thead class="tr_order">
+                            <tr>
+                                <td style="width: 50px;"></td>
+                                <th>手机号</th>
+                                <th>昵称</th>
+                                <th>姓名</th>
+                                <th>所在单位</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tr_msg">
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td >13812341234</td>
+                                <td>icy</td>
+                                <td>王语嫣</td>
+                                <td>北京天坛医院</td>
+                                <td>未添加</td>
+                                <td>
+                                    <button>添加成员</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td >13812341234</td>
+                                <td>icy</td>
+                                <td>王语嫣</td>
+                                <td>北京天坛医院</td>
+                                <td>未添加</td>
+                                <td>
+                                    <button>添加成员</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--更换分组-->
+<div class="bg_popup popup-fade-container" ng-if="chose_types == 'change_group'"></div>
+<div class="container_popup popup-fade" ng-if="chose_types == 'change_group'">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">更换分组</div>
+        <div class="title-close" ng-click="close_proup()"></div>
+    </div>
+    <div class="container_text">
+        <div class="groups">
+            <p ng-repeat="g in ag_group track by $index"><input type="radio" name="aaa" ng-click="chose_this(g.id)">{{g.name}}</p>
+        </div>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_proup()">取消</button>
+                <button class="next-step" ng-click="end_chose_group()" ng-disabled="check_id==undefined">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .bg_popup{
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom: 0;
+        background-color: #292929;
+        opacity: 0.8;
+        z-index:8888;
+    }
+    .container_popup{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        color: #fff;
+        font-size: 16px;
+        background-color: #fff;
+        z-index:9999;
+    }
+    .container_popup .top_title{
+        height:40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+    .top_title .tltle-center{
+        float: left;
+        width:270px;
+    }
+    .top_title .title-left{
+        float: left;
+        width: 40px;
+        height:40px;
+    }
+
+    .top_title .title-close{
+        float: left;
+        width: 40px;
+        height:40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+    .container_text{
+        height:220px;
+        overflow:auto;
+    }
+/*    .container_text .text_list{
+        height: 100px;
+        border-bottom: 1px dashed #000;
+    }*/
+/*    .text_list .list_left span{
+        width: 30px;
+        height:30px;
+        display: inline-block;
+        background: url(/front_static/assets/img/icon_poup_add.png) no-repeat;
+        background-position: center center;
+        vertical-align: top;
+
+    }*/
+/*    .container_text p{
+        color:#000;
+        line-height: 25px;
+        margin-top: 30px;
+        text-align: center;
+    }*/
+/*    .container_text .text_list .list_left{
+        float: left;
+        width:215px;
+        margin-top: 25px;
+        margin-left: 25px;
+        color: #000;
+    }*/
+/*    .container_text .text_list .list_right{
+        float: left;
+    }*/
+/*    .container_text .list_right button{
+        font-size: 16px;
+        width: 80px;
+        height:40px;
+        border-radius: 5px;
+        background-color: #f15917;
+        margin-top: 10px;
+        color:#fff;
+    }*/
+</style>
+<script>
+    $(".changeBtn").click(function(){
+         $(".popup-fade").css("display","block");
+         console.log(1);
+    })
+</script>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,467 @@
+<title>新增试题</title>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+    <div class="content-header" style="width:100%;">
+        <h1 style="text-align:left;">
+            试卷管理
+            <small>list</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">试卷管理</li>
+            <li>新增试题</li>
+        </ol>
+        <!-- Main content -->
+        <!--单选区域-->
+        <p style="margin-top: 20px;">新增{{arr_chose_type[chose_type]}}</p>
+        <section class="content col-md-6 col-sm-12" ng-show="chose_type==1">
+            <form role="form" name="resetss" ng-submit="chose(resetss.$valid)" novalidate>
+                <div class="form-group">
+                    <label>题干</label>
+                    <input type="text" name="name" class="form-control" placeholder="请输入题干信息" ng-model="updates.name"
+                           required>
+                    <div class="common-err" ng-show="resetss.name.$invalid && submitted">这是一个必填字段</div>
+                </div>
+                <div class="form-group">
+                    <label>答案A</label>
+                    <input type="text" name="a_ans" class="form-control" ng-model="updates.a_ans" required>
+                    <input type="radio" name="danxuan" value="A" ng-model="updates.right_key" required>正确答案
+                    <div class="common-err" ng-show="resetss.a_ans.$invalid && submitted">请填写答案A</div>
+                </div>
+                <div class="form-group">
+                    <label>答案B</label>
+                    <input type="text" class="form-control" name="b_ans" ng-model="updates.b_ans" required>
+                    <input type="radio" name="danxuan" value="B" ng-model="updates.right_key" required>正确答案
+                    <div class="common-err" ng-show="resetss.b_ans.$invalid && submitted">请填写答案B</div>
+                </div>
+                <div class="form-group">
+                    <label>答案C</label>
+                    <input type="text" name="c_ans" class="form-control" ng-model="updates.c_ans" required>
+                    <input type="radio" name="danxuan" value="C" ng-model="updates.right_key" required>正确答案
+                    <div class="common-err" ng-show="resetss.c_ans.$invalid && submitted">请填写答案C</div>
+                </div>
+                <div class="form-group">
+                    <label>答案D</label>
+                    <input type="text" name="d_ans" class="form-control" ng-model="updates.d_ans" required>
+                    <input type="radio" name="danxuan" value="D" ng-model="updates.right_key" required>正确答案
+                    <div class="common-err" ng-show="resetss.d_ans.$invalid && submitted">请填写答案D</div>
+                </div>
+                <div class="common-err" ng-show="resetss.danxuan.$invalid && submitted">请选择一个正确答案</div>
+                <div class="form-group">
+                    <label>分值</label>
+                    <input type="number" name="score" class="form-control" min="0" ng-model="updates.score" required>
+                    <div class="common-err" ng-show="resetss.score.$invalid && submitted">请填写分值</div>
+                </div>
+                <div class="form-group">
+                    <label>适用人群</label>
+                    <input type="radio" name="ss" value="2" ng-model="updates.role" required>药师
+                    <input type="radio" name="ss" value="3" ng-model="updates.role" required>医生
+                    <input type="radio" name="ss" value="4" ng-model="updates.role" required>护士
+                    <input type="radio" name="ss" value="5" ng-model="updates.role" required>学生
+                    <input type="radio" name="ss" value="1" ng-model="updates.role" required>其他
+                    <div class="common-err" ng-show="resetss.ss.$invalid && submitted">请选择适合人群</div>
+                </div>
+                <div class="form-group" ng-if="updates.role==2">
+                    <label>职务</label>
+                    <select class="form-control" name="post" ng-model="updates.post" required>
+                        <option value="">请选择</option>
+                        <option value="2">临床药师</option>
+                        <option value="3">咨询药师</option>
+                        <option value="4">调剂药师</option>
+                        <option value="5">执业药师</option>
+                        <option value="1">其他</option>
+                    </select>
+                    <div class="common-err" ng-show="resetss.post.$invalid && submitted">请选择职务</div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label>难易程度</label>-->
+                <!--<select class="form-control" name="degree" ng-model="updates.degree" required>-->
+                <!--<option value="">请选择</option>-->
+                <!--<option value="1">简单</option>-->
+                <!--<option value="2">中等</option>-->
+                <!--<option value="3">困难</option>-->
+                <!--</select>-->
+                <!--<div class="common-err" ng-show="resetss.degree.$invalid && submitted">请选择难易程度</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label>药学分类</label>
+                    <select class="form-control" name="pharmacy_id" ng-model="updates.pharmacy_id" id="pharmacy_id"
+                            ng-bind-html="category|to_trusted" ng-change="changed()" required>
+                    </select>
+                    <div class="common-err" ng-show="resetss.pharmacy_id.$invalid && submitted">请填写药学分类</div>
+                </div>
+                <div class="form-group" ng-if="show_therapeutic">
+                    <label>治疗领域</label>
+                    <input type="text" name="therapeutic" class="form-control" ng-model="updates.therapeutic" required>
+                    <div class="common-err" ng-show="resetss.therapeutic.$invalid && submitted">请填写治疗领域</div>
+                </div>
+                <div class="form-group">
+                    <label>解析</label>
+                    <div name="analysis" id="analysis1" ng-model="updates.analysis"></div>
+                    <div class="common-err" ng-show="id_an && submitted">请填写解析</div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label>价格</label>-->
+                <!--<input type="text" name="prices" class="form-control" ng-model="updates.price" required>-->
+                <!--<div class="common-err" ng-show="resetss.prices.$invalid && submitted">请填写价格</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label>价格</label>-->
+                <!--<input type="radio" name="price" value="2" ng-model="updates.is_price" required>启用-->
+                <!--<input type="radio" name="price" value="1" ng-model="updates.is_price" required>禁用-->
+                <!--<div class="common-err" ng-show="resetss.price.$invalid && submitted">请选择是否能启用</div>-->
+                <!--</div>-->
+                <button type="submit" class="btn btn-default">提交</button>
+            </form>
+        </section>
+        <!-- /.content -->
+        <section class="content col-md-6 col-sm-12" ng-show="chose_type==2">
+            <form role="form" name="reset" novalidate>
+                <div class="form-group">
+                    <label>题干</label>
+                    <input type="text" name="name" class="form-control" placeholder="请输入题干信息" ng-model="updates.name"
+                           required>
+                    <div class="common-err" ng-show="reset.name.$invalid && submitted">这是一个必填字段</div>
+                </div>
+                <div class="form-group">
+                    <label>答案A</label>
+                    <input type="text" name="a_ans" class="form-control" ng-model="updates.a_ans" required>
+                    <input type="checkbox" class="right_key1" name="danxuan" value="A" ng-model="updates.right_key1">正确答案
+                    <div class="common-err" ng-show="reset.a_ans.$invalid && submitted">请填写答案A</div>
+                </div>
+                <div class="form-group">
+                    <label>答案B</label>
+                    <input type="text" name="b_ans" class="form-control" ng-model="updates.b_ans" required>
+                    <input type="checkbox" class="right_key2" name="danxuan" value="B" ng-model="updates.right_key2">正确答案
+                    <div class="common-err" ng-show="reset.b_ans.$invalid && submitted">请填写答案B</div>
+                </div>
+                <div class="form-group">
+                    <label>答案C</label>
+                    <input type="text" name="c_ans" class="form-control" ng-model="updates.c_ans" required>
+                    <input type="checkbox" class="right_key3" name="danxuan" value="C" ng-model="updates.right_key3">正确答案
+                    <div class="common-err" ng-show="reset.c_ans.$invalid && submitted">请填写答案C</div>
+                </div>
+                <div class="form-group">
+                    <label>答案D</label>
+                    <input type="text" name="d_ans" class="form-control" ng-model="updates.d_ans" required>
+                    <input type="checkbox" class="right_key4" name="danxuan" value="D" ng-model="updates.right_key4">正确答案
+                    <div class="common-err" ng-show="reset.d_ans.$invalid && submitted">请填写答案D</div>
+                </div>
+                <div class="common-err"
+                     ng-show="!(updates.right_key4||updates.right_key3||updates.right_key2||updates.right_key1) && submitted">
+                    请至少选择一个正确答案
+                </div>
+                <div class="form-group">
+                    <label>分值</label>
+                    <input type="number" name="score" class="form-control" min="0" ng-model="updates.score" required>
+                    <div class="common-err" ng-show="reset.score.$invalid && submitted">请填写分值</div>
+                </div>
+                <div class="form-group">
+                    <label>适用人群</label>
+                    <input type="radio" name="ss" value="2" ng-model="updates.role" required>药师
+                    <input type="radio" name="ss" value="3" ng-model="updates.role" required>医生
+                    <input type="radio" name="ss" value="4" ng-model="updates.role" required>护士
+                    <input type="radio" name="ss" value="5" ng-model="updates.role" required>学生
+                    <input type="radio" name="ss" value="1" ng-model="updates.role" required>其他
+                    <div class="common-err" ng-show="reset.ss.$invalid && submitted">请选择适合人群</div>
+                </div>
+                <div class="form-group" ng-if="updates.role==2">
+                    <label>职务</label>
+                    <select class="form-control" name="post" ng-model="updates.post" required>
+                        <option value="">请选择</option>
+                        <option value="2">临床药师</option>
+                        <option value="3">咨询药师</option>
+                        <option value="4">调剂药师</option>
+                        <option value="5">执业药师</option>
+                        <option value="1">其他</option>
+                    </select>
+                    <div class="common-err" ng-show="reset.post.$invalid && submitted">请选择职务</div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label>难易程度</label>-->
+                <!--<select class="form-control" name="degree" ng-model="updates.degree" required>-->
+                <!--<option value="">请选择</option>-->
+                <!--<option value="1">简单</option>-->
+                <!--<option value="2">中等</option>-->
+                <!--<option value="3">困难</option>-->
+                <!--</select>-->
+                <!--<div class="common-err" ng-show="reset.degree.$invalid && submitted">请选择难易程度</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label>药学分类</label>
+                    <select class="form-control" name="pharmacy_id" ng-model="updates.pharmacy_id" id="pharmacy_id"
+                            ng-bind-html="category|to_trusted" ng-change="changed()" required>
+                    </select>
+                    <div class="common-err" ng-show="reset.pharmacy_id.$invalid && submitted">请填写药学分类</div>
+                </div>
+                <div class="form-group" ng-if="show_therapeutic">
+                    <label>治疗领域</label>
+                    <input type="text" name="therapeutic" class="form-control" ng-model="updates.therapeutic" required>
+                    <div class="common-err" ng-show="reset.therapeutic.$invalid && submitted">请填写治疗领域</div>
+                </div>
+                <div class="form-group">
+                    <label>解析</label>
+                    <div name="analysis" id="analysis2" ng-model="updates.analysis"></div>
+                    <div class="common-err" ng-show="id_an && submitted">请填写解析</div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label>价格</label>-->
+                <!--<input type="text" name="prices" class="form-control" ng-model="updates.price" required>-->
+                <!--<div class="common-err" ng-show="reset.prices.$invalid && submitted">请填写价格</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label>价格</label>-->
+                <!--<input type="radio" name="price" value="2" ng-model="updates.is_price" required>启用-->
+                <!--<input type="radio" name="price" value="1" ng-model="updates.is_price" required>禁用-->
+                <!--<div class="common-err" ng-show="reset.price.$invalid && submitted">请选择是否能启用</div>-->
+                <!--</div>-->
+                <button type="submit" class="btn btn-default" ng-click="chose(resets.$valid)">提交</button>
+            </form>
+        </section>
+        <section class="content col-md-6 col-sm-12" ng-show="chose_type==4||chose_type==5">
+            <form role="form" name="resets4" novalidate>
+                <div class="form-group">
+                    <label>题干</label>
+                    <input type="text" name="name" class="form-control" placeholder="请输入题干信息" ng-model="updates.name"
+                           required>
+                    <div class="common-err" ng-show="resets4.name.$invalid && submitted">这是一个必填字段</div>
+                </div>
+                <div class="form-group">
+                    <label>处方</label>
+                    <input type="file" id="photo" ng-click="photo()">
+                    <img id="head" ng-src="{{updates.photo}}" alt="" style="width:100px;height: 100px;"
+                         ng-show="updates.photo != undefined">
+                    <div class="common-err" ng-show="updates.photo == undefined && submitted">请上传图片</div>
+                </div>
+                <div class="form-group">
+                    <label>分值</label>
+                    <input type="number" name="score" class="form-control" min="0" ng-model="updates.score" required>
+                    <div class="common-err" ng-show="resets4.score.$invalid && submitted">请填写分值</div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>答案</label>
+                        <div name="right_key" id="right_key4" ng-model="updates.right_key"></div>
+                        <div class="common-err" ng-show="id_key && submitted">请填写答案</div>
+                    </div>
+                    <div class="form-group">
+                        <label>适用人群</label>
+                        <input type="radio" name="ss" value="2" ng-model="updates.role" required>药师
+                        <input type="radio" name="ss" value="3" ng-model="updates.role" required>医生
+                        <input type="radio" name="ss" value="4" ng-model="updates.role" required>护士
+                        <input type="radio" name="ss" value="5" ng-model="updates.role" required>学生
+                        <input type="radio" name="ss" value="1" ng-model="updates.role" required>其他
+                        <div class="common-err" ng-show="resets4.ss.$invalid && submitted">请选择适合人群</div>
+                    </div>
+                    <div class="form-group" ng-if="updates.role==2">
+                        <label>职务</label>
+                        <select class="form-control" name="post" ng-model="updates.post" required>
+                            <option value="">请选择</option>
+                            <option value="2">临床药师</option>
+                            <option value="3">咨询药师</option>
+                            <option value="4">调剂药师</option>
+                            <option value="5">执业药师</option>
+                            <option value="1">其他</option>
+                        </select>
+                        <div class="common-err" ng-show="resets4.post.$invalid && submitted">请选择职务</div>
+                    </div>
+                    <div class="form-group">
+                        <label>难易程度</label>
+                        <select class="form-control" name="degree" ng-model="updates.degree" required>
+                            <option value="">请选择</option>
+                            <option value="1">简单</option>
+                            <option value="2">中等</option>
+                            <option value="3">困难</option>
+                        </select>
+                        <div class="common-err" ng-show="resets4.degree.$invalid && submitted">请选择难易程度</div>
+                    </div>
+                    <div class="form-group">
+                        <label>药学分类</label>
+                        <select class="form-control" name="pharmacy_id" ng-model="updates.pharmacy_id" id="pharmacy_id"
+                                ng-bind-html="category|to_trusted" ng-change="changed()" required>
+                        </select>
+                        <div class="common-err" ng-show="resets4.pharmacy_id.$invalid && submitted">请填写药学分类</div>
+                    </div>
+                    <div class="form-group" ng-if="show_therapeutic">
+                        <label>治疗领域</label>
+                        <input type="text" name="therapeutic" class="form-control" ng-model="updates.therapeutic"
+                               required>
+                        <div class="common-err" ng-show="resets4.therapeutic.$invalid && submitted">请填写治疗领域</div>
+                    </div>
+                    <div class="form-group">
+                        <label>解析</label>
+                        <div name="analysis" id="analysis4" ng-model="updates.analysis"></div>
+                        <div class="common-err" ng-show="id_an && submitted">请填写解析</div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label>价格</label>-->
+                    <!--<input type="text" name="prices" class="form-control" ng-model="updates.price" required>-->
+                    <!--<div class="common-err" ng-show="resets4.prices.$invalid && submitted">请填写价格</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>价格</label>-->
+                    <!--<input type="radio" name="price" value="2" ng-model="updates.is_price" required>启用-->
+                    <!--<input type="radio" name="price" value="1" ng-model="updates.is_price" required>禁用-->
+                    <!--<div class="common-err" ng-show="resets4.price.$invalid && submitted">请选择是否能启用</div>-->
+                    <!--</div>-->
+                    <!--<p>患者信息收集（以下内容非必填）</p>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>性别</label>-->
+                    <!--<input type="radio" name="six" value="1" ng-model="updates.sex">男-->
+                    <!--<input type="radio" name="six" value="2" ng-model="updates.sex">女-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>年龄</label>-->
+                    <!--<input type="text" class="form-control" ng-model="updates.age">-->
+                    <!--<span>注：若患者的年龄小于1岁，请以小数表示患者的年龄</span>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>科室</label>-->
+                    <!--<input type="text" class="form-control" ng-model="updates.department">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>临床诊断</label>-->
+                    <!--<textarea name="" id="clinical_diagnosis" cols="30" rows="10" class="form-control"-->
+                    <!--ng-model="updates.clinical_diagnosis"></textarea>-->
+                    <!--</div>-->
+                    <!--<table class="table table-bordered table-hover">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                    <!--<th>药品名称（规格）</th>-->
+                    <!--<th>剂量</th>-->
+                    <!--<th>给药途径</th>-->
+                    <!--<th>频率</th>-->
+                    <!--<th>疗程</th>-->
+                    <!--<th>数量</th>-->
+                    <!--<th>价格（元）</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--<td><input type="text" class="not-border"></td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                    <!--</table>-->
+
+
+                    <button type="submit" class="btn btn-default" ng-click="chose(resets4.$valid)">提交</button>
+            </form>
+        </section>
+        <section class="content col-md-6 col-sm-12" ng-show="chose_type==6">
+            <form role="form" name="resets6" novalidate>
+                <div class="form-group">
+                    <label>题干</label>
+                    <input type="text" name="name" class="form-control" placeholder="请输入题干信息" ng-model="updates.name"
+                           required>
+                    <div class="common-err" ng-show="resets6.name.$invalid && submitted">这是一个必填字段</div>
+                </div>
+                <div class="form-group">
+                    <label>分值</label>
+                    <input type="number" name="score" class="form-control" min="0" ng-model="updates.score" required>
+                    <div class="common-err" ng-show="resets6.score.$invalid && submitted">请填写分值</div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>答案</label>
+                        <div name="right_key" id="right_key6" ng-model="updates.right_key"></div>
+                        <div class="common-err" ng-show="id_key && submitted">请填写答案</div>
+                    </div>
+                    `
+                    <div class="form-group">
+                        <label>适用人群</label>
+                        <input type="radio" name="ss" value="2" ng-model="updates.role" required>药师
+                        <input type="radio" name="ss" value="3" ng-model="updates.role" required>医生
+                        <input type="radio" name="ss" value="4" ng-model="updates.role" required>护士
+                        <input type="radio" name="ss" value="5" ng-model="updates.role" required>学生
+                        <input type="radio" name="ss" value="1" ng-model="updates.role" required>其他
+                        <div class="common-err" ng-show="resets6.ss.$invalid && submitted">请选择适合人群</div>
+                    </div>
+                    <div class="form-group" ng-if="updates.role==2">
+                        <label>职务</label>
+                        <select class="form-control" name="post" ng-model="updates.post" required>
+                            <option value="">请选择</option>
+                            <option value="2">临床药师</option>
+                            <option value="3">咨询药师</option>
+                            <option value="4">调剂药师</option>
+                            <option value="5">执业药师</option>
+                            <option value="1">其他</option>
+                        </select>
+                        <div class="common-err" ng-show="resets6.post.$invalid && submitted">请选择职务</div>
+                    </div>
+                    <div class="form-group">
+                        <label>难易程度</label>
+                        <select class="form-control" name="degree" ng-model="updates.degree" required>
+                            <option value="">请选择</option>
+                            <option value="1">简单</option>
+                            <option value="2">中等</option>
+                            <option value="3">困难</option>
+                        </select>
+                        <div class="common-err" ng-show="resets6.degree.$invalid && submitted">请选择难易程度</div>
+                    </div>
+                    <div class="form-group">
+                        <label>药学分类</label>
+                        <select class="form-control" name="pharmacy_id" ng-model="updates.pharmacy_id" id="pharmacy_id"
+                                ng-bind-html="category|to_trusted" ng-change="changed()" required>
+                        </select>
+                        <div class="common-err" ng-show="resets6.pharmacy_id.$invalid && submitted">请填写药学分类</div>
+                    </div>
+                    <div class="form-group" ng-if="show_therapeutic">
+                        <label>治疗领域</label>
+                        <input type="text" name="therapeutic" class="form-control" ng-model="updates.therapeutic"
+                               required>
+                        <div class="common-err" ng-show="resets6.therapeutic.$invalid && submitted">请填写治疗领域</div>
+                    </div>
+                    <div class="form-group">
+                        <label>解析</label>
+                        <div name="analysis" id="analysis6" ng-model="updates.analysis"></div>
+                        <div class="common-err" ng-show="id_an && submitted">请填写解析</div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label>价格</label>-->
+                    <!--<input type="text" name="prices" class="form-control" ng-model="updates.price" required>-->
+                    <!--<div class="common-err" ng-show="resets6.prices.$invalid && submitted">请填写价格</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>价格</label>-->
+                    <!--<input type="radio" name="price" value="2" ng-model="updates.is_price" required>启用-->
+                    <!--<input type="radio" name="price" value="1" ng-model="updates.is_price" required>禁用-->
+                    <!--<div class="common-err" ng-show="resets6.price.$invalid && submitted">请选择是否能启用</div>-->
+                    <!--</div>-->
+                    <button type="submit" class="btn btn-default" ng-click="chose(resets6.$valid)">提交</button>
+            </form>
+        </section>
+
+    </div>
+    <script>
+        $(function () {
+            $('#analysis1,#analysis2,#analysis4,#analysis6,#right_key4,#right_key6').editable({
+                inlineMode: false,
+                alwaysBlank: true,
+                language: "zh_cn",
+                direction: "ltr",
+                autosave: true,
+                autosaveInterval: 2500,
+                saveParams: {postId: "123"},
+                spellcheck: true,
+                plainPaste: true,
+                enableScript: false,
+                imageUploadURL: '/editor/up/img.json',//上传到本地服务器
+                imageUploadParams: {id: "edit"},
+                imageDeleteURL: '/editor/del/img.json',//删除图片
+                imagesLoadURL: 'lib/load_images.php'//管理图片
+            }).on('editable.afterRemoveImage', function (e, editor, $img) {
+                editor.options.imageDeleteParams = {src: $img.attr('src')};
+                // Make the delete request
+                editor.deleteImage($img);
+            });
+        });
+    </script>

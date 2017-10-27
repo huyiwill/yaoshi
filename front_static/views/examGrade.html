@@ -1,0 +1,47 @@
+<title>查看答案</title>
+<div class="examGrade bg-620">
+    <!--公用头部-->
+    <div class="do-title">
+        <h3>{{exercises_info.test_subject[0].info.name}}</h3>
+        <span>总分数：{{exercises_info.test_subject[0].score}}分</span>
+        <span>答题时间：<b class="yellow">{{exercises_info.answer_time}}分钟</b></span>
+        <span>总题数：<b class="green">{{exercises_info.test_subject[0].count}}</b>题</span>
+        <div class="grade-user">
+            <span class="user-pic"></span>
+            <div class="user-name">
+                <p>姓名：{{sign_msg.name}}</p>
+                <p>所在医院：{{sign_msg.hospital}}</p>
+                <p>职业：{{r_role[sign_msg.role]}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="grade-content">
+        <!--查看答案-->
+        <div class="see-answer">
+            <div class="radio" ng-if="dan.length>0">
+                <h1 class="topic">一、单选题（{{dan_score||0}}分，共{{dan.length||0}}题） <b>{{dan_actual||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="d in dan track by $index">
+                    <p>{{$index+1}}. {{d.name}}? <b class="b-icon" ng-class="{'cuo':d.do_right=='false','dui':d.do_right=='true'}"></b></p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                        <i class="circlebtn openbtn greybtn" ng-class="{'redbtn':d.do==e.key}"></i>{{e.key}}. {{e.value}}
+                        </li>
+                    </ul>
+                    <span>正确答案：{{d.right_key}}</span>
+                </div>
+            </div>
+            <div class="checkbox" ng-if="duo.length>0">
+                <h1 class="topic">二、多选题（{{duo_score||0}}分，共{{duo.length||0}}题） <b>{{duo_actual||0}}分</b></h1>
+                <div class="answer-item" ng-repeat="d in duo track by $index">
+                    <p>{{$index+1}}. {{d.name}}? <b class="b-icon" ng-class="{'cuo':d.do_right=='false','dui':d.do_right=='true'}"></b></p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                            <i class="circlebtn openbtn greyclick" ng-class="{'redclick':d.do.indexOf(e.key)!=-1}"></i>{{e.key}}. {{e.value}}
+                        </li>
+                    </ul>
+                    <span>正确答案：{{d.right_key}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

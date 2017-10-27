@@ -1,0 +1,136 @@
+<title>题库</title>
+
+<div class="test bg-454">
+    <ul class="test-item">
+        <li ng-click = "choose_type(1)">
+            <!--ui-sref="main.testPractice"-->
+            <a>
+                <img src="front_static/assets/img/test1.png">
+                <h5 class="test-yellow">专项练习</h5>
+                <p>针对性的学习，迅速掌握基础知识，进入实战</p>
+            </a>
+        </li>
+        <li ui-sref="main.testExam">
+            <a>
+                <img src="front_static/assets/img/test2.png">
+                <h5 class="test-bue">历年真题</h5>
+                <p>历年医药职称考试真题</p>
+            </a>
+        </li>
+        <li ui-sref="main.testErrors">
+            <a>
+                <img src="front_static/assets/img/test3.png">
+                <h5 class="test-red">错题练习</h5>
+                <p>错题反复练习，快速掌握对应知识点</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="bg_popup popup-fade" ng-show="shose_show" ng-click="shose_show = !shose_show"></div>
+<div class="container_popup popup-fade" ng-show="shose_show">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">专项练习</div>
+        <div class="title-close" ng-click="shose_show = !shose_show"></div>
+    </div>
+    <div class="container_text">
+        <p ng-if="exercise_all.length==0">暂无分类信息</p>
+        <div class="text_list" ng-if="exercise_all.length>0" ng-repeat="ex in exercise_all track by $index">
+            <div class="list_left">
+                {{ex.category_name}}（1/{{ex.total}}）
+            </div>
+            <div class="list_right">
+                <button ng-click="begin_ex(ex.pharmacy_id)">开始练习</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .bg_popup{
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom: 0;
+        background-color: #292929;
+        opacity: 0.8;
+        z-index:8888;
+    }
+    .container_popup{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        color: #fff;
+        font-size: 16px;
+        background-color: #fff;
+        z-index:9999;
+    }
+    .container_popup .top_title{
+        height:40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+    .top_title .tltle-center{
+        float: left;
+        width:270px;
+    }
+    .top_title .title-left{
+        float: left;
+        width: 40px;
+        height:40px;
+    }
+
+    .top_title .title-close{
+        float: left;
+        width: 40px;
+        height:40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+    .container_text{
+        height:220px;
+        overflow:auto;
+    }
+    .container_text .text_list{
+        height: 100px;
+        border-bottom: 1px dashed #000;
+    }
+    .text_list .list_left span{
+        width: 30px;
+        height:30px;
+        display: inline-block;
+        background: url(/front_static/assets/img/icon_poup_add.png) no-repeat;
+        background-position: center center;
+        vertical-align: top;
+
+    }
+    .container_text p{
+        color:#000;
+        line-height: 25px;
+        margin-top: 30px;
+        text-align: center;
+    }
+    .container_text .text_list .list_left{
+        float: left;
+        width:215px;
+        margin-top: 25px;
+        margin-left: 25px;
+        color: #000;
+    }
+    .container_text .text_list .list_right{
+        float: left;
+    }
+    .container_text .list_right button{
+        font-size: 16px;
+        width: 80px;
+        height:40px;
+        border-radius: 5px;
+        background-color: #f15917;
+        margin-top: 10px;
+        color:#fff;
+    }
+</style>

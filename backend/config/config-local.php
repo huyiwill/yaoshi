@@ -1,0 +1,7 @@
+<?php
+
+/**
+ * local config
+ */
+return [
+];

@@ -1,0 +1,20 @@
+<title>我的会议</title>
+<div class="my-meeting">
+    <ul class="meeting-ul">
+        <li ng-repeat="m in meeting track by $index">
+            <img ng-src="{{m.meeting_info.icon}}" alt="">
+            <div class="meeting-text">
+                <h1>{{m.meeting_info.name}}</h1>
+                <p>主办单位：北京药科在线有限公司</p>
+                <p>会议时间：{{m.meeting_info.time_start*1000|date:'yyyy-MM-dd'}}至{{m.meeting_info.time_end*1000|date:'yyyy-MM-dd'}}</p>
+            </div>
+            <button class="button-click" ui-sref="main.meetingDetail({id:m.id})">查看详情</button>
+        </li>
+    </ul>
+    <div class="pages" ng-show="total_page>1">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>

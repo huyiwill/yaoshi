@@ -1,0 +1,405 @@
+<title>会议修改</title>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header" style="width:100%;">
+        <h1 style="text-align:left;">
+            会议修改
+            <small>list</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">会议</li>
+            <li>会议修改</li>
+        </ol>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="nav-tabs-custom">
+                        <!-- tab 标签 -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="javascript:;" data-toggle="tab">会议修改</a></li>
+                        </ul>
+                        <div class="cont-btn-item">
+                            <div class="button-items" ng-class="{'button-items-active':chose_type==0}" ng-click="chose_this_type(0)">基本信息
+                            </div>
+                            <div class="button-items" ng-class="{'button-items-active':chose_type==1}"ng-click="chose_this_type(1)">会议介绍
+                            </div>
+                            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==2}"ng-click="chose_this_type(2)">会议日程
+                            </div>
+                            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==3}"ng-click="chose_this_type(3)">会议嘉宾
+                            </div>
+                            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==4}"ng-click="chose_this_type(4)">邀请函
+                            </div>
+                        </div>
+                        <!--会议基本信息-->
+                        <div class="tab-content">
+                            <div class="content">
+                                <form role="form" name="resets0" novalidate  ng-show="chose_type==0">
+                                    <div class="meeting-container">
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>会议名称</label>
+                                            <input type="text" name="name" class="meeting-input" placeholder="请输入会议名称"
+                                                   ng-model="updates.name" required>
+                                            <div class="common-err mar-l" ng-show="resets0.name.$invalid && submitted">
+                                                这是一个必填字段
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>英文名称：</label>
+                                            <input type="text" name="name_english" class="meeting-input" placeholder="请输入会议英文名称"
+                                                   ng-model="updates.name_english">
+                                        </div>
+                                        <div class="form-item">
+                                            <label>会议banner图片：</label>
+                                            <input type="file" name="banner" id="banner" ng-click="banner()">
+                                        </div>
+                                        <p class="mar-l">备注：请上传尺寸为xxx*xxx的图片，支持jpg、png格式的图片</p>
+                                        <img ng-src="{{updates.banner}}"  alt="" class="head-photo"
+                                             ng-show="updates.banner!=undefined">
+                                        <div class="form-item">
+                                            <label>会议图标：</label>
+                                            <input type="file" name="head" id="icon" ng-click="icon()">
+                                        </div>
+                                        <p class="mar-l">备注：请上传尺寸为xxx*xxx的图片，支持jpg、png格式的图片</p>
+                                        <img ng-src="{{updates.icon}}" alt="" class="head-photo" id="icon"
+                                             ng-show="updates.icon!=undefined">
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>注册报名时间</label>
+                                            <input type="text" name="enroll_start" id="enroll_start" class="meeting-input" placeholder="请输入报名开始时间"
+                                                   ng-model="updates.enroll_start" required> ——
+                                            <input type="text" name="enroll_end" id="enroll_end" class="meeting-input" placeholder="请输入报名截止时间"
+                                                   ng-model="updates.enroll_end" required>
+                                            <div class="common-err mar-l"  ng-show="resets0.enroll_start.$invalid && submitted">
+                                                请输入开始时间
+                                            </div>
+                                            <div class="common-err mar-l" ng-show="resets0.enroll_end.$invalid && submitted">
+                                                请输入结束时间
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>会议举行时间</label>
+                                            <input type="text" id="time_start" name="time_start" class="meeting-input" placeholder="请输入会议开始时间"
+                                                   ng-model="updates.time_start" required> ——
+                                            <input type="text" id="time_end" name="time_end" class="meeting-input" placeholder="请输入会议截止时间"
+                                                   ng-model="updates.time_end" required>
+                                            <div class="common-err mar-l" ng-show="resets.time_start.$invalid && submitted">
+                                                请输入开始时间
+                                            </div>
+                                            <div class="common-err mar-l" ng-show="resets.time_end.$invalid && submitted">
+                                                请输入结束时间
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>现场报道时间</label>
+                                            <input type="text" id="attend_time" name="attend_time" class="meeting-input" placeholder="请输入现场报道时间"
+                                                   ng-model="updates.attend_time" required>
+                                            <div class="common-err mar-l" ng-show="resets0.attend_time.$invalid && submitted">
+                                                请输入现场报道时间
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>会议省份：</label>
+                                            <select ng-model="updates.province_id" class="meeting-input" ng-options="p.id as p.name for p in provinces" ng-change="chose_this_p(updates.province_id)"name="province" required>
+                                                <option value="">请选择省份</option>
+                                            </select>
+                                            <div class="common-err mar-l" ng-show="resets0.province.$invalid && submitted">
+                                                请选择会议省份
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>会议城市：</label>
+                                            <select ng-model="updates.city_id" class="meeting-input" name="city_id" ng-options="p.id as p.name for p in cities" required>
+                                                <option value="">请选择城市</option>
+                                            </select>
+                                            <div class="common-err mar-l" ng-show="resets0.city_id.$invalid && submitted">
+                                                请选择会议城市
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>详细地址：</label>
+                                            <input type="text"  name="address" class="meeting-input" placeholder="请输入会议详细地址"
+                                                   ng-model="updates.address" required>
+                                            <div class="common-err mar-l" ng-show="resets0.address.$invalid && submitted">
+                                                请输入会议详细地址
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>会场名称：</label>
+                                            <input type="text" name="venue_name" class="meeting-input" placeholder="请输入现场报道时间"
+                                                   ng-model="updates.venue_name" required>
+                                            <div class="common-err mar-l" ng-show="resets0.venue_name.$invalid && submitted">
+                                                请输入会场名称
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>联系人：</label>
+                                            <input type="text" name="contacts" class="meeting-input" placeholder="请输入联系人"
+                                                   ng-model="updates.contacts" required>
+                                            <div class="common-err mar-l" ng-show="resets0.contacts.$invalid && submitted">
+                                                请输入联系人
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>联系方式：</label>
+                                            <input type="text" name="mobile" class="meeting-input" placeholder="请输入联系方式"
+                                                   ng-model="updates.mobile" required>
+                                            <div class="common-err mar-l" ng-show="resets0.mobile.$invalid && submitted">
+                                                请输入联系方式
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>学分类型：</label>
+                                            <input type="radio" class="radio" name="is_credit" value="1" ng-model="updates.is_credit">学分制  <input type="radio" class="radio" name="is_credit" value="2" ng-model="updates.is_credit">非学分制
+                                            <div class="common-err mar-l" ng-show="resets0.is_credit.$invalid && submitted">
+                                                请选择学分类型
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-if="updates.is_credit == 1">
+                                            <label><span class="red">*</span>学分数：</label>
+                                            <input type="text" name="credis" class="meeting-input" placeholder="请输入学分数"
+                                                   ng-model="updates.credis" required>
+                                            <div class="common-err mar-l" ng-show="resets0.credis.$invalid && submitted">
+                                                请输入学分数
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>会议类型：</label>
+                                            <select  class="meeting-input" name="type" ng-model="updates.type" required>
+                                                <option value="">请选择</option>
+                                                <option value="年会">年会</option>
+                                                <option value="峰会">峰会</option>
+                                                <option value="交流会">交流会</option>
+                                                <option value="专题会">专题会</option>
+                                                <option value="论坛">论坛</option>
+                                                <option value="研讨会">研讨会</option>
+                                                <option value="学习班">学习班</option>
+                                                <option value="研修班">研修班</option>
+                                                <option value="展会">展会</option>
+                                                <option value="培训班">培训班</option>
+                                                <option value="取证班">取证班</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                            <div class="common-err mar-l" ng-show="resets0.type.$invalid && submitted">
+                                                请选择会议类型
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="red">*</span>所属学科：</label>
+                                            <select  class="meeting-input" name="subject" ng-model="updates.subject"required>
+                                                <option value="">请选择</option>
+                                                <option value="药学">药学</option>
+                                                <option value="临床药学">临床药学</option>
+                                            </select>
+                                            <div class="common-err mar-l" ng-show="resets0.subject.$invalid && submitted">
+                                                请选择所属学科
+                                            </div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button class="btn btn-default" ng-click="back()">取消</button>
+                                            <button class="btn btn-default" ng-click="next(resets0)">修改</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form role="form" name="reset" novalidate ng-show="chose_type==1">
+                                    <div class="meeting-container">
+                                        <div class="form-group">
+                                            <label>会议介绍：</label>
+                                            <input type="radio" class="radio" name="state" value="1"
+                                                   ng-model="updates_0.state" required>显示 <input type="radio"
+                                                                                                class="radio"
+                                                                                                name="state"
+                                                                                                value="2"
+                                                                                                ng-model="updates_0.state"
+                                                                                                required>隐藏
+                                            <div class="common-err mar-l"
+                                                 ng-show="reset.state.$invalid && submitted">
+                                                这是一个必填字段
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">页面中的展示位置：</label>
+                                            <input type="text" name="sort1" class="meeting-input" placeholder="请输入数字"
+                                                   ng-model="updates_0.sort" required ng-pattern="/^[0-9]+$/">
+                                            <div class="common-err mar-l" ng-show="reset.sort1.$invalid && submitted">
+                                                请输入数字
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;"><span class="red">*</span>文本：</label>
+                                            <div style="width:500px;" name="analysis" id="analysis1"></div>
+                                            <div class="common-err" ng-show="id_an && submitted">请填写文本内容</div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button class="btn btn-default" ng-click="back()" type="button">取消</button>
+                                            <button class="btn btn-default" type="submit" ng-click="next1(reset)">修改</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form role="form" name="resets" novalidate ng-if="chose_type==2">
+                                    <div class="meeting-container">
+                                        <div class="form-group">
+                                            <label>会议日程：</label>
+                                            <input type="radio" class="radio" name="state" value="1"
+                                                   ng-model="updates_1.state" required>显示
+                                            <input type="radio" class="radio" name="state" value="2" ng-model="updates_1.state" required>隐藏
+                                            <div class="common-err mar-l"
+                                                 ng-show="resets.state.$invalid && submitted">
+                                                这是一个必填字段
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">页面中的展示位置：</label>
+                                            <input type="text" name="sort2" class="meeting-input" placeholder="请输入数字"
+                                                   ng-model="updates_1.sort" required ng-pattern="/^[0-9]+$/">
+                                            <div class="common-err mar-l" ng-show="resets.sort2.$invalid && submitted">
+                                                请输入数字
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">会议日程表：</label>
+                                            <div class="day-container" ng-repeat="day in day_list track by $index">
+                                                <span>第{{day.days}}天：</span>
+                                                <img src="{{day.photo}}" alt="" style="width:100px;height:100px;">
+                                            </div>
+                                            <div class="add_day-container">
+                                                <button class="btn btn-default">继续添加日程</button>
+                                                <input type="file" name="add_day" id="add_day" ng-click="add_day()">
+                                            </div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button class="btn btn-default" ng-click="back()" type="button">取消</button>
+                                            <button class="btn btn-default" type="submit" ng-click="next2(resets)">修改</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form role="form" name="resets" novalidate ng-show="chose_type==3">
+                                    <div class="meeting-container">
+                                        <div class="form-group">
+                                            <label>会议日程：</label>
+                                            <input type="radio" class="radio" name="state" value="1"
+                                                   ng-model="updates_2.state" required>显示
+                                            <input type="radio" class="radio" name="state" value="2" ng-model="updates_2.state" required>隐藏
+                                            <div class="common-err mar-l"
+                                                 ng-show="resets.state.$invalid && submitted">
+                                                这是一个必填字段
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">页面中的展示位置：</label>
+                                            <input type="text" name="sort3" class="meeting-input" placeholder="请输入数字"
+                                                   ng-model="updates_2.sort" required ng-pattern="/^[0-9]+$/">
+                                            <div class="common-err mar-l" ng-show="resets.sort3.$invalid && submitted">
+                                                请输入数字
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">嘉宾列表：</label>
+                                            <div class="day-container" ng-repeat="image in images_list track by $index">
+                                                <img src="{{image.head}}" alt="" style="width:100px;height:100px;">
+                                                <p>姓名：{{image.name}}</p>
+                                                <div class="remark" ng-bind-html="image.remark|to_trusted"></div>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-default" ng-click="add_pers = 1" ng-show="add_pers!=1">添加嘉宾</button>
+                                            </div>
+                                            <div class="add_day-container" ng-show="add_pers">
+                                                <div class="form-group">
+                                                    <label style="width:auto;">嘉宾头像：</label>
+                                                    <button class="btn btn-default" type="button">上传头像</button>
+                                                    <input type="file" style="left: 73px;width: 81px;height: 35px;" name="add_day" id="add_person" ng-click="add_person()">
+                                                    <img ng-src="{{images_list_img}}" ng-show="images_list_img!=undefined" alt="" style="width:100px;height:100px;">
+                                                </div>
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="width:auto;">嘉宾姓名：</label>
+                                                        <input type="text" name="name" class="meeting-input" placeholder="请输入姓名"
+                                                               ng-model="per_name" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label style="width:auto;">嘉宾介绍：</label>
+                                                        <div style="width:500px;" name="analysis" id="analysis2"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn btn-default" ng-click="add_end_per()">确认添加</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button class="btn btn-default" ng-click="back()" type="button">取消</button>
+                                            <button class="btn btn-default" type="submit" ng-click="next3(resets)">修改</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form role="form" name="resets" novalidate ng-if="chose_type==4">
+                                    <div class="meeting-container">
+                                        <div class="form-group">
+                                            <label>邀请函：</label>
+                                            <input type="radio" class="radio" name="state4" value="1"
+                                                   ng-model="updates_3.state" required>显示 <input type="radio"
+                                                                                                class="radio"
+                                                                                                name="state4"
+                                                                                                value="2"
+                                                                                                ng-model="updates_3.state"
+                                                                                                required>隐藏
+                                            <div class="common-err mar-l"
+                                                 ng-show="resets.state4.$invalid && submitted">
+                                                这是一个必填字段
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">页面中的展示位置：</label>
+                                            <input type="text" name="sort4" class="meeting-input" placeholder="请输入数字"
+                                                   ng-model="updates_3.sort" required ng-pattern="/^[0-9]+$/">
+                                            <div class="common-err mar-l" ng-show="resets.sort4.$invalid && submitted">
+                                                请输入数字
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="width:auto;">邀请函：</label>
+                                            <div class="add_day-container">
+                                                <button class="btn btn-default" type="button"> 添加邀请函 </button>
+                                                <input style="width:100px;" type="file" name="add_invitation" id="add_invitation" ng-click="add_invitation()">
+                                                <img ng-src="{{updates_3.photo}}" ng-show="updates_3.photo!=undefined" alt="" style="width:100px;height:100px;">
+                                            </div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button class="btn btn-default" ng-click="back()" type="button">取消</button>
+                                            <button class="btn btn-default" type="submit" ng-click="next4(resets)">修改</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#analysis1,#analysis2,#analysis3').editable({
+            inlineMode: false,
+            alwaysBlank: true,
+            language: "zh_cn",
+            direction: "ltr",
+            autosave: true,
+            autosaveInterval: 2500,
+            saveParams: {postId: "123"},
+            spellcheck: true,
+            plainPaste: true,
+            enableScript: false,
+            imageUploadURL: '/editor/up/img.json',//上传到本地服务器
+            imageUploadParams: {id: "edit"},
+            imageDeleteURL: '/editor/del/img.json',//删除图片
+            imagesLoadURL: 'lib/load_images.php'//管理图片
+        }).on('editable.afterRemoveImage', function (e, editor, $img) {
+            editor.options.imageDeleteParams = {src: $img.attr('src')};
+            // Make the delete request
+            editor.deleteImage($img);
+        });
+    });
+</script>

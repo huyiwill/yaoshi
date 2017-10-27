@@ -1,0 +1,12 @@
+{
+  "require": {
+    "slim/slim": "^3.0",
+    "slim/php-view": "*",
+    "vrana/notorm": "dev-master",
+    "phpoffice/phpexcel": "*",
+    "aferrandini/phpqrcode": "1.0.1"
+  },
+  "config": {
+        "process-timeout": 1800
+  }
+}

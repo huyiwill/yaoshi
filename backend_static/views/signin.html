@@ -1,0 +1,30 @@
+<title>登录</title>
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/">中国药师技能考核系统</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg"></p>
+
+        <form id="login-form">
+            <div class="form-group has-feedback">
+                <input type="text" name="account" class="form-control account login-username" placeholder="账号" ng-model="account">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="passwd" class="form-control passwd" placeholder="密码" ng-model="pwd">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-12">
+                    <a type="submit" class="btn btn-primary btn-block btn-flat btn_login" ng-click="signin()">登录</a>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+    </div>
+    <!-- /.login-box-body -->
+</div>
+

@@ -1,0 +1,72 @@
+
+<title>添加成绩</title>
+
+<div class="addlist addGrade">
+    <div class="data-inner">
+        <h3 class="yellow">添加成绩</h3>
+        <form class="form" name="resets" novalidate>
+            <div class="form-item">
+                <label for="name">手机号</label>
+                <input type="text" name="name" placeholder="请输入手机号" id="name" ng-model="updates.name" required ng-maxlength="100">
+                <i class="delbtn" ng-show="updates.name.length>0" ng-click="updates.name=''"></i>
+                <p ng-show="resets.name.$invalid && submitted">手机号不正确，请重新输入</p>
+            </div>
+            <div class="form-item">
+                <label for="date">考生姓名</label>
+                <input id="dd" name="remark" type="text" class="birthday" placeholder="请输入考生姓名"  ng-model="updates.remark">
+                <i class="delbtn" ng-show="updates.remark.length>0" ng-click="updates.remark=''"></i>
+            </div>
+            <div class="form-item">
+                <label>考核时间</label>
+                <input id="start_time" type="text" class="birthday" placeholder="请选择考核时间" ng-model="updates.start_time" name="start_time"required> 
+                <p ng-show="resets.end_time.$invalid && submitted">请选择考核时间</p>
+            </div>
+            <div class="form-item">
+                <label for="name">单选题成绩</label>
+                <input type="text" name="pass_score" placeholder="请添加单选题成绩" id="name" ng-model="updates.pass_score" required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">请添加单选题成绩</p>
+            </div>
+            <div class="form-item">
+                <label for="name">多选题成绩</label>
+                <input type="text" name="pass_score" placeholder="请添加多选题成绩" id="name" ng-model="updates.pass_score" required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">请添加多选题成绩</p>
+            </div>
+            <div class="form-item">
+                <label for="name">处方审核成绩</label>
+                <input type="text" name="pass_score" placeholder="请添加处方审核成绩" id="name" ng-model="updates.pass_score" required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">请添加处方审核成绩</p>
+            </div>
+            <div class="form-item">
+                <label for="name">用药交代成绩</label>
+                <input type="text" name="pass_score" placeholder="请添加用药交代成绩" id="name" ng-model="updates.pass_score" required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">请添加用药交代成绩</p>
+            </div>
+            <div class="form-item">
+                <label for="name">问答题成绩</label>
+                <input type="text" name="pass_score" placeholder="请添加问答题成绩" id="name" ng-model="updates.pass_score" required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">请添加问答题成绩</p>
+            </div>
+            <div class="form-item">
+                <label for="name">其他成绩</label>
+                <input type="text" name="pass_score" placeholder="请添加其他成绩" id="name" ng-model="updates.pass_score" required>&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>
+                <p ng-show="resets.pass_score.$invalid && submitted">请添加其他成绩</p>
+            </div>
+            <div class="form-item">
+                <label for="name">总成绩</label>
+                <input type="text" name="time" placeholder="请添加总成绩" id="name" ng-model="updates.time" required ng-pattern="/^[0-9]+$/">&nbsp;&nbsp;&nbsp;分
+                <i class="delbtn" ng-show="updates.time.length>0" ng-click="updates.time=''"></i>
+                <p ng-show="resets.time.$invalid && submitted">请添加总成绩</p>
+            </div>
+            <div class="step">
+                <button class="last-step" ng-click="add_hass = 0">取消</button>
+                <button class="next-step" ng-click="chose(resets)">确定</button>
+            </div>
+        </form>
+    </div>
+</div>

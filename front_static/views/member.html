@@ -1,0 +1,125 @@
+<!-- content -->
+<div class="member" style="background: #f5f5f5;padding-top: 20px;min-height: 454px;">
+    <div class="member-bg">
+        <div class="member-bg-intro">
+            <ul>
+                <li><img src="front_static/assets/img/beauty.png" alt=""></li>
+                <li>
+                    <img src="front_static/assets/img/greyz.png" alt="">
+                    <p>{{sign_msg.nickname}}</p><br>
+                    <p>您还不是易百加会员</p>
+                </li>
+            </ul>
+            <div class="money">
+                <img src="front_static/assets/img/yelloz.png" alt="">
+                <p>易百加会员</p>
+                <span>￥<i>1</i><b>/1天</b></span>
+            </div>
+            <span class="member-btn" ng-click="mumber_audible()">立即开通会员</span>
+        </div>
+    </div>
+    <p class="member-word">会员特权</p>
+
+    <!-- 卡号开通 -->
+    <div class="mem-line mem-card" id="cardmem" ng-if="buy_mumber_audible">
+        <div class="title">开通账号：<p>{{sign_msg.mobile}}</p>（<b>{{sign_msg.nickname}}</b>）</div>
+        <div class="line"></div>
+        <div class="style" ng-init="online=0">开通方式：
+            <i class="circlebtn openbtn" ng-class="{'redbtn':online==1,'greybtn':online!=1}" ng-click="online=1"></i><p ng-click="online=1">线上开通</p>
+            <i class="circlebtn openbtn" ng-class="{'redbtn':online==0,'greybtn':online!=0}" ng-click="online=0"></i><p ng-click="online=0">卡号开通</p>
+        </div>
+        <form ng-show="online==0">
+            <div class="">
+                <label for="cardnum">会员卡号</label>
+                <input type="text" name="cardnum" id="cardnum" ng-model="cart_number">
+                <p>温馨提示：请输入您手中的会员卡上的12位卡号</p>
+            </div>
+            <!--<div class="">-->
+                <!--<label for="cardtime">会员有效期</label>-->
+                <!--<input type="text" name="cardtime" id="cardtime">天-->
+                <!--<p>温馨提示：自会员开通之日起x天之内可以享受会员特权。</p>-->
+            <!--</div>-->
+            <div class="">
+                <button id="cardbtn" ng-disabled="cart_number.length!=12" ng-click="chose_cart(cart_number)">立即开通</button>
+            </div>
+        </form>
+      <!--线上开通-->  
+        <div class="card" ng-show="online==1">
+            <div class="time">开通时长：
+                <i class="circlebtn greybtn openbtn" ng-class="{'redbtn':is_month == 1}" ng-click="chose_time(1)"></i>
+                <p>按月</p>
+                <i class="circlebtn greybtn openbtn" ng-class="{'redbtn':is_month == 2}" ng-click="chose_time(2)"></i>
+                <p>按年</p>
+                <!--<input type="text" class="month">月-->
+                <select name="" id="" class="month" ng-model='month' ng-show="is_month == 1" ng-change="nonth_change(month)">
+                    <option value="" selected>一个月</option>
+                    <option value="2">二个月</option>
+                    <option value="3">三个月</option>
+                    <option value="4">四个月</option>
+                    <option value="5">五个月</option>
+                    <option value="6">六个月</option>
+                    <option value="7">七个月</option>
+                    <option value="8">八个月</option>
+                    <option value="9">九个月</option>
+                    <option value="10">十个月</option>
+                    <option value="11">十一个月</option>
+                    <option value="12">十二个月</option>
+                </select>
+                <select class="month" ng-model='year' ng-if="is_month == 2" ng-change="year_change(year)">
+                    <option value="" selected>一年</option>
+                    <option value="2">二年</option>
+                    <option value="3">三年</option>
+                    <option value="4">四年</option>
+                    <option value="5">五年</option>
+                    <option value="6">六年</option>
+                    <option value="7">七年</option>
+                    <option value="8">八年</option>
+                    <option value="9">九年</option>
+                    <option value="10">十年</option>
+                    <option value="11">十一年</option>
+                    <option value="12">十二年</option>
+                </select>
+                <p class="date">有效期至{{is_date||0}}</p>
+            </div>
+            <div class="line"></div>
+            <div class="price">
+                <div class="orig-price">
+                    <p>原价：</p>
+                    <span>￥{{price_Original}}/月</span>
+                </div>
+                <div class="limit-time">
+                    <p>限时优惠：</p>
+                    <span>￥{{price_Discount}}/月</span>
+                </div>
+                <div class="orig-price">
+                    <p>积分抵扣：（积分抵1%）</p>
+                    <span ng-if="show_score_btn">￥{{coore_dis|number:2}}</span>
+                    <span ng-if="!show_score_btn">不满足抵扣条件</span>
+                    <button ng-if="show_score_btn" id="co" class="close-button" class="close-button" ng-class="{'open-button':is_score,'close-button':!is_score}" ng-click="score_d()"></button>
+                </div>
+                <div class="orig-price">
+                    <p>当前账户积分：</p>
+                    <span class="yellow">{{sign_msg.score||0}}</span>
+                </div>
+                <div class="orig-price">
+                    <p>应付金额：</p>
+                    <span class="yellow">￥{{price_Paid|number:2}}</span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="money" ng-init="pay_order=1">支付方式：
+                <button ng-class="{'hasbuy':pay_order==1,'nobuy':pay_order!=1}" ng-click="pay_order=1"><img src="front_static/assets/img/zhibuy.png" alt="">支付宝</button>
+                <button ng-class="{'hasbuy':pay_order==2,'nobuy':pay_order!=2}" ng-click="pay_order=2"><img src="front_static/assets/img/weibuy.png" alt="">微信支付</button>
+            </div>
+            <div class="setup" ng-click="pay_end(pay_order)">立即开通</div>
+        </div>
+    </div>
+</div>
+<div class="popup-fade-container wei_login_container" ng-if="logn_wei_show" ng-click="close_proup()">
+
+</div>
+<div id="login_container" class="popup-fade" ng-if="logn_wei_show" style="height: 340px;">
+    <img ng-src="{{choses_types}}" alt="" style="width: 300px; height: 300px;">
+    <p style="font-size: 20px;text-align: center;">请使用微信扫一扫支付</p>
+</div>
+<div ng-bind-html="choses_type_alipay|to_trusted"></div>
