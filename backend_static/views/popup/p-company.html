@@ -1,0 +1,46 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label for="name">单位名称</label>
+            <input type="text" name="name" placeholder="请输入单位名称" id="name"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>省</label>
+            <select ng-model="updates.province_id" ng-options="p.id as p.name for p in provinces"
+                    ng-change="chose_this(updates.province_id)" name="provinces" required>
+                <option value="">请选择省份</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.provinces.$invalid && submitted">请选择省份</div>
+        </div>
+        <div class="form-item" ng-if="cities!=undefined">
+            <label>市</label>
+            <select ng-model="updates.city_id" name="city_id" ng-options="p.id as p.name for p in cities" required>
+                <option value="">请选择城市</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.city_id.$invalid && submitted">请选择城市</div>
+        </div>
+        <div class="form-item">
+            <label>单位类型</label>
+            <select ng-model="updates.type" required name="type">
+                <option value="">请选择</option>
+                <option value="2">学校</option>
+                <option value="3">事业单位</option>
+                <option value="4">私营企业</option>
+                <option value="1">其他</option>
+            </select>
+            <!--<input type="radio" class="radio" name="six" value="1" ng-model="updates.type">其他-->
+            <!--<input type="radio" class="radio" name="six" value="2" ng-model="updates.type">学校-->
+            <!--<input type="radio" class="radio" name="six" value="3" ng-model="updates.type">事业单位-->
+            <!--<input type="radio" class="radio" name="six" value="4" ng-model="updates.type">私营企业-->
+        </div>
+        <div class="common-err proup-left" ng-show="resets.type.$invalid && submitted">请选择单位类型</div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

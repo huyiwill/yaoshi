@@ -1,0 +1,369 @@
+
+<title>选择题目</title>
+
+<!--单选题-->
+<div class="choice choice1">
+
+    <div class="list-top color-y">
+        归属题库<select>
+                    <option selected="selected">请选择</option>
+                    <option>公共题库</option>
+                    <option>药师题库</option>
+                </select>
+        题干<input class="ti-gan" type="text" ng-model="search_name">
+        药学分类<select>
+                    <option selected="selected">请选择</option>
+                    <option>药理</option>
+                    <option>法规</option>
+                </select>
+    </div>
+    <!--选择药学分类后显示，否则隐藏-->
+    <div class="list-top color-t" style="display: none;">    
+        治疗领域<select>
+                    <option selected="selected">请选择</option>
+                    <option>内科</option>
+                    <option>外科</option>
+                </select>
+        药理<select>
+                    <option selected="selected">请选择</option>
+                    <option>呼吸系统药物</option>
+                    <option>皮肤系统药物</option>
+             </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    <div class="list-top color-t" style="display: none;">    
+        法规<select>
+                    <option selected="selected">请选择</option>
+                    <option>互联网</option>
+                    <option>药品广告</option>
+             </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    <div class="list-body">
+        <h3>目前题库共有10道符合您查询要求的题目，没有您想要的题目，可以自行<a class="yellow" ui-sref="main.bs.examAdd({id:state_id,chose_type:state_type})">添加题目</a>哦！</h3>
+        <div class="choice-items">
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p><i class="yellow">（已考核3次）</i>
+                <ul>
+                    <li><input type="radio">A.xxxx</li>
+                    <li><input type="radio">B.xxxx</li>
+                    <li><input type="radio">C.xxxx</li>
+                    <li><input type="radio">D.xxxx</li>
+                </ul>
+            </div>
+            <div>
+                <input type="checkbox"><p>23. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <ul>
+                    <li><input type="radio">A.xxxx</li>
+                    <li><input type="radio">B.xxxx</li>
+                    <li><input type="radio">C.xxxx</li>
+                    <li><input type="radio">D.xxxx</li>
+                </ul>
+            </div>
+            <div>
+                <input type="checkbox"><p>24. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <ul>
+                    <li><input type="radio">A.xxxx</li>
+                    <li><input type="radio">B.xxxx</li>
+                    <li><input type="radio">C.xxxx</li>
+                    <li><input type="radio">D.xxxx</li>
+                </ul>
+            </div> 
+        </div>
+        <h3>您已选择<b class="yellow">2</b>道单选题，每道题目的分数
+            <select>
+                    <option selected="selected">0.5</option>
+                    <option>1.0</option>
+                    <option>1.5</option>
+                    <option>2.0</option>
+                    <option>2.5</option>
+             </select>分
+        </h3>
+        <div class="step">
+                <button class="last-step button-check" ng-click="add_hass = 0">取消</button>
+                <button class="next-step button-check" ng-click="chose(resets)">生成</button>
+        </div>
+    </div>
+</div>
+
+<!--多选题-->
+<div class="choice choice2" style="display: none;">
+    <div class="list-top color-y">
+        归属题库<select>
+                    <option selected="selected">请选择</option>
+                    <option>公共题库</option>
+                    <option>药师题库</option>
+                </select>
+        题干<input class="ti-gan" type="text" ng-model="search_name">
+        药学分类<select>
+                    <option selected="selected">请选择</option>
+                    <option>药理</option>
+                    <option>法规</option>
+                </select>
+    </div>
+    <!--选择药学分类后显示，否则隐藏-->
+    <div class="list-top color-t" style="display: none;">    
+        治疗领域<select>
+                    <option selected="selected">请选择</option>
+                    <option>内科</option>
+                    <option>外科</option>
+                </select>
+        药理<select>
+                    <option selected="selected">请选择</option>
+                    <option>呼吸系统药物</option>
+                    <option>皮肤系统药物</option>
+             </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    <div class="list-top color-t" style="display: none;">    
+        法规<select>
+                    <option selected="selected">请选择</option>
+                    <option>互联网</option>
+                    <option>药品广告</option>
+             </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    
+    <div class="list-body">
+        <h3>目前题库共有10道符合您查询要求的题目，没有您想要的题目，可以自行<a class="yellow">添加题目</a>哦！</h3>
+        <div class="choice-items">
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <ul>
+                    <li><input type="checkbox">A.xxxx</li>
+                    <li><input type="checkbox">B.xxxx</li>
+                    <li><input type="checkbox">C.xxxx</li>
+                    <li><input type="checkbox">D.xxxx</li>
+                    <li><input type="checkbox">E.xxxx</li>
+                </ul>
+            </div>
+            <div>
+                <input type="checkbox"><p>23. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p><i class="yellow">（已考核3次）</i>
+                <ul>
+                    <li><input type="checkbox">A.xxxx</li>
+                    <li><input type="checkbox">B.xxxx</li>
+                    <li><input type="checkbox">C.xxxx</li>
+                    <li><input type="checkbox">D.xxxx</li>
+                    <li><input type="checkbox">E.xxxx</li>
+                </ul>
+            </div>
+            <div>
+                <input type="checkbox"><p>24. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <ul>
+                    <li><input type="checkbox">A.xxxx</li>
+                    <li><input type="checkbox">B.xxxx</li>
+                    <li><input type="checkbox">C.xxxx</li>
+                    <li><input type="checkbox">D.xxxx</li>
+                    <li><input type="checkbox">E.xxxx</li>
+                </ul>
+            </div> 
+        </div>
+        <h3>您已选择<b class="yellow">2</b>道多选题，每道题目的分数
+            <select>
+                    <option selected="selected">0.5</option>
+                    <option>1.0</option>
+                    <option>1.5</option>
+                    <option>2.0</option>
+                    <option>2.5</option>
+             </select>分
+        </h3>
+        <div class="step">
+                <button class="last-step button-check" ng-click="add_hass = 0">取消</button>
+                <button class="next-step button-check" ng-click="chose(resets)">生成</button>
+        </div>
+    </div>
+</div>
+
+<!--处方审核题-->
+<div class="choice h-auto choice3" style="display: none;">
+    <div class="list-top color-y">
+        归属题库<select>
+                    <option selected="selected">请选择</option>
+                    <option>公共题库</option>
+                    <option>药师题库</option>
+                </select>
+        题干<input class="ti-gan" type="text" ng-model="search_name">
+        药理<select>
+                    <option selected="selected">请选择</option>
+                    <option>呼吸系统药物</option>
+                    <option>皮肤系统药物</option>
+             </select>
+        治疗领域<select>
+                    <option selected="selected">请选择</option>
+                    <option>内科</option>
+                    <option>外科</option>
+                </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    
+    <div class="list-body">
+        <h3>目前题库共有10道符合您查询要求的题目，没有您想要的题目，可以自行<a class="yellow">添加题目</a>哦！</h3>
+        <div class="choice-items">
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <img src="front_static/assets/img/activity.png" alt="">
+                <div>
+                    <span>答题要点：</span>
+                    <ol>
+                       <li>1.xxxxxxxxx</li>
+                       <li>2.xxxxxxxxx</li>
+                    </ol>
+                </div>
+               分数：<input type="text">分
+            </div>
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <img src="front_static/assets/img/activity.png" alt="">
+                <div>
+                    <span>答题要点：</span>
+                    <ol>
+                       <li>1.xxxxxxxxx</li>
+                       <li>2.xxxxxxxxx</li>
+                    </ol>
+                </div>
+               分数：<input type="text">分
+            </div>
+        </div>
+        <h3>您已选择<b class="yellow">2</b>道题目，总的分数为16分</h3>
+        <div class="step">
+                <button class="last-step button-check" ng-click="add_hass = 0">取消</button>
+                <button class="next-step button-check" ng-click="chose(resets)">生成</button>
+        </div>
+    </div>
+</div>
+
+<!--用药交代题-->
+<div class="choice h-auto choice4" style="display: none;">
+    <div class="list-top color-y">
+        归属题库<select>
+                    <option selected="selected">请选择</option>
+                    <option>公共题库</option>
+                    <option>药师题库</option>
+                </select>
+        题干<input class="ti-gan" type="text" ng-model="search_name">
+        药理<select>
+                    <option selected="selected">请选择</option>
+                    <option>呼吸系统药物</option>
+                    <option>皮肤系统药物</option>
+             </select>
+        治疗领域<select>
+                    <option selected="selected">请选择</option>
+                    <option>内科</option>
+                    <option>外科</option>
+                </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    
+    <div class="list-body">
+        <h3>目前题库共有10道符合您查询要求的题目，没有您想要的题目，可以自行<a class="yellow">添加题目</a>哦！</h3>
+        <div class="choice-items">
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <img src="front_static/assets/img/activity.png" alt="">
+                <div>
+                    <span>答题要点：</span>
+                    <ol>
+                       <li>1.xxxxxxxxx</li>
+                       <li>2.xxxxxxxxx</li>
+                    </ol>
+                </div>
+               分数：<input type="text">分
+            </div>
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <img src="front_static/assets/img/activity.png" alt="">
+                <div>
+                    <span>答题要点：</span>
+                    <ol>
+                       <li>1.xxxxxxxxx</li>
+                       <li>2.xxxxxxxxx</li>
+                    </ol>
+                </div>
+               分数：<input type="text">分
+            </div>
+        </div>
+        <h3>您已选择<b class="yellow">2</b>题目，总的分数为16分</h3>
+        <div class="step">
+                <button class="last-step button-check" ng-click="add_hass = 0">取消</button>
+                <button class="next-step button-check" ng-click="chose(resets)">生成</button>
+        </div>
+    </div>
+</div>
+
+<!--用药情景咨询题-->
+<div class="choice h-auto choice5" style="display: none;">
+    <div class="list-top color-y">
+        归属题库<select>
+                    <option selected="selected">请选择</option>
+                    <option>公共题库</option>
+                    <option>药师题库</option>
+                </select>
+        题干<input class="ti-gan" type="text" ng-model="search_name">
+        药理<select>
+                    <option selected="selected">请选择</option>
+                    <option>呼吸系统药物</option>
+                    <option>皮肤系统药物</option>
+             </select>
+        治疗领域<select>
+                    <option selected="selected">请选择</option>
+                    <option>内科</option>
+                    <option>外科</option>
+                </select>
+        <button class="button-click" ng-click="soso(search_name)">查询</button>
+    </div>
+    
+    <div class="list-body">
+        <h3>目前题库共有10道符合您查询要求的题目，没有您想要的题目，可以自行<a class="yellow">添加题目</a>哦！</h3>
+        <div class="choice-items">
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <div>
+                    <span>答题要点：</span>
+                    <ol>
+                       <li>1.xxxxxxxxx</li>
+                       <li>2.xxxxxxxxx</li>
+                    </ol>
+                </div>
+            </div>
+            <div>
+                <input type="checkbox"><p>22. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                <div>
+                    <span>答题要点：</span>
+                    <ol>
+                       <li>1.xxxxxxxxx</li>
+                       <li>2.xxxxxxxxx</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <h3>您已选择<b class="yellow">2</b>道题目，总的分数为16分</h3>
+        <div class="step">
+                <button class="last-step button-check" ng-click="add_hass = 0">取消</button>
+                <button class="next-step button-check" ng-click="chose(resets)">生成</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

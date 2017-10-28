@@ -1,0 +1,16 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label for="name">分组名称</label>
+            <input type="text" name="name" placeholder="请输入分组名称" id="name"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

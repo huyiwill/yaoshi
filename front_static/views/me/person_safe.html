@@ -1,0 +1,26 @@
+<title>安全设置</title>
+<div class="data-inner person_data">
+    <div class="personal">
+        <form class="form" name="resets" ng-submit="submitForm(resets.$valid)" novalidate>
+          
+            <div class="form-item">
+                <label class="marginl-8">当前密码</label>
+                <input type="password" name="password1" placeholder="请输入当前密码" l ng-model="pwd_old" ng-maxlength="16" ng-minlength="6" required ng-pattern="/^[0-9a-zA-Z]+$/">
+                <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">请输入6-16位数字、字母或者组合</div>
+            </div>
+           <div class="form-item">
+                <label class="marginl-8">新密码</label>
+               <input type="password" name="password2" placeholder="请输入新密码" l ng-model="pwd_01" ng-maxlength="16" ng-minlength="6" required ng-pattern="/^[0-9a-zA-Z]+$/">
+               <div class="common-err proup-left" ng-show="resets.password2.$invalid && submitted">请输入6-16位数字、字母或者组合</div>
+            </div>
+            <div class="form-item">
+                <label class="marginl-8">确认密码</label>
+                <input type="password" name="password3" placeholder="请再次输入新密码" l ng-model="pwd_02" ng-maxlength="16" ng-minlength="6" required ng-pattern="/^[0-9a-zA-Z]+$/">
+                <div class="common-err proup-left" ng-show="resets.password3.$invalid && submitted">请输入6-16位数字、字母或者组合</div>
+            </div>
+            <div class="step">
+                <button class="person-save yellow-bg">提交</button>
+            </div>
+        </form>
+    </div>
+</div>

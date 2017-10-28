@@ -1,0 +1,96 @@
+<div class="popup-container resign">
+    <p class="bgmsg">新增会员</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label>会员数量</label>
+            <input type="text" name="number" placeholder="请输入会员数量"
+                   ng-model="updates.number" required ng-pattern="/^[1-9]*[0-9]+$/">
+            <div class="common-err proup-left" ng-show="resets.number.$invalid && submitted">请输入会员数量</div>
+        </div>
+        <div class="form-item">
+            <label>会员卡类型</label>
+            <select ng-model="updates.type_id" name="type_id" ng-options="p.id as p.name for p in mt_list" required>
+                <option value="">请选择</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.type_id.$invalid && submitted">请选择会员卡类型</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

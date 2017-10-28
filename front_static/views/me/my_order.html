@@ -1,0 +1,72 @@
+<div class="my-order">
+    <ul class="jifen-top">
+        <li class="yellow" ng-click="score_type()" ng-class="{'yellow':types == undefined}">全部订单</li>
+        <li ng-click="score_type(1)" ng-class="{'yellow':types == 1}">待付款</li>
+        <li ng-click="score_type(2)" ng-class="{'yellow':types == 2}">已付款</li>
+    </ul>
+    <!--全部订单-->
+    <div class="order-items">
+        <table>
+            <thead>
+                <tr>
+                    <th class="ta-left" width="100px;">订单名称</th>
+                    <th width="200px;">创建时间</th>
+                    <th>状态</th>
+                    <th>实付（元）</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="l in assess_list track by $index">
+                    <td class="ta-left">{{l.product_subject}}</td>
+                    <td>{{l.create_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="red" ng-if="l.state == 1">未付款</td>
+                    <td ng-if="l.state == 2">已付款</td>
+                    <td class="blue">{{l.cash_payment}}</td>
+                    <td ng-if="l.state == 2">---</td>
+                    <td ng-if="l.state == 1">
+                        <button class="yellow">立即支付</button>
+                        <button class="grey" ng-click="delete(l.id)">取消支付</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pages" ng-show="total_page>1">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

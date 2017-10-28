@@ -1,0 +1,197 @@
+<title>新增试卷-有题目</title>
+<div class="assessGrade examTitle">
+    <!--公用头部-->
+    <div class="grade-content">
+        <!--查看答案-->
+        <div class="see-answer">
+            <div class="radio" >
+                <h1 class="topic">一、单选题（共{{list.subject_one[0].score||0}}分*{{list.subject_one.length||0}}题）
+                    <button class="yellow" ui-sref="main.bs.examChoice({id:text_id,chose_type:1})">选择单选题</button>
+                </h1>
+                <div class="choice-items" ng-show="list.subject_one.length>0" ng-repeat="dan in list.subject_one">
+                    <img class="up" src="front_static/assets/img/up.png" alt=""
+                         ng-click="chose_change(dan.id,$index,1)">
+                    <img class="down" src="front_static/assets/img/down.png" alt=""
+                         ng-click="chose_change(dan.id,$index,1)">
+                    <div>
+                        <p>{{$index+1}}.{{dan.name}}？</p>
+                        <button class="huang marginl-80" ng-click="delete(dan.id,1)">删除</button>
+                        <button class="huang" ng-click="edit(dan.id,1)">编辑</button>
+                        <ul ng-repeat="chose in dan.choice">
+                            <li><input type="radio" ng-checked="chose.key==dan.right_key" disabled>{{chose.key}}:{{chose.value}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="checkbox">
+                <h1 class="topic">二、多选题（共{{list.subject_two[0].score||0}}分*{{list.subject_two.length||0}}题）
+                    <button class="yellow" ui-sref="main.bs.examChoice({id:text_id,chose_type:2})">选择多选题</button>
+                </h1>
+                <div class="choice-items" ng-show="list.subject_two.length>0" ng-repeat="dan in list.subject_two">
+                    <img class="up" src="front_static/assets/img/up.png" alt=""
+                         ng-click="chose_change(dan.id,$index,2)">
+                    <img class="down" src="front_static/assets/img/down.png" alt=""
+                         ng-click="chose_change(dan.id,$index,2)">
+                    <div>
+                        <p>{{$index+1}}.{{dan.name}}？</p>
+                        <button class="huang marginl-80" ng-click="delete(dan.id,2)">删除</button>
+                        <button class="huang" ng-click="edit(dan.id,2)">编辑</button>
+                        <ul ng-repeat="chose in dan.choice">
+                            <li><input type="checkbox" name="radio" ng-checked="dan.right_key.indexOf(chose.key)!=-1"
+                                       disabled>{{chose.key}}:{{chose.value}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shenhe">
+                <h1 class="topic">三、处方审核题（共{{list.subject_four[0].score||0}}分*{{list.subject_four.length||0}}题）
+                    <button class="yellow" ui-sref="main.bs.examChoice({id:text_id,chose_type:4})">选择处方审核题</button>
+                </h1>
+                <div class="choice-items" ng-show="list.subject_four.length>0" ng-repeat="dan in list.subject_four">
+                    <img class="up" src="front_static/assets/img/up.png" alt=""
+                         ng-click="chose_change(dan.id,$index,4)">
+                    <img class="down" src="front_static/assets/img/down.png" alt=""
+                         ng-click="chose_change(dan.id,$index,4)">
+                    <div>
+                        <p>{{$index+1}}.{{dan.name}}？</p>
+                        <button class="huang marginl-80" ng-click="delete(dan.id,4)">删除</button>
+                        <button class="huang" ng-click="edit(dan.id,4)">编辑</button>
+                        <img ng-src="{{c.photo}}" alt="" style="max-width: 200px;max-height: 200px;">
+                        <div class="answe1 yellow">答案要点：
+                            <img ng-src="{{dan.photo}}" class="head-photo">
+                            <div>参考答案：
+                                <div ng-bind-html="dan.right_key|to_trusted"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shenhe">
+                <h1 class="topic">四、用药交代题（共{{list.subject_five[0].score||0}}分*{{list.subject_five.length||0}}题）
+                    <button class="yellow" ui-sref="main.bs.examChoice({id:text_id,chose_type:5})">选择用药交代题</button>
+                </h1>
+                <div class="choice-items" ng-show="list.subject_five.length>0" ng-repeat="dan in list.subject_five">
+                    <img class="up" src="front_static/assets/img/up.png" alt=""
+                         ng-click="chose_change(dan.id,$index,5)">
+                    <img class="down" src="front_static/assets/img/down.png" alt=""
+                         ng-click="chose_change(dan.id,$index,5)">
+                    <div>
+                        <p>{{$index+1}}.{{dan.name}}？</p>
+                        <button class="huang marginl-80" ng-click="delete(dan.id,5)">删除</button>
+                        <button class="huang" ng-click="edit(dan.id,5)">编辑</button>
+                        <img ng-src="{{c.photo}}" alt="" style="max-width: 200px;max-height: 200px;">
+                        <div class="answe1 yellow">答案要点：
+                            <img ng-src="{{dan.photo}}" class="head-photo">
+                            <div>参考答案：
+                                <div ng-bind-html="dan.right_key|to_trusted"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shenhe">
+                <h1 class="topic">五、用药情景咨询题（{{wen_score}}分，共{{wen.length||0}}题）
+                    <button class="yellow" ui-sref="main.bs.examChoice({id:text_id,chose_type:6})">选择问答题</button>
+                </h1>
+                <div class="choice-items" ng-show="list.subject_six.length>0" ng-repeat="dan in list.subject_six">
+                    <img class="up" src="front_static/assets/img/up.png" alt=""
+                         ng-click="chose_change(dan.id,$index,6)">
+                    <img class="down" src="front_static/assets/img/down.png" alt=""
+                         ng-click="chose_change(dan.id,$index,6)">
+                    <div>
+                        <p>{{$index+1}}.{{dan.name}}？</p>
+                        <button class="huang marginl-80" ng-click="delete(dan.id,6)">删除</button>
+                        <button class="huang" ng-click="edit(dan.id,6)">编辑</button>
+                        <div class="answe1 yellow">答案要点：
+                            <div>参考答案：
+                                <div ng-bind-html="dan.right_key|to_trusted"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btns">
+                <div class="step">
+                    <button class="last-step" ng-click="choses()">取消</button>
+                    <button class="center-step yellow-bg"  ui-sref="main.bs.examSee({id:text_id})">预览</button>
+                    <button class="next-step" ng-click="choses()">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--编辑-->
+<div class="bg_popup popup-fade-container" ng-if="chose_this >0"></div>
+<div class="container_popup popup-fade linkExam" ng-if="chose_this >0">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">修改题目</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+        <div class="addlist examChoice">
+            <div class="data-inner">
+                <form class="form" name="resets" ng-submit="submitForm(resets.$valid)" novalidate ng-if="chose_this == 1">
+                    <div class="form-item">
+                        <label for="name">题干</label>
+                        <input type="text" name="name" placeholder="题干" id="name" ng-model="updates.name" required
+                               ng-maxlength="100">
+                        <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+                    </div>
+                    <div class="form-item" ng-repeat="d in updates.choice">
+                        <label>选项{{d.key}}</label>
+                        <input id="dd" name="remark" type="text" class="birthday" ng-model="d.value">
+                        <p><input type="radio" style="margin-left: 72px; width: auto;display: inline-block"  class="radio" name="danxuan" value="{{d.key}}" ng-checked="d.key==updates.right_key" ng-model="updates.right_key">正确答案</p>
+                    </div>
+                    <!--点击 添加题目按钮，按钮消失答案E出现-->
+                    <!--<button class="button-click add-btn">添加题目</button>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>答案E</label>-->
+                        <!--<input id="dd" name="remark" type="text" class="birthday" ng-model="updates.remark">-->
+                        <!--<p><input type="checkbox">正确答案</p>-->
+                    <!--</div>-->
+                </form>
+            </div>
+        </div>
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="close_fade()">取消</button>
+                <button class="next-step" ng-click="chose()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--删除-->
+<!--<div class="container_popup popup-fade">-->
+<!--<div class="top_title">-->
+<!--<div class="title-left"></div>-->
+<!--<div class="tltle-center">删除分组</div>-->
+<!--<div class="title-close" ng-click="close_fade()"></div>-->
+<!--</div>-->
+<!--<div class="container_text">-->
+<!--<p class="groupDel">确定删除分组吗？</p>-->
+<!--<div class="btns">-->
+<!--<div class="step">-->
+<!--<button class="last-step" ng-click="close_fade()">取消</button>-->
+<!--<button class="next-step" ng-click="end">确定</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+
+
+        

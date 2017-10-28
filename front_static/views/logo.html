@@ -1,0 +1,238 @@
+<div class="logohtml" style="background: #f5f5f5;padding: 20px 0;min-height: 454px;position: relative;">
+    <!-- resign -->
+    <div class="resign zhuce" ng-show="signup==1">
+        <div class="form-title">
+            <h1>注 册</h1>
+            <p>已有易百加账号，请直接<a id="resign-logo" ui-sref="main.logo({signin:1})">登录</a></p>
+        </div>
+        <form class="form" name="resign" ng-submit="submitForm(resign.$valid)" novalidate>
+            <div class="form-item">
+                <label for="phone">手机号</label>
+                <input type="tel" name="phone" ng-model="signup_phone" placeholder="请输入手机号" id="phone"
+                       ng-pattern="/^1+\d{10}$/"><i class="delbtn"
+                                                    ng-show="!resign.phone.$valid||signup_phone.length==11"
+                                                    ng-click="signup_phone='';"></i>
+                <span class="common-error" ng-show="resign.phone.$dirty && !resign.phone.$valid">手机号不正确，请重新输入</span>
+
+                <!--<img src="front_static/assets/img/del.png" alt="">-->
+            </div>
+            <div class="form-item">
+                <label for="name">昵称</label>
+                <input type="text" name="name" ng-model="signup_nick" placeholder="请输入昵称" id="name">
+                <i class="delbtn" ng-show="signup_nick.length>0" ng-click="signup_nick='';"></i>
+            </div>
+            <div class="form-item veri">
+                <label for="verification">验证码</label>
+                <input type="text" name="verification" placeholder="请输入验证码" id="verification" ng-model="signup_yzm"
+                       ng-pattern="/^[0-9]*$/">
+                <button ng-click="chose_yzm()" ng-disabled="signup_phone.length!=11||time>0">{{time}}</button>
+                <i class="delbtn" ng-show="!resign.verification.$valid||signup_yzm.length>0"
+                   ng-click="signup_yzm='';"></i>
+                <span class="common-error"
+                      ng-show="resign.verification.$dirty && !resign.verification.$valid">验证码不正确</span>
+            </div>
+            <div class="form-item">
+                <label for="password1">密码</label>
+                <input type="password" name="password1" placeholder="6-16位数字、字母或者组合" id="password1"
+                       ng-model="signup_pwd" ng-minlength="6" ng-maxlength="16">
+                <i class="delbtn" ng-show="!resign.password1.$valid||signup_pwd.length>0" ng-click="signup_pwd='';"></i>
+                <span class="common-error"
+                      ng-show="resign.password1.$dirty && !resign.password1.$valid">密码格式不正确，请重新输入</span>
+            </div>
+            <div class="form-item">
+                <label for="password2">确认密码</label>
+                <input type="password" name="password2" placeholder="请再次输入密码" id="password2" ng-model="signup_pwds"
+                       ng-minlength="6" ng-maxlength="16">
+                <i class="delbtn" ng-show="!resign.password2.$valid||signup_pwds.length>0"
+                   ng-click="signup_pwds='';"></i>
+                <span class="common-error"
+                      ng-show="resign.password2.$dirty && !resign.password2.$valid">密码格式不正确，请重新输入</span>
+                <span class="common-error"
+                      ng-show="resign.password2.$dirty && resign.password2.$valid && signup_pwd!=signup_pwds">两次输入的密码不一致</span>
+            </div>
+            <div class="form-item invi">
+                <label for="invitation">邀请码</label>
+                <input type="text" name="invitation" placeholder="邀请码" id="invitation" ng-model="invitation">
+                <i class="delbtn" ng-show="invitation.length>0" ng-click="invitation=''"></i>
+                <p>邀请码：若您有邀请码，请填写您的邀请码</p>
+            </div>
+            <div class="form-item deal" ng-init="agree=true">
+                <span class="dealcheck" ng-class="{'dealcheck':agree==true}" ng-click="agree=!agree"></span>
+                <p>阅读并同意《<a href="/agreement.html" target="_blank">易百加用户服务协议</a>》</p>
+            </div>
+            <div class="form-item submit">
+                <!--<input type="submit" value="注册" >-->
+                <button ng-click="signup_submit()"
+                        ng-disabled="signup_phone.length!=11||signup_nick==''||signup_nick==undefined||signup_pwd==undefined||signup_pwd.length<6||signup_pwd.length>16||signup_pwds==undefined||signup_pwds.length<6||signup_pwds.length>16||signup_pwd!=signup_pwds||resign.$invalid||!agree">
+                    注册
+                </button>
+            </div>
+        </form>
+        <div class="form-weixin" ng-show="u_msg">
+            <div class="word">
+                <span></span>
+                <p>使用第三方账号注册</p>
+                <span></span>
+            </div>
+            <img src="front_static/assets/img/weixin.png" alt="" ng-click="choseChart()">
+        </div>
+    </div>
+
+    <!-- 第三方登录 -->
+    <div class="other" ng-show="other==1">
+        <div class="other-text">
+            <div class="pic">
+                <img ng-src="{{u_msg.headimgurl}}" alt="">
+            </div>
+            <h5>{{u_msg.nickname}}</h5>
+            <p>为了更好的为您服务，请关联一个易百加账号</p>
+            <ul>
+                <li>
+                    <p>已有易百加账号？</p>
+                    <span ng-click="u_signin()">关联账号</span>
+                </li>
+                <li>
+                    <p>还没有易百加账号？</p>
+                    <span><a ng-click="u_signup()">立即注册账号</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="wei_login_container" ng-show="logn_wei_show" ng-click="logn_wei_show=!logn_wei_show">
+
+    </div>
+    <div id="login_container" ng-show="logn_wei_show">
+
+    </div>
+    <!-- 绑定已有账号 -->
+
+    <div class="resign bd_msg" ng-show="resign==1">
+        <div class="form-title">
+            <h1>绑定账号</h1>
+        </div>
+        <form class="form" name="resigns" ng-submit="submitForm(resigns.$valid)" novalidate>
+            <div class="form-item">
+                <label for="phone">手机号</label>
+                <input type="tel" name="phone" placeholder="请输入手机号" id="phone" ng-model="bd_phone"
+                       ng-pattern="/^1+\d{10}$/">
+                <i class="delbtn" ng-show="!resigns.phone.$valid||bd_phone.length==11"
+                   ng-click="bd_phone='';"></i>
+                <span class="common-error" ng-show="resigns.phone.$dirty && !resigns.phone.$valid">手机号不正确，请重新输入</span>
+            </div>
+            <div class="form-item">
+                <label for="password1">密码</label>
+                <input type="password" name="password1" placeholder="6-16位数字、字母或者组合" id="password1"
+                       ng-model="bd_pwd" ng-minlength="6" ng-maxlength="16">
+                <i class="delbtn" ng-show="!resigns.password1.$valid||bd_pwd.length>0" ng-click="bd_pwd='';"></i>
+                <span class="common-error"
+                      ng-show="resigns.password1.$dirty && !resigns.password1.$valid">密码格式不正确，请重新输入</span>
+            </div>
+            <div class="form-item submit">
+                <button ng-disabled="bd_phone.length!=11||bd_pwd==undefined||bd_pwd.length<6||bd_pwd.length>16||resigns.$invalid"
+                        ng-click="bd_in()">立即绑定
+                </button>
+            </div>
+        </form>
+        <p class="back" ng-click="bd_back()">返回上一步</p>
+    </div>
+
+    <!-- login -->
+
+    <div class="resign" ng-show="signins==1">
+        <div class="form-title">
+            <h1>登 录</h1>
+            <p style="margin-top: 14px;">还没有易百加账号？请前往<a ui-sref="main.logo({signin:0})" class="yellow">注册</a></p>
+        </div>
+        <form class="form" name="signin" ng-submit="submitForm(signin.$valid)" novalidate>
+            <div class="form-item">
+                <label for="phone">手机号</label>
+                <input type="tel" name="phone" placeholder="请输入手机号" id="phone" ng-model="signin_phone"
+                       ng-pattern="/^1+\d{10}$/">
+                <i class="delbtn" ng-show="!signin.phone.$valid||signin_phone.length==11"
+                   ng-click="signin_phone='';"></i>
+                <span class="common-error" ng-show="signin.phone.$dirty && !signin.phone.$valid">手机号不正确，请重新输入</span>
+            </div>
+            <div class="form-item">
+                <label for="password1">密码</label>
+                <input type="password" name="password1" placeholder="6-16位数字、字母或者组合" id="password1"
+                       ng-model="signin_pwd" ng-minlength="6" ng-maxlength="16">
+                <i class="delbtn" ng-show="!signin.password1.$valid||signin_pwd.length>0" ng-click="signin_pwd='';"></i>
+                <span class="common-error"
+                      ng-show="signin.password1.$dirty && !signin.password1.$valid">密码格式不正确，请重新输入</span>
+            </div>
+            <div class="form-item deal">
+                <span class="dealcheck"></span>
+                <p>记住密码</p>
+                <a ui-sref="main.logo({signin:'reset'})" class="forget"
+                   style="display: inline-block;color: #f15917;float: right;margin-right: 56px;">忘记密码？</a>
+            </div>
+            <div class="form-item submit">
+                <button ng-disabled="signin_phone.length!=11||signin_pwd==undefined||signin_pwd.length<6||signin_pwd.length>16||signin.$invalid"
+                        ng-click="sign_in()">登录
+                </button>
+                <!--<input type="submit" value="登录">-->
+                <!--<p style="margin-top: 14px;">还没有易百加账号？请前往<a ui-sref="main.logo({signin:0})" class="yellow">注册</a></p>-->
+            </div>
+        </form>
+        <div class="form-weixin">
+            <div class="word">
+                <span></span>
+                <p>使用第三方账号登录</p>
+                <span></span>
+            </div>
+            <img src="front_static/assets/img/weixin.png" alt="" ng-click="choseChart()">
+        </div>
+    </div>
+
+    <!-- reset -->
+    <div class="reset resign" ng-show="reset==1">
+        <div class="form-title">
+            <h1>重置密码</h1>
+        </div>
+        <form class="form" name="resets" ng-submit="submitForm(resets.$valid)" novalidate>
+            <div class="form-item">
+                <label for="phone">手机号</label>
+                <input type="text" name="phone" placeholder="请输入手机号" id="phone" ng-model="reset_phone"
+                       ng-pattern="/^1+\d{10}$/">
+                <i class="delbtn" ng-show="!resets.phone.$valid||reset_phone.length==11" ng-click="reset_phone='';"></i>
+                <span class="common-error" ng-show="resets.phone.$dirty && !resets.phone.$valid">手机号不正确，请重新输入</span>
+            </div>
+            <div class="form-item veri">
+                <label for="verification">验证码</label>
+                <input type="text" name="verification" placeholder="请输入验证码" id="verification"
+                       ng-model="reset_verification" ng-pattern="/^[0-9]*$/">
+                <button ng-click="reset_yzm()" ng-disabled="reset_phone.length!=11||time>0">{{time}}</button>
+                <i class="delbtn" ng-show="!resets.verification.$valid||reset_verification.length>0"
+                   ng-click="reset_verification='';"></i>
+                <span class="common-error"
+                      ng-show="resets.verification.$dirty && !resets.verification.$valid">验证码不正确</span>
+            </div>
+            <div class="form-item">
+                <label for="password1">密码</label>
+                <input type="password" name="password1" placeholder="6-16位数字、字母或者组合" id="password1" ng-model="reset_pwd"
+                       ng-minlength="6" ng-maxlength="16">
+                <i class="delbtn" ng-show="!resets.password1.$valid||reset_pwd.length>0" ng-click="reset_pwd='';"></i>
+                <span class="common-error"
+                      ng-show="resets.password1.$dirty && !resets.password1.$valid">密码格式不正确，请重新输入</span>
+            </div>
+            <div class="form-item">
+                <label for="password2">确认密码</label>
+                <input type="password" name="password2" placeholder="请再次输入密码" id="password2" ng-model="reset_pwds"
+                       ng-minlength="6" ng-maxlength="16">
+                <i class="delbtn" ng-show="!resets.password2.$valid||reset_pwds.length>0" ng-click="reset_pwds='';"></i>
+                <span class="common-error"
+                      ng-show="resets.password2.$dirty && !resets.password2.$valid">密码格式不正确，请重新输入</span>
+                <span class="common-error"
+                      ng-show="resets.password2.$dirty && resets.password2.$valid&&reset_pwd!=reset_pwds">两次输入的密码不一致</span>
+            </div>
+            <div class="form-item submit">
+                <button ng-disabled="reset_phone.length!=11||reset_verification==''||reset_verification==undefined||reset_pwd==undefined||reset_pwd.length<6||reset_pwd.length>16||reset_pwds==undefined||reset_pwds.length<6||reset_pwds.length>16||reset_pwds!=reset_pwd||resets.$invalid"
+                        ng-click="reset_submit()">确定
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

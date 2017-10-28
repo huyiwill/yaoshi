@@ -1,0 +1,182 @@
+<title>试卷详情</title>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header" style="width:100%;">
+        <h1 style="text-align:left;">
+            试卷管理
+            <small>list</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">试卷管理</li>
+            <li>试卷详情</li>
+        </ol>
+        <!-- Main content -->
+        <section class="content">
+            <form class="form" name="resets" ng-submit="submitForm(resets.$valid)" novalidate>
+                <div style="font-size: 23px;">试卷名称:{{text_names}}</div>
+            </form>
+            <div class="row" style="margin: 15px;">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>一、单选题（共{{list.subject_one[0].score||0}}分*{{list.subject_one.length||0}}题）</div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button class="btn btn-default redcolor" ui-sref="main.addYearChose({id:text_id,chose_type:1})">添加单选题</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 5px 0;" ng-show="list.subject_one.length>0" ng-repeat="dan in list.subject_one">
+                        <div class="arrows">
+                            <img src="backend_static/assets/img/up.png" alt="" ng-click="chose_change(dan.id,$index,1)">
+                            <img src="backend_static/assets/img/down.png" alt=""ng-click="chose_change(dan.id,$index,1)">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="top">
+                                {{$index+1}}.{{dan.name}}？
+                            </div>
+                            <div class="buttom">
+                                <span ng-repeat="chose in dan.choice">
+                                   <input type="radio" ng-checked="chose.key==dan.right_key" disabled>{{chose.key}}:{{chose.value}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-6">
+                            <button class="btn btn-default bluecolor" ng-click="edit(dan.id,1)">编辑</button>
+                            <button class="btn btn-default redcolor" ng-click="delete(dan.id,1)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin: 15px;">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>二、多选题（共{{list.subject_two[0].score||0}}分*{{list.subject_two.length||0}}题）</div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button class="btn btn-default redcolor" ui-sref="main.addYearChose({id:text_id,chose_type:2})">添加多选题</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 5px 0;" ng-show="list.subject_two.length>0" ng-repeat="dan in list.subject_two">
+                        <div class="arrows">
+                            <img src="backend_static/assets/img/up.png" alt=""ng-click="chose_change(dan.id,$index,2)">
+                            <img src="backend_static/assets/img/down.png" alt=""ng-click="chose_change(dan.id,$index,2)">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="top">
+                                {{$index+1}}.{{dan.name}}？
+                            </div>
+                            <div class="buttom">
+                                <span ng-repeat="chose in dan.choice">
+                                   <input type="checkbox" name="radio" ng-checked="dan.right_key.indexOf(chose.key)!=-1" disabled>{{chose.key}}:{{chose.value}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-6">
+                            <button class="btn btn-default bluecolor" ng-click="edit(dan.id,2)">编辑</button>
+                            <button class="btn btn-default redcolor" ng-click="delete(dan.id,2)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 15px;">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>三、处方审核题（共{{list.subject_four[0].score||0}}分*{{list.subject_four.length||0}}题）</div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button class="btn btn-default redcolor" ui-sref="main.addYearChose({id:text_id,chose_type:4})">添加处方审核题</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 5px 0;" ng-show="list.subject_four.length>0" ng-repeat="dan in list.subject_four">
+                        <div class="arrows">
+                            <img src="backend_static/assets/img/up.png" alt=""ng-click="chose_change(dan.id,$index,4)">
+                            <img src="backend_static/assets/img/down.png" alt=""ng-click="chose_change(dan.id,$index,4)">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="top">
+                                {{$index+1}}.{{dan.name}}？
+                            </div>
+                            <div class="buttom">
+                                <img ng-src="{{dan.photo}}" class="head-photo">
+                                <div>参考答案：<div ng-bind-html="dan.right_key|to_trusted"></div></div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-6">
+                            <button class="btn btn-default bluecolor" ng-click="edit(dan.id,4)">编辑</button>
+                            <button class="btn btn-default redcolor" ng-click="delete(dan.id,4)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 15px;">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>四、用药交代题（共{{list.subject_five[0].score||0}}分*{{list.subject_five.length||0}}题）</div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button class="btn btn-default redcolor" ui-sref="main.addYearChose({id:text_id,chose_type:5})">用药交代题</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 5px 0;" ng-show="list.subject_five.length>0" ng-repeat="dan in list.subject_five">
+                        <div class="arrows">
+                            <img src="backend_static/assets/img/up.png" alt=""ng-click="chose_change(dan.id,$index,5)">
+                            <img src="backend_static/assets/img/down.png" alt=""ng-click="chose_change(dan.id,$index,5)">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="top">
+                                {{$index+1}}.{{dan.name}}？
+                            </div>
+                            <div class="buttom">
+                                <img ng-src="{{dan.photo}}" class="head-photo">
+                                <div>参考答案：<div ng-bind-html="dan.right_key|to_trusted"></div></div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-6">
+                            <button class="btn btn-default bluecolor" ng-click="edit(dan.id,5)">编辑</button>
+                            <button class="btn btn-default redcolor" ng-click="delete(dan.id,5)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 15px;">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>五、问答题（共{{list.subject_six[0].score||0}}分*{{list.subject_six.length||0}}题）</div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button class="btn btn-default redcolor" ui-sref="main.addYearChose({id:text_id,chose_type:6})">问答题</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 5px 0;" ng-show="list.subject_six.length>0" ng-repeat="dan in list.subject_six">
+                        <div class="arrows">
+                            <img src="backend_static/assets/img/up.png" alt=""ng-click="chose_change(dan.id,$index,6)">
+                            <img src="backend_static/assets/img/down.png" alt=""ng-click="chose_change(dan.id,$index,6)">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="top">
+                                {{$index+1}}.{{dan.name}}？
+                            </div>
+                            <div class="buttom">
+                                <div>参考答案：<div ng-bind-html="dan.right_key|to_trusted"></div></div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-6">
+                            <button class="btn btn-default bluecolor" ng-click="edit(dan.id,6)">编辑</button>
+                            <button class="btn btn-default redcolor" ng-click="delete(dan.id,6)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

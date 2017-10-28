@@ -1,0 +1,35 @@
+<title>考核</title>
+
+<div class="bg-620">
+    <!--无考核-->
+    <div class="assessno" ng-show="assess_list.length==0">
+        <img src="front_static/assets/img/assessno.png" alt="">
+        <p>暂无考核哦！</p>
+    </div>
+    <!--有考核-->
+    <div class="assesshas" ng-show="assess_list.length!=0">
+        <div class="bg-inner">
+            <ul>
+                <li ng-repeat="list in assess_list track by $index">
+                    <img src="front_static/assets/img/assesspic.png" alt="">
+                    <span>
+                        <h5>{{list.assess_info.name}}</h5>
+                        <p>考核时间： {{list.assess_info.start_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}-{{list.assess_info.end_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                        <p>状态：<b class="yellow">{{list_state[list.state]}}</b></p>
+                    </span>
+                    <button class="button-beat yellow-bg" ui-sref="main.assessStart({id:list.id,name:list.assess_info.name,assess_id:list.assess_id})" ng-if="list.state==1">开始考试</button>
+                    <button class="button-beat yellow-bg" ng-if="list.state==2||list.state==3" disabled>查看成绩</button>
+                    <button class="button-beat yellow-bg" ui-sref="main.assessGrade({id:list.id})" ng-if="list.state==4">查看成绩</button>
+                    <button class="button-beat yellow-bg" ng-if="list.state==5" disabled="">已结束</button>
+                </li>
+            </ul>
+        </div>
+        <!--分页器-->
+        <div class="pages" ng-show="assess_list.length!=0">
+            <div class="tcdPageCode" style="display: inline-block;">
+            </div>
+            <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                    ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+        </div>
+    </div>
+</div>

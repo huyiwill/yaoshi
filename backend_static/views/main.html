@@ -1,0 +1,253 @@
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>易百加</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>易百加管理后台</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">切换导航</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/backend_static/assets/img/avatar5.png" class="user-image" alt="User Image">
+                            <span class="hidden-xs">管理员</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="/backend_static/assets/img/avatar5.png" class="img-circle" alt="User Image">
+
+                                <p>
+                                    {{sign_msg.nickname}}
+                                    <small>{{sign_msg.create_time*1000|date:"yyyy-MM-dd"}} 加入</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <!-- <div class="pull-left">
+                                  <a href="#" class="btn btn-default btn-flat">简介</a>
+                                </div> -->
+                                <div>
+                                    <a ng-click="signout()" style="display: block;margin: auto;"
+                                       class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="/backend_static/assets/img/avatar5.png" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{sign_msg.nickname}}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" >
+                <li class="header">主导航</li>
+                <li class="treeview" ng-class="{'active':root == '/admin.html'}">
+                    <a href="#" >
+                        <i class="fa fa-signal"></i> <span>管理员列表</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/admin.html'}"><a ui-sref="main.admin">
+                            <i class="fa fa-circle-o"></i> 管理员列表</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/role.html'}">
+                    <a href="#">
+                        <i class="fa fa-signal"></i> <span>角色设置</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/role.html'}"><a ui-sref="main.role">
+
+                            <i class="fa fa-circle-o"></i>角色设置</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/user.html'||root == '/group.html'}">
+                    <a href="#">
+                        <i class="fa fa-signal"></i> <span>用户列表</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/user.html'}"><a ui-sref="main.user">
+                            <i class="fa fa-circle-o"></i>用户列表</a>
+                        </li>
+                        <li ng-class="{'active':root == '/group.html'}"><a ui-sref="main.group">
+                            <i class="fa fa-circle-o"></i>用户分组</a>
+                        </li>
+                    </ul>
+
+                </li>
+                
+                <li class="treeview" ng-class="{'active':root == '/questions.html'||root == '/subject.html'||root == '/test.html'||root == '/category.html'}">
+                    <a href="#">
+                        <i class="fa fa-signal"></i> <span>题库管理</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/category.html'}"><a ui-sref="main.category">
+                            <i class="fa fa-circle-o"></i>分类管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/questions.html'}"><a ui-sref="main.questions">
+                            <i class="fa fa-circle-o"></i>题库管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/subject.html'}"><a ui-sref="main.subject">
+                            <i class="fa fa-circle-o"></i>题目管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/test.html'}"><a ui-sref="main.test">
+                            <i class="fa fa-circle-o"></i>历年真题</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/tg.html'||root =='/test_common.html'}">
+                    <a href="#">
+                        <i class="fa fa-signal"></i> <span>试卷管理</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/tg.html'}"><a ui-sref="main.tg">
+
+                            <i class="fa fa-circle-o"></i>试卷分组</a>
+                        </li>
+
+                        <li ng-class="{'active':root == '/test_common.html'}"><a ui-sref="main.test_common">
+                            <i class="fa fa-circle-o"></i>试卷列表</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/hospital.html'||root == '/department.html'||root == '/major.html'||root == '/company.html'}">
+                    <a>
+                        <i class="fa fa-signal"></i> <span>系统</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/hospital.html'}"><a ui-sref="main.hospital">
+                            <i class="fa fa-circle-o"></i>医院管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/company.html'}"><a ui-sref="main.company">
+                            <i class="fa fa-circle-o"></i>单位管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/department.html'}"><a ui-sref="main.department">
+                            <i class="fa fa-circle-o"></i>科室管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/major.html'}"><a ui-sref="main.major">
+                            <i class="fa fa-circle-o"></i>专业管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/assessment_list.html'||root == '/examination_management.html'||root == '/achievement_management.html'}">
+                    <a>
+                        <i class="fa fa-signal"></i> <span>考核</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/assessment_list.html'}"><a ui-sref="main.assessment_list">
+                            <i class="fa fa-circle-o"></i>考核记录</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/meeting.html'}">
+                    <a>
+                        <i class="fa fa-signal"></i> <span>会议</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/meeting.html'}"><a ui-sref="main.meeting">
+                            <i class="fa fa-circle-o"></i>会议管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" ng-class="{'active':root == '/online_list.html'||root == '/membership.html'||root == '/member.html'}">
+                    <a>
+                        <i class="fa fa-signal"></i> <span>运营管理</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li ng-class="{'active':root == '/online_list.html'}"><a ui-sref="main.online_list">
+                            <i class="fa fa-circle-o"></i>线上实战</a>
+                        </li>
+                        <li ng-class="{'active':root == '/membership.html'}"><a ui-sref="main.membership">
+                            <i class="fa fa-circle-o"></i>会员卡类型管理</a>
+                        </li>
+                        <li ng-class="{'active':root == '/member.html'}"><a ui-sref="main.member">
+                            <i class="fa fa-circle-o"></i>会员卡管理</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+
+    <div ui-view ng-cloak scroll>
+        <!-- 加载模块区域 -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer navbar-fixed-bottom">
+        <strong>Copyright © 2017-2018 易百加.</strong> All rights
+        reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <!-- <div class="control-sidebar-bg"></div> -->
+</div>
+<div id="loading" class="loading-panel">
+    <div class="box">
+        <i class="fa fa-refresh fa-spin"></i>
+        <span class="tip">
+       正在加载 · · ·
+    </span>
+    </div>
+</div>

@@ -1,0 +1,573 @@
+<title>题目上传</title>
+<!--添加单选题-->
+<div class="addlist">
+    <div class="data-inner">
+        <form class="form title-upload" name="resetss" novalidate>
+            <div class="form-item">
+                <label for="name">题干</label>
+                <input type="text" name="name" id="name" ng-model="updates.name"
+                       required
+                       ng-maxlength="100">
+                <p class="hint">注：处方题干中需要包含处方中信息患者年龄、性别、诊断（疾病）</p>
+                <div class="common-err" ng-show="resetss.name.$invalid && submitted">这是一个必填字段</div>
+            </div>
+            <div class="form-item">
+                <label>题目类型</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="1">单选题</option>
+                    <option value="2">多选题</option>
+                    <option value="3">处方审核题</option>
+                    <option value="4">用药交代题</option>
+                    <option value="5">问答题</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-item">
+                <label>答案A</label>
+                <input name="a_ans" ng-model="updates.a_ans" required>
+                <p><i class="circlebtn redclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.a_ans.$invalid && submitted">请填写答案A</div>
+            </div>
+            <div class="form-item">
+                <label>答案B</label>
+                <input type="text" name="b_ans" ng-model="updates.b_ans" required>
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.b_ans.$invalid && submitted">请填写答案B</div>
+            </div>
+            <div class="form-item">
+                <label>答案C</label>
+                <input type="text" name="c_ans" ng-model="updates.c_ans" required>
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.c_ans.$invalid && submitted">请填写答案C</div>
+            </div>
+            <div class="form-item">
+                <label>答案D</label>
+                <input type="text" name="d_ans" ng-model="updates.d_ans" required>
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.d_ans.$invalid && submitted">请填写答案D</div>
+            </div>
+            <div class="common-err" ng-show="resetss.danxuan.$invalid && submitted">请选择一个正确答案</div>
+            <div class="form-item">
+                <label>适用人群</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="">请选择</option>
+                    <option value="2">药师</option>
+                    <option value="3">医生</option>
+                    <option value="4">护士</option>
+                    <option value="5">学生</option>
+                    <option value="1">其他</option>
+                </select>
+                <div class="common-err" ng-show="resetss.role.$invalid && submitted">请选择适合人群</div>
+            </div>
+            <div class="form-item">
+                <label>药学分类</label>
+                <select ng-model="updates.pharmacy_id" id="pharmacy_id"
+                        ng-bind-html="category|to_trusted" ng-change="changed()" name="asdd">
+                    <option value="">请选择</option>
+                    <option value="1">药理</option>
+                    <option value="2">法规</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-group">
+                <label>解析：</label>
+                <div style="width:500px;" name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+           <div class="step marginl-56">
+                <button class="button-click grey2-bg">取消</button>
+                <button class="button-click yellow-bg">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--添加多选题-->
+<div class="addlist" ng-show="chose_type==2">
+    <div class="data-inner">
+        <form class="form title-upload" name="resetss" novalidate>
+            <div class="form-item">
+                <label for="name">题干</label>
+                <input type="text" name="name" id="name" ng-model="updates.name"
+                       required
+                       ng-maxlength="100">
+                <p class="hint">注：处方题干中需要包含处方中信息患者年龄、性别、诊断（疾病）</p>
+                <div class="common-err" ng-show="resetss.name.$invalid && submitted">这是一个必填字段</div>
+            </div>
+            <div class="form-item">
+                <label>题目类型</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="1">单选题</option>
+                    <option value="2">多选题</option>
+                    <option value="3">处方审核题</option>
+                    <option value="4">用药交代题</option>
+                    <option value="5">问答题</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-item">
+                <label>答案A</label>
+                <input name="a_ans" ng-model="updates.a_ans" required>
+                <p><i class="circlebtn redclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.a_ans.$invalid && submitted">请填写答案A</div>
+            </div>
+            <div class="form-item">
+                <label>答案B</label>
+                <input type="text" name="b_ans" ng-model="updates.b_ans" required>
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.b_ans.$invalid && submitted">请填写答案B</div>
+            </div>
+            <div class="form-item">
+                <label>答案C</label>
+                <input type="text" name="c_ans" ng-model="updates.c_ans" required>
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.c_ans.$invalid && submitted">请填写答案C</div>
+            </div>
+            <div class="form-item inline-block">
+                <label>答案D</label>
+                <input type="text" name="d_ans" ng-model="updates.d_ans" required>
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+                <div class="common-err" ng-show="resetss.d_ans.$invalid && submitted">请填写答案D</div>
+            </div>
+            <div class="common-err" ng-show="resetss.danxuan.$invalid && submitted">请选择一个正确答案</div>
+            <button class="button-click add-title huang-bg">添加题目</button>
+            <div class="form-item">
+                <label>答案E</label>
+                <input id="dd" name="remark" type="text" ng-model="updates.remark">
+                <p><i class="circlebtn greyclick"></i>正确答案</p>
+            </div>
+            <div class="form-item">
+                <label>适用人群</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="">请选择</option>
+                    <option value="2">药师</option>
+                    <option value="3">医生</option>
+                    <option value="4">护士</option>
+                    <option value="5">学生</option>
+                    <option value="1">其他</option>
+                </select>
+                <div class="common-err" ng-show="resetss.role.$invalid && submitted">请选择适合人群</div>
+            </div>
+            <div class="form-item">
+                <label>药学分类</label>
+                <select ng-model="updates.pharmacy_id" id="pharmacy_id"
+                        ng-bind-html="category|to_trusted" ng-change="changed()" name="asdd">
+                    <option value="">请选择</option>
+                    <option value="1">药理</option>
+                    <option value="2">法规</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-group">
+                <label>解析：</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+           <div class="step marginl-56">
+                <button class="button-click grey2-bg">取消</button>
+                <button class="button-click yellow-bg">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--添加处方审核题-->
+<div class="addlist" ng-show="chose_type==3">
+    <div class="data-inner">
+        <form class="form" name="resets4" novalidate>
+            <div class="form-item">
+                <label for="name">题干</label>
+                <input type="text" name="name" ng-model="updates.name" required
+                       ng-maxlength="100">
+                <p class="hint">注：题干中需要的信息患者年龄、性别、诊断（疾病）</p>
+                <div class="common-err" ng-show="resets4.name.$invalid && submitted">这是一个必填字段</div>
+            </div>
+            <div class="form-item">
+                <label>题目类型</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="1">单选题</option>
+                    <option value="2">多选题</option>
+                    <option value="3">处方审核题</option>
+                    <option value="4">用药交代题</option>
+                    <option value="5">问答题</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="status form-item">
+                <div class="pic">
+                    <label for="name">处方</label>
+                    <div class="plus">
+                        <input type="file" id="photo" ng-click="photo()">
+                    </div>
+                    <img id="head" ng-src="{{updates.photo}}" alt="" style="width:100px;height: 100px;"
+                         ng-show="updates.photo != undefined">
+                    <div class="common-err" ng-show="updates.photo == undefined && submitted">请上传图片</div>
+                    <p class="hint marginl-72">注：上传的图片不得大于xM，尺寸</p>
+                </div>
+            </div>
+             <div class="form-group">
+                <label>答案</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+             <div class="form-group">
+                <label>解析</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+            <div class="form-item">
+                <p class="rz blue marginl-26">更多 >></p>
+            </div>
+            <!--点击显示更多-->
+            <div class="loadmore">
+                <div class="form-item">
+                    <p class="hint">* 处方中患者信息收集</p>
+                    <label for="otnerhostipal">性别</label>
+                    <i class="circlebtn redbtn margint-10" ng-class="{'redbtn':otnerhostipal==1,'greybtn':otnerhostipal!=1}" ng-click="isOtner(1)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(1)" role="button" tabindex="0">男</b>
+                    <i class="circlebtn greybtn margint-10" ng-class="{'redbtn':otnerhostipal==2,'greybtn':otnerhostipal!=2}" ng-click="isOtner(2)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(2)" role="button" tabindex="0">女</b>
+                </div>
+                <div class="form-item">
+                    <label for="name">年龄</label>
+                    <input type="text" name="name" ng-model="updates.name" required
+                           ng-maxlength="100"> 岁
+                    <p class="hint">备注：若患者的年龄小于1岁，请以小数表示患者的年龄</p>
+                </div>
+                <div class="form-item">
+                    <label>科室</label>
+                    <select name="role" ng-model="updates.role" required>
+                        <option value="">请选择</option>
+                        <option value="2">内科</option>
+                        <option value="3">外科</option>
+                        <option value="4">神经科</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label>临床诊断</label>
+                    <textarea></textarea>
+                </div>
+                <div class="form-item">
+                    <label for="">费用</label>
+                    <i class="circlebtn redbtn margint-10" ng-class="{'redbtn':otnerhostipal==1,'greybtn':otnerhostipal!=1}" ng-click="isOtner(1)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(1)" role="button" tabindex="0">公费</b>
+                    <i class="circlebtn greybtn margint-10" ng-class="{'redbtn':otnerhostipal==2,'greybtn':otnerhostipal!=2}" ng-click="isOtner(2)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(2)" role="button" tabindex="0">自费</b>
+                </div>
+                <div class="form-item">
+                    <label for="">R</label>
+                    <div class="account-table">
+                       <table>
+                           <thead>
+                               <tr class="formjl">
+                                   <th width="132px;">药品名称（规格）</th>
+                                   <th>剂量</th>
+                                   <th>给药途径</th>
+                                   <th>频率</th>
+                                   <th>疗程</th>
+                                   <th>数量</th>
+                                   <th>价格（元）</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                               </tr>
+                           </tbody>
+                           <tfoot>
+                               <tr>
+                                   <td>
+                                        <button class="blue">继续添加</button>
+                                        <button class="yellow">删除</button>
+                                   </td>
+                                   <td></td><td></td><td></td><td></td><td></td><td></td>
+                               </tr>
+                           </tfoot>
+                       </table>
+                   </div>
+                </div>
+            </div>
+                
+             <div class="step marginl-56 talign-left">
+                <button class="button-click grey2-bg">取消</button>
+                <button class="button-click yellow-bg">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--添加用药交代题-->
+<div class="addlist" ng-show="chose_type==4">
+    <div class="data-inner">
+        <form class="form" name="resets4" novalidate>
+            <div class="form-item">
+                <label for="name">题干</label>
+                <input type="text" name="name" ng-model="updates.name" required
+                       ng-maxlength="100">
+                <p class="hint">注：题干中需要的信息患者年龄、性别、诊断（疾病）</p>
+                <div class="common-err" ng-show="resets4.name.$invalid && submitted">这是一个必填字段</div>
+            </div>
+            <div class="form-item">
+                <label>题目类型</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="1">单选题</option>
+                    <option value="2">多选题</option>
+                    <option value="3">处方审核题</option>
+                    <option value="4">用药交代题</option>
+                    <option value="5">问答题</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="status form-item">
+                <div class="pic">
+                    <label for="name">处方</label>
+                    <div class="plus">
+                        <input type="file" id="photo" ng-click="photo()">
+                    </div>
+                    <img id="head" ng-src="{{updates.photo}}" alt="" style="width:100px;height: 100px;"
+                         ng-show="updates.photo != undefined">
+                    <div class="common-err" ng-show="updates.photo == undefined && submitted">请上传图片</div>
+                    <p class="hint marginl-72">注：上传的图片不得大于xM，尺寸</p>
+                </div>
+            </div>
+           <div class="form-group">
+                <label>答案</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+            
+            <div class="form-item">
+                <label>适用人群</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="">请选择</option>
+                    <option value="2">药师</option>
+                    <option value="3">医生</option>
+                    <option value="4">护士</option>
+                    <option value="5">学生</option>
+                    <option value="1">其他</option>
+                </select>
+                <div class="common-err" ng-show="resetss.role.$invalid && submitted">请选择适合人群</div>
+            </div>
+            <div class="form-item">
+                <label>药学分类</label>
+                <select ng-model="updates.pharmacy_id" id="pharmacy_id"
+                        ng-bind-html="category|to_trusted" ng-change="changed()" name="asdd">
+                    <option value="">请选择</option>
+                    <option value="1">药理</option>
+                    <option value="2">法规</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-group">
+                <label>解析</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+            <div class="form-item">
+                <p class="rz blue marginl-26">更多 >></p>
+            </div>
+            <!--点击显示更多-->
+            <div class="loadmore">
+                <div class="form-item">
+                    <p class="hint">* 处方中患者信息收集</p>
+                    <label for="otnerhostipal">性别</label>
+                    <i class="circlebtn redbtn margint-10" ng-class="{'redbtn':otnerhostipal==1,'greybtn':otnerhostipal!=1}" ng-click="isOtner(1)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(1)" role="button" tabindex="0">男</b>
+                    <i class="circlebtn greybtn margint-10" ng-class="{'redbtn':otnerhostipal==2,'greybtn':otnerhostipal!=2}" ng-click="isOtner(2)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(2)" role="button" tabindex="0">女</b>
+                </div>
+                <div class="form-item">
+                    <label for="name">年龄</label>
+                    <input type="text" name="name" ng-model="updates.name" required
+                           ng-maxlength="100"> 岁
+                    <p class="hint">备注：若患者的年龄小于1岁，请以小数表示患者的年龄</p>
+                </div>
+                <div class="form-item">
+                    <label>科室</label>
+                    <select name="role" ng-model="updates.role" required>
+                        <option value="">请选择</option>
+                        <option value="2">内科</option>
+                        <option value="3">外科</option>
+                        <option value="4">神经科</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label>临床诊断</label>
+                    <textarea></textarea>
+                </div>
+                <div class="form-item">
+                    <label for="">费用</label>
+                    <i class="circlebtn redbtn margint-10" ng-class="{'redbtn':otnerhostipal==1,'greybtn':otnerhostipal!=1}" ng-click="isOtner(1)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(1)" role="button" tabindex="0">公费</b>
+                    <i class="circlebtn greybtn margint-10" ng-class="{'redbtn':otnerhostipal==2,'greybtn':otnerhostipal!=2}" ng-click="isOtner(2)" role="button" tabindex="0"></i><b class="sex" ng-click="isOtner(2)" role="button" tabindex="0">自费</b>
+                </div>
+                <div class="form-item">
+                    <label for="">R</label>
+                    <div class="account-table">
+                       <table>
+                           <thead>
+                               <tr class="formjl">
+                                   <th width="132px;">药品名称（规格）</th>
+                                   <th>剂量</th>
+                                   <th>给药途径</th>
+                                   <th>频率</th>
+                                   <th>疗程</th>
+                                   <th>数量</th>
+                                   <th>价格（元）</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                               </tr>
+                           </tbody>
+                           <tfoot>
+                               <tr>
+                                   <td>
+                                        <button class="blue">继续添加</button>
+                                        <button class="yellow">删除</button>
+                                   </td>
+                                   <td></td><td></td><td></td><td></td><td></td><td></td>
+                               </tr>
+                           </tfoot>
+                       </table>
+                   </div>
+                </div>
+            </div>
+             <div class="step marginl-56 talign-left">
+                <button class="button-click grey2-bg">取消</button>
+                <button class="button-click yellow-bg">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--添加问答题-->
+<div class="addlist" ng-show="chose_type==5">
+    <div class="data-inner">
+        <form class="form" name="resets4" novalidate>
+            <div class="form-item">
+                <label for="name">题干</label>
+                <input type="text" name="name" ng-model="updates.name" required
+                       ng-maxlength="100">
+                <p class="hint">注：题干中需要的信息患者年龄、性别、诊断（疾病）</p>
+                <div class="common-err" ng-show="resets4.name.$invalid && submitted">这是一个必填字段</div>
+            </div>
+            <div class="form-item">
+                <label>题目类型</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="1">单选题</option>
+                    <option value="2">多选题</option>
+                    <option value="3">处方审核题</option>
+                    <option value="4">用药交代题</option>
+                    <option value="5">问答题</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-group">
+                <label>答案</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+            
+            <div class="form-item">
+                <label>适用人群</label>
+                <select name="role" ng-model="updates.role" required>
+                    <option value="">请选择</option>
+                    <option value="2">药师</option>
+                    <option value="3">医生</option>
+                    <option value="4">护士</option>
+                    <option value="5">学生</option>
+                    <option value="1">其他</option>
+                </select>
+                <div class="common-err" ng-show="resetss.role.$invalid && submitted">请选择适合人群</div>
+            </div>
+            <div class="form-item">
+                <label>药学分类</label>
+                <select ng-model="updates.pharmacy_id" id="pharmacy_id"
+                        ng-bind-html="category|to_trusted" ng-change="changed()" name="asdd">
+                    <option value="">请选择</option>
+                    <option value="1">药理</option>
+                    <option value="2">法规</option>
+                </select>
+                <div class="common-err" ng-show="resetss.asdd.$invalid && submitted">请选择药学分类</div>
+            </div>
+            <div class="form-group">
+                <label>解析</label>
+                <div name="analysis" id="analysis1"></div>
+                <div class="common-err margint-10" ng-show="id_an && submitted">请填写文本内容</div>
+            </div>
+             <div class="step marginl-56 talign-left">
+                <button class="button-click grey2-bg">取消</button>
+                <button class="button-click yellow-bg">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('#analysis1,#analysis2,#analysis4,#analysis6,#right_key4,#right_key6').editable({
+            inlineMode: false,
+            alwaysBlank: true,
+            language: "zh_cn",
+            direction: "ltr",
+            autosave: true,
+            autosaveInterval: 2500,
+            saveParams: { postId: "123" },
+            spellcheck: true,
+            plainPaste: true,
+            enableScript: false
+        })
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

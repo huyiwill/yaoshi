@@ -1,0 +1,103 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+        <label>试卷分组</label>
+        <select name="test_group_id" class="form-control common-select" ng-model="updates.test_group_id"
+        ng-options="role.id as role.name for role in roles" required>
+        <option value="" selected>请选择</option>
+        </select>
+            <div class="common-err proup-left" ng-show="resets.test_group_id.$invalid && submitted">请选择试卷分组</div>
+        </div>
+        <div class="form-item">
+            <label>试卷名称</label>
+            <input type="text" name="name" placeholder="请输入试卷名称"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>试卷备注</label>
+            <input type="text" name="remark" placeholder="请输入试卷备注"
+                   ng-model="updates.remark" required>
+            <div class="common-err proup-left" ng-show="resets.remark.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

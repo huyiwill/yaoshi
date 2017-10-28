@@ -1,0 +1,42 @@
+<title>导入试卷</title>
+
+<div class="lists memberAdd">
+    <div class="list-top color-y">
+        试卷名称<input type="text" ng-model="search_name">
+        <button class="button-click" ng-click="soso()">查询</button>
+    </div>
+    <div class="member-unit">
+        <div class="lists">
+            <div  class="unit-top">
+                <input type="checkbox"  ng-model="selectAll" ng-click="all(selectAll)">
+                <button class="">全选</button>
+            </div>
+            <div class="list-body">
+                <form method="post">
+                    <table >
+                        <thead class="tr_order">
+                            <tr>
+                                <td style="width: 50px;"></td>
+                                <th>试卷名称</th>
+                                <th>分值（分）</th>
+                                <th>考核次数</th>
+                                <th>所在分组</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tr_msg">
+                           <tr>
+                                <td><input type="checkbox" ng-checked="selectAll" ng-model="l.ac_state" ng-click="total()"></td>
+                                <td>北京天坛临床药师</td>
+                                <td>100</td>
+                                <td>2</td>
+                                <td>临床药师组</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                
+                <button class="button-click margint-60">提交</button>
+            </div>
+        </div>
+    </div>
+</div>

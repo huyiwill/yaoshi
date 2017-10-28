@@ -1,0 +1,115 @@
+
+<div class="yaoshi common-bg">
+    <div class="data-inner">
+        <!--完善个人资料-->
+        <div class="personal" ng-show="step==1">
+            <h3>完善个人资料</h3>
+            <p>填写真实资料，可以提高认证速度哦~</p>
+            <form class="form">
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label for="name">姓名</label>
+                    <input type="text" name="name" placeholder="您的姓名" id="name" ng-model="name" required>
+                    <i class="delbtn" ng-show="name.length>0" ng-click="name=''"></i>
+                </div>
+                <div class="form-item">
+                    <label for="date" class="marginl-8">出生日期</label>
+                    <input id="dd" type="text" class="birthday" placeholder="出生日期" ng-model="birthday">
+                </div>
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label for="job">岗位</label>
+                    <i class="circlebtn" ng-class="{'redbtn':job_this==2,'greybtn':job_this!=2}" ng-click="selectJob(2)"></i><b ng-click="selectJob(2)">临床药师</b>
+                    <i class="circlebtn" ng-class="{'redbtn':job_this==3,'greybtn':job_this!=3}" ng-click="selectJob(3)"></i><b ng-click="selectJob(3)">咨询药师</b>
+                    <i class="circlebtn" ng-class="{'redbtn':job_this==4,'greybtn':job_this!=4}" ng-click="selectJob(4)"></i><b ng-click="selectJob(4)">调剂药师</b>
+                    <i class="circlebtn" ng-class="{'redbtn':job_this==5,'greybtn':job_this!=5}" ng-click="selectJob(5)"></i><b ng-click="selectJob(5)">执业药师</b>
+                    <i class="circlebtn" ng-class="{'redbtn':job_this==0,'greybtn':job_this!=0}" ng-click="selectJob(0)"></i><b ng-click="selectJob(0)">其他</b>
+                </div>
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label for="inhostipal">所在医院</label>
+                    <select type="text" name="inhostipal" ng-model="hostipal">
+                        <option value="">所在医院</option>
+                        <option value="同济医院">同济医院</option>
+                        <option value="上海市第一人民医院">上海市第一人民医院</option>
+                        <option value="上海市中级医院">上海市中级医院</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="technical" class="marginl-8">职称</label>
+                    <select type="text" name="technical" ng-model="title">
+                        <option value="">职称</option>
+                        <option value="主治医师">主治医师</option>
+                        <option value="院长">院长</option>
+                        <option value="护士">护士</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <span class="redstar">*</span>
+                    <label for="otnerhostipal">他院实习</label>
+                    <i class="circlebtn" ng-class="{'redbtn':otnerhostipal==1,'greybtn':otnerhostipal!=1}" ng-click="isOtner(1)"></i><b ng-click="isOtner(1)">是</b>
+                    <i class="circlebtn" ng-class="{'redbtn':otnerhostipal==2,'greybtn':otnerhostipal!=2}" ng-click="isOtner(2)"></i><b ng-click="isOtner(2)">否</b>
+                </div>
+                <div class="form-item" ng-show="otnerhostipal==1">
+                    <span class="redstar">*</span>
+                    <label for="exehostipal">实习学院</label>
+                    <select type="text" name="exehostipal" value="实习学院" ng-model="teaching_hospital">
+                        <option value="">实习学院</option>
+                        <option value="同济医院">同济医院</option>
+                        <option value="上海市第一人民医院">上海市第一人民医院</option>
+                        <option value="上海市中级医院">上海市中级医院</option>
+                    </select>
+                </div>
+                <div class="step">
+                    <button class="last-step" ui-sref="main.data">上一步</button>
+                    <button class="next-step" ng-click="next(2)" ng-disabled="name==undefined||name==''||hostipal==''||hostipal==undefined||otnerhostipal==1&&teaching_hospital==undefined||otnerhostipal==1&&teaching_hospital==''">下一步</button>
+                </div>
+            </form>
+        </div>
+        <!--上传头像-->
+        <div class="status personal head" ng-show="step==2">
+            <h3>上传头像</h3>
+            <p>请填写真实资料，可以提高认证速度哦~</p>
+            <div class="pic">
+                <b>选择头像：</b>
+                <div class="plus">
+                    <input type="file" class="photo">
+                </div>
+                <span>图片格式支持jpg、png，大小不超过10M</span>
+                <img class="photo_y" ng-src="{{head}}" style="width: 100px;height: 100px;display: block;margin: 50px auto;border-radius: 100%;" ng-show="head!=undefined">
+            </div>
+            <div class="step">
+                <button class="last-step" ng-click="prev(1)">上一步</button>
+                <button class="next-step" ng-click="next(3)" ng-disabled="head==undefined">下一步</button>
+            </div>
+        </div>
+        <!--资格认证-->
+        <div class="status personal " ng-show="step==3">
+            <h3>资格认证</h3>
+            <p class="yellow">以下信息仅用于职业资格认证，易百加将为您严格保密。</p>
+
+            <div class="pic">
+                <b>资格证件：</b>
+                <div class="plus">
+                    <input type="file" class="path">
+                </div>
+                <span>图片格式支持jpg、png，大小不超过10M</span>
+            </div>
+            <p>备注：请上传可以证明您职业资质的证件，如药师执业证、药师资格证、胸牌等。</p>
+            <img class="path_p" ng-src="{{path}}" style="width: 100px;height: 100px;display: block;margin: 50px auto;border-radius: 100%;" ng-show="path!=undefined">
+            <div class="step">
+                <button class="last-step" ng-click="prev(2)">上一步</button>
+                <button class="next-step" ng-click="send_end()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.birthday').datepicker({
+        language: 'zh-CN',
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy-mm-dd"
+    });
+</script>
+    

@@ -1,0 +1,135 @@
+<div class="banner">
+    <div class="banner-item">
+        <!-- Indicators -->
+        <ol class="btn-num">
+            <li class="num-active"></li>
+            <li></li>
+            <li></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="item-inner">
+            <ul>
+                <li class="item banner-active">
+                    <img src="front_static/assets/img/banner1.jpg" alt="">
+                </li>
+                <li class="item">
+                    <img src="front_static/assets/img/banner1.jpg" alt="">
+                </li>
+                <li class="item">
+                    <img src="front_static/assets/img/banner1.jpg" alt="">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- kaoshi style -->
+
+<div class="items">
+    <ul>
+        <li>
+            <img src="front_static/assets/img/indexion1.png" alt="">
+            <p>题库</p>
+        </li>
+        <li>
+            <img src="front_static/assets/img/indexion2.png" alt="">
+            <p>考核</p>
+        </li>
+        <li>
+            <img src="front_static/assets/img/indexion3.png" alt="">
+            <p>比赛</p>
+        </li>
+        <li>
+            <img src="front_static/assets/img/indexion4.png" alt="">
+            <p>线上实战</p>
+        </li>
+        <li ui-sref="main.meeting">
+            <img src="front_static/assets/img/indexion5.png" alt="">
+            <p>学术会议</p>
+        </li>
+    </ul>
+</div>
+
+<script>
+    var curIndex = 0, //当前index
+        imgLen = $(".item-inner .item").length; //图片总数
+
+    // 定时器自动变换3秒每次
+    var autoChange = setInterval(function () {
+        if (curIndex < imgLen - 1) {
+            curIndex++;
+        } else {
+            curIndex = 0;
+        }
+        //调用变换处理函数
+        changeTo(curIndex);
+    }, 3500);
+
+
+    //清除定时器时候的重置定时器--封装
+    function autoChangeAgain() {
+        autoChange = setInterval(function () {
+            if (curIndex < imgLen - 1) {
+                curIndex++;
+            } else {
+                curIndex = 0;
+            }
+            //调用变换处理函数
+            changeTo(curIndex);
+        }, 3500);
+    }
+    function changeTo(num) {
+        var goLeft = num * 1024;
+        $(".item-inner ul").stop().animate({left: "-" + goLeft + "px"}, 2000);
+        // $(".infoList").find("li").removeClass("infoOn").eq(num).addClass("infoOn");
+        $(".btn-num").find("li").stop().removeClass("num-active").eq(num).stop().addClass("num-active");
+    }
+    //对右下角按钮index进行事件绑定处理等
+    $(".btn-num").find("li").stop().each(function (item) {
+        $(this).hover(function () {
+            clearInterval(autoChange);
+            changeTo(item);
+            curIndex = item;
+        }, function () {
+            autoChangeAgain();
+        });
+    });
+
+
+    //    kaoshi
+    $(".items li").hover(function () {
+        $(this).addClass("items-active");
+        $(this).children("p").addClass("color");
+        var index = $(this).index();
+        if (index == 0) {
+            $(this).children("img").attr("src", "front_static/assets/img/hover1.png")
+        } else if (index == 1) {
+            $(this).children("img").attr("src", "front_static/assets/img/hover2.png")
+        } else if (index == 2) {
+            $(this).children("img").attr("src", "front_static/assets/img/hover3.png")
+        } else if (index == 3) {
+            $(this).children("img").attr("src", "front_static/assets/img/hover4.png")
+        } else if (index == 4) {
+            $(this).children("img").attr("src", "front_static/assets/img/hover5.png")
+        }
+
+
+    }, function () {
+        $(this).removeClass("items-active");
+        $(this).children("p").removeClass("color");
+        var index = $(this).index();
+        if (index == 0) {
+            $(this).children("img").attr("src", "front_static/assets/img/indexion1.png")
+        } else if (index == 1) {
+            $(this).children("img").attr("src", "front_static/assets/img/indexion2.png")
+        } else if (index == 2) {
+            $(this).children("img").attr("src", "front_static/assets/img/indexion3.png")
+        } else if (index == 3) {
+            $(this).children("img").attr("src", "front_static/assets/img/indexion4.png")
+        } else if (index == 4) {
+            $(this).children("img").attr("src", "front_static/assets/img/indexion5.png")
+        }
+
+    })
+
+</script>

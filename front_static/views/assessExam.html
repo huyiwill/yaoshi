@@ -1,0 +1,174 @@
+<title>考核</title>
+
+<div class="assess-exam">
+    <div class="examDo bg-620">
+    <!--答题-->
+    <div class="answer" style="display: none;">
+        <div class="do-title">
+            <h3>药师职业技能大赛</h3>
+            <span>总分数：100分</span>
+            <span>答题时间：<b class="yellow">30分钟</b></span>
+            <span>总题数：<b class="green">70</b>题</span>
+        </div>
+        <div class="do-content">
+            <div class="do-text" style="display: none;">
+                <h1 class="topic">一、单选题（20分，共40题）</h1>
+                <ul>
+                    <li>1.永远的永远有多远？</li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greybtn"
+                               ng-class="{'redbtn':click_this==e.key||exam_now.do==e.key}"></i>A.永远到底有多远
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greybtn"
+                               ng-class="{'redbtn':click_this==e.key||exam_now.do==e.key}"></i>B.永远到底有多远
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greybtn"
+                               ng-class="{'redbtn':click_this==e.key||exam_now.do==e.key}"></i>C.永远到底有多远
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greybtn"
+                               ng-class="{'redbtn':click_this==e.key||exam_now.do==e.key}"></i>D.永远到底有多远
+                        </span>
+                    </li>
+                    
+                </ul>
+                <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                        ng-if="now_number+1 != exam_msg.count">下一题
+                </button>
+                <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                </button>
+            </div>
+
+            <div class="do-text" style="display: none;">
+                <h1 class="topic">二、多选题（1分，共1题）</h1>
+                <ul>
+                    <li>1.永远的永远有多远？</li>
+                     <li>
+                        <span>
+                            <i class="circlebtn openbtn greyclick"
+                               ng-class="{'redclick':click_this==e.key||exam_now.do==e.key}"></i>A.永远到底有多远
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greyclick"
+                               ng-class="{'redclick':click_this==e.key||exam_now.do==e.key}"></i>B.永远到底有多远
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greyclick"
+                               ng-class="{'redclick':click_this==e.key||exam_now.do==e.key}"></i>C.永远到底有多远
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <i class="circlebtn openbtn greyclick"
+                               ng-class="{'redclick':click_this==e.key||exam_now.do==e.key}"></i>D.永远到底有多远
+                        </span>
+                    </li>
+                </ul>
+                <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                        ng-if="now_number+1 != exam_msg.count">下一题
+                </button>
+                <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                </button>
+            </div>
+
+            <div class="do-text" style="display: none;">
+                <h1 class="topic">三、处方审核题（10分，共10}题）</h1>
+                <ul>
+                    <li>1.题目</li>
+                    <li><img ng-src="" alt="" style="width: 150px;height: 150px;"></li>
+                    <li>答案：<br><textarea placeholder="请输入答案"></textarea></li>
+                </ul>
+                <button class="button-click huang-bg mr-100" ng-click=""
+                        ng-if="">下一题
+                </button>
+                <button class="button-click yellow-bg mr-30" ng-click="" ng-if="">上一题
+                </button>
+            </div>
+
+            <div class="do-text" style="display: none;">
+                <h1 class="topic">四、用药交代题（10分，共10题）</h1>
+                <ul>
+                    <li>1、题目</li>
+                    <li><img ng-src="" alt="" style="width: 150px;height: 150px;"></li>
+                    <li>答案：<br><textarea placeholder="请输入答案" ng-model=""></textarea></li>
+                </ul>
+                <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                        ng-if="now_number+1 != exam_msg.count">下一题
+                </button>
+                <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                </button>
+            </div>
+
+            <div class="do-text" style="display: none;">
+                <h1 class="topic">五、问答题（20分，共2题）</h1>
+                <ul>
+                    <li>{{now_number+1}}. {{exam_now.name}}?</li>
+                    <li>答案：<br><textarea placeholder="请输入答案" ng-model="exam_now.do"></textarea></li>
+                </ul>
+                <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                        ng-if="now_number+1 != exam_msg.count">下一题
+                </button>
+                <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                </button>
+            </div>
+
+            <div class="do-card">
+                <h1 class="formjl">答题卡</h1>
+                <p><b class="yellow"></b>{{show_time}}</p>
+                <ul>
+                    <li ng-repeat="d in exam" ng-class="{'nodone':d.do=='','done':d.do!=''}" ng-click="next($index)">
+                        {{$index+1}}
+                    </li>
+                </ul>
+                <!--<button class="button-click" ng-click="assignment()"><a ui-sref="main.examGrade" class="a-click">交卷</a></button>-->
+                <button class="button-click" ng-click="assignment()"><a class="a-click">交卷</a></button>
+            </div>
+        </div>
+    </div>
+
+    <!--成绩-->
+    <div class="grades">
+
+        <!--公用头部-->
+        <div class="do-title">
+            <h3>北京天坛药师大赛</h3>
+            <span>总分数：100分</span>
+            <span>答题时间：<b class="yellow">100分钟</b></span>
+            <span>总题数：<b class="green">20</b>题</span>
+            <div class="grade-user">
+                <span class="user-pic"></span>
+                <div class="user-name">
+                    <p>姓名：王语嫣</p>
+                    <p>所在医院：北京天坛医院</p>
+                    <p>职业：临床药师</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="see-grade">
+            <h1>考试成绩</h1>
+            <p><i>理论题成绩：</i><b class="yellow">20分</b></p>
+            <p><i>实践题成绩：</i><b>20分</b></p>
+            <p><i>总成绩：</i><b>20分</b></p>
+            <p><i>答题时间：</i><b>120分钟</b></p>
+            <div>
+                <button class="button-click"><a class="a-click" ui-sref="main.assessGrade">查看答案</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

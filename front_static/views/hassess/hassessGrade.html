@@ -1,0 +1,189 @@
+<title>成绩管理</title>
+
+<div class="lists memberAdd hassessGrade">
+    <div class="list-top color-y">
+        姓名<input type="text" ng-model="search_name">
+        合格<select ng-model="search_select">
+                    <option selected="selected">全部</option>
+                    <option>合格</option>
+                    <option>不合格</option>
+                </select>
+        <button class="button-click" ng-click="soso()">查询</button>
+        <button class="button-click" ng-click="" ng-disabled="cheackTotal!=1">导出成绩</button>
+        <button class="button-click" ng-click="read_ac()" ng-disabled="cheackTotal!=1">发布成绩</button>
+    </div>
+<!--成绩列表-->
+    <div class="member-unit">
+        <div class="lists">
+            <div  class="unit-top">
+                <input type="checkbox"  ng-model="selectAll" ng-click="all(selectAll)">
+                <button class="">全选</button>
+               
+            </div>
+            <div class="list-body">
+                <form method="post">
+                    <table >
+                        <thead class="tr_order">
+                            <tr>
+                                <td style="width: 50px;"></td>
+                                <th>姓名</th>
+                                <th style="width: 120px;">用时（min）</th>
+                                <th>总分数</th>
+                                <th>合格</th>
+                                <th>排名</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tr_msg">
+                           <tr ng-repeat="l in list track by $index">
+                                <td><input type="checkbox" ng-checked="selectAll" ng-model="l.ac_state" ng-click="total()"></td>
+                                <td>{{l.name}}</td>
+                                <td>{{l.answer_time||0}}min</td>
+                                <td>{{l.total_score||0}}分</td>
+                                <td>合格</td>
+                                <td>{{total_index+$index+1}}</td>
+                                <td>未发布</td>
+                                <td>
+                                    <button ng-click="change(l.id)">修改成绩</button>
+                                    <button class="lookgrade" ng-click="edit(l.id)">查看成绩</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="tip-no" ng-if="list.length==0">先批阅试卷再来吧</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查看成绩弹窗-->
+<div class="bg_popup popup-fade-container" ng-if="see_ach" ng-click="close_fade()"></div>
+<div class="container_popup popup-fade gradeWin" ng-if="see_ach">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">成绩单</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+        <div class="addlist addGrade">
+            <div class="data-inner">
+                <form class="form" name="resets" novalidate>
+                    <div class="form-item">
+                        <label>单选题成绩</label>
+                        <input type="text" name="pass_score" ng-model="updates.one_score" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="form-item">
+                        <label>多选题成绩</label>
+                        <input type="text" name="pass_score" ng-model="updates.two_score" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="form-item">
+                        <label>处方审核成绩</label>
+                        <input type="text" name="pass_score" ng-model="updates.four_score" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="form-item">
+                        <label>用药交代成绩</label>
+                        <input type="text" name="pass_score" ng-model="updates.five_score" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="form-item">
+                        <label>问答题成绩</label>
+                        <input type="text" name="pass_score" ng-model="updates.six_score" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="form-item" ng-if="!chan_ach">
+                        <label>其他成绩</label>
+                        <input type="text" name="pass_score" ng-model="updates.other_score" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="form-item" ng-if="chan_ach">
+                        <label>其他成绩</label>
+                        <input type="text" name="pass_score" id="pass_score" ng-model="other_scores" ng-keyup = 'jusuan(other_scores)' ng-pattern="/^[1-9]*[0-9]$||^0$/">&nbsp;&nbsp;分
+
+                    </div>
+                    <div class="form-item">
+                        <label>总成绩</label>
+                        <input type="text" name="time" ng-model="total_scole" readonly>&nbsp;&nbsp;分
+                    </div>
+                    <div class="step" ng-if="chan_ach">
+                        <button class="last-step" ng-click="close_fade()">取消</button>
+                        <button class="next-step" ng-click="end_ti_add()">确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="container_popup popup-fade gradeWin" style="display: none;">-->
+    <!--<div class="top_title">-->
+        <!--<div class="title-left"></div>-->
+        <!--<div class="tltle-center">成绩单</div>-->
+        <!--<div class="title-close" ng-click="close_fade()"></div>-->
+    <!--</div>-->
+    <!--<div class="container_text">-->
+        <!--<div class="addlist addGrade">-->
+            <!--<div class="data-inner">-->
+                <!--<form class="form" name="resets" novalidate>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>单选题成绩</label>-->
+                        <!--<input type="text" name="pass_score" ng-model="updates.pass_score" readonly>&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>-->
+                    <!--</div>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>多选题成绩</label>-->
+                        <!--<input type="text" name="pass_score" ng-model="updates.pass_score" readonly>&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>-->
+                    <!--</div>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>处方审核成绩</label>-->
+                        <!--<input type="text" name="pass_score" ng-model="updates.pass_score" readonly>&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>-->
+                    <!--</div>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>用药交代成绩</label>-->
+                        <!--<input type="text" name="pass_score" ng-model="updates.pass_score" readonly>&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>-->
+                    <!--</div>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>问答题成绩</label>-->
+                        <!--<input type="text" name="pass_score" ng-model="updates.pass_score" readonly>&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>-->
+                    <!--</div>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>其他成绩</label>-->
+                        <!--<input type="text" name="pass_score" ng-model="updates.pass_score" readonly>&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.pass_score.length>0" ng-click="updates.pass_score=''"></i>-->
+                    <!--</div>-->
+                    <!--<div class="form-item">-->
+                        <!--<label>总成绩</label>-->
+                        <!--<input type="text" name="time" ng-model="updates.time" readonly ng-pattern="/^[0-9]+$/">&nbsp;&nbsp;分-->
+                        <!--<i class="delbtn" ng-show="updates.time.length>0" ng-click="updates.time=''"></i>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--发布成绩-->
+<div class="bg_popup popup-fade-container" ng-if="fa_ach"  ng-click="close_fade()"></div>
+<div class="container_popup popup-fade openWin" ng-if="fa_ach">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">发布成绩</div>
+        <div class="title-close" ng-click="close_fade()"></div>
+    </div>
+    <div class="container_text">
+        <p class="groupDel">确定发布成绩，成绩发布后，不可修改</p> 
+    </div>
+    <div class="btns">
+        <div class="step">
+            <button class="last-step" ng-click="close_fade()">取消</button>
+            <button class="next-step" ng-click="end_chose()">确定</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".lookgrade").click(function(){
+         $(".popup-fade").css("display","block");
+         console.log(1);
+    })
+</script>

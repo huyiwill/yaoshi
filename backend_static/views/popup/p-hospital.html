@@ -1,0 +1,45 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label for="name">医院名称</label>
+            <input type="text" name="name" placeholder="请输入医院名称" id="name"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+
+        <div class="form-item">
+            <label>省</label>
+            <select ng-model="updates.province_id" ng-options="p.id as p.name for p in provinces" ng-change="chose_this(updates.province_id)"name="provinces" required>
+                <option value="">请选择省份</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.provinces.$invalid && submitted">请选择省份</div>
+        </div>
+        <div class="form-item" ng-if="cities!=undefined">
+            <label>市</label>
+             <select ng-model="updates.city_id" name="city_id" ng-options="p.id as p.name for p in cities" required>
+                 <option value="">请选择城市</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.city_id.$invalid && submitted">请选择城市</div>
+        </div>
+        <div class="form-item">
+            <label>医院等级</label>
+            <select ng-model="updates.level" required name="level">
+                <option value="">请选择</option>
+                <option value="2">一甲</option>
+                <option value="3">二甲</option>
+                <option value="4">三甲</option>
+                <option value="5">一乙</option>
+                <option value="6">二乙</option>
+                <option value="7">三乙</option>
+                <option value="1">其他</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.level.$invalid && submitted">请选择医院等级</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

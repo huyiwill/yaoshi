@@ -1,0 +1,85 @@
+<title>会议列表</title>
+
+<div class="lists meetList">
+    <div class="list-top color-y">
+        
+        会议名称<input type="text" ng-model="search_name">
+        状态<select ng-model="search_select">
+        <option value="">全部</option>
+        <option value="1">待审核</option>
+        <option value="2">已通过</option>
+        <option value="3">未通过</option>
+                </select>
+        <button class="button-click" ng-click="soso()">查询</button>
+        <button class="button-click" ng-click="add()" ui-sref="main.bs.meetAdd">新增会议</button>
+    </div>
+    <div class="list-body">
+        <form method="post">
+            <table>
+                <thead class="tr_order">
+                    <tr>
+                        <th style="width: 40px">编号</th>
+                        <th>会议名称</th>
+                        <th>注册报名时间</th>
+                        <th>会议举行时间</th>
+                        <th>会议举行地点</th>
+                        <th style="width: 70px">报名状态</th>
+                        <th style="width: 52px">状态</th>
+                        <th style="width: 74px">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tr_msg">
+                    <tr ng-repeat="l in list track by $index">
+                        <td>{{l.id}}</td>
+                        <td>{{l.name}}</td>
+                        <td>{{l.enroll_start*1000|date:"yyyy-MM-dd"}}-{{l.enroll_end*1000|date:"yyyy-MM-dd"}}</td>
+                        <td>{{l.time_start*1000|date:"yyyy-MM-dd"}}-{{l.time_end*1000|date:"yyyy-MM-dd"}}</td>
+                        <td>{{l.address}}</td>
+                        <td>{{ex_type[l.examine_type]}}</td>
+                        <td ng-show="l.status==1">正常</td>
+                        <td ng-show="l.status==2">禁用</td>
+                        <td ng-show="l.status==3">删除</td>
+                        <td>
+                            <select id="selecteds" ng-model="chose_select" ng-change="change_select(l.id,chose_select)">
+                                <option value="">请选择</option>
+                                <option value="1">管理</option>
+                                <option value="2" ng-if="l.enroll_state==1">关闭报名</option>
+                                <option value="22" ng-if="l.enroll_state==2">开启报名</option>
+                                <option value="3" ng-if="l.state==1">关闭会议</option>
+                                <option value="33" ng-if="l.state==2">关闭会议</option>
+                                <option value="4">上传资料</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <!--分页器-->
+    <div class="pages">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>
+<div class="bg_popup popup-fade-container" ng-show="meeting_add"></div>
+<div class="container_popup popup-fade" ng-show="meeting_add">
+    <div class="top_title">
+        <div class="title-left"></div>
+        <div class="tltle-center">上传文件</div>
+        <div class="title-close" ng-click="close_proup()"></div>
+    </div>
+    <div class="container_text">
+        <form action="">
+            <input type="file" name="data[]" file-model="fileToUpload" style="margin: 20px;">
+        </form>
+    </div>
+    <div class="btns">
+        <div class="step">
+            <button class="last-step" ng-click="close_proup()">取消</button>
+            <button class="next-step" ng-click="chose()">确定</button>
+        </div>
+    </div>
+</div>

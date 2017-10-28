@@ -1,0 +1,23 @@
+<title>我的考核</title>
+<div class="my-assess">
+    <ul class="meeting-ul">
+        <li ng-repeat="l in assess_list track by $index">
+            <img src="front_static/assets/img/gameline.png" alt="">
+            <div class="meeting-text">
+                <h1>{{l.assess_info.name}}</h1>
+                <p>比赛时间：{{l.assess_info.start_time*1000|date:'yyyy-HH-dd HH:mm:ss'}} 至{{l.assess_info.end_time*1000|date:'yyyy-HH-dd HH:mm:ss'}}</p>
+                <p>状态：<b ng-class="{'red':l.state==1,'blue':l.state==2,'blue':l.state==3}">{{list_state[l.state]}}</b></p>
+            </div>
+            <button class="button-beat yellow-bg" ui-sref="main.assessStart({id:l.id,name:l.assess_info.name,assess_id:l.assess_id})" ng-if="l.state==1">开始考试</button>
+            <button class="button-beat yellow-bg" ng-if="l.state==2||l.state==3" disabled>查看成绩</button>
+            <button class="button-beat yellow-bg" ui-sref="main.assessGrade({id:l.id})" ng-if="l.state==4">查看成绩</button>
+            <button class="button-beat yellow-bg" ng-if="l.state==5" disabled="">已结束</button>
+        </li>
+    </ul>
+    <div class="pages" ng-show="total_page>1">
+        <div class="tcdPageCode" style="display: inline-block;">
+        </div>
+        <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<title>阅览试卷</title>
+<div class="assessGrade examSee">
+    <!--公用头部-->
+    <!--<div class="do-title">-->
+        <!--<h3>{{exercises_info.test_subject[0].info.name}}</h3>-->
+        <!--<p>本试卷适用临床药师的考核</p>-->
+        <!--<span>总分数：{{total_score}}分</span>-->
+        <!--<span>总题数：<b class="green">{{exercises_info.test_subject[0].count}}</b>题</span>-->
+    <!--</div>-->
+    <div class="grade-content">
+        <!--查看答案-->
+        <div class="see-answer">
+            <div class="radio">
+                <h1 class="topic">一、单选题（{{dan_score||0}}分，共{{dan.length||0}}题）</h1>
+                <div class="answer-item" ng-repeat="d in dan track by $index">
+                    <p>{{$index+1}}. {{d.name}}? </p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                            <i class="circlebtn openbtn greybtn" ng-class="{'redbtn':d.right_key==e.key}"></i>{{e.key}}.
+                            {{e.value}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="checkbox">
+                <h1 class="topic">二、多选题（{{duo_score||0}}分，共{{duo.length||0}}题）</h1>
+                <div class="answer-item" ng-repeat="d in duo track by $index">
+                    <p>{{$index+1}}. {{d.name}}? </p>
+                    <ul>
+                        <li ng-repeat="e in d.choice">
+                            <i class="circlebtn openbtn greyclick" ng-class="{'redclick':d.right_key.indexOf(e.key)!=-1}"></i>{{e.key}}.
+                            {{e.value}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="shenhe">
+                <h1 class="topic">三、处方审核题（{{chu_score}}分，共{{chu.length||0}}题）</h1>
+                <div class="answer-item" ng-repeat="c in chu track by $index">
+                    <p>{{$index+1}}. {{c.name}}?</p>
+                    <img ng-src="{{c.photo}}" alt="" style="max-width: 200px;max-height: 200px;">
+                    <div class="answe1 yellow">答案要点：
+                        <div ng-bind-html="c.right_key|to_trusted"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shenhe">
+                <h1 class="topic">四、用药交代题（{{yong_score}}分，共{{yong.length||0}}题）</h1>
+                <div class="answer-item" ng-repeat="c in yong track by $index">
+                    <p>{{$index+1}}. {{c.name}}?</p>
+                    <img ng-src="{{c.photo}}" alt="" style="max-width: 200px;max-height: 200px;">
+                    <div class="answe1 yellow">答案要点：
+                        <div ng-bind-html="c.right_key|to_trusted"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shenhe">
+                <h1 class="topic">五、用药情景咨询题（{{wen_score}}分，共{{wen.length||0}}题）</h1>
+                <div class="answer-item" ng-repeat="c in wen track by $index">
+                    <p>{{$index+1}}. {{c.name}}?</p>
+                    <div class="answe1 yellow">答案要点：
+                        <div ng-bind-html="c.right_key|to_trusted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="btns">
+            <div class="step">
+                <button class="last-step" ng-click="change()">修改</button>
+                <button class="next-step" ng-click="chose()">生成</button>
+            </div>
+        </div>
+    </div>
+</div>

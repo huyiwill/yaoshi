@@ -1,0 +1,49 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label for="pharmacy_id">药学ID</label>
+            <select name="" class="form-control common-select sel_pharmacy_id" ng-bind-html="admin_questionss|to_trusted" ng-model="updates.pharmacy_id">
+                <option value="" selected>请选择</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="name">题库名称</label>
+            <input type="text" name="name" placeholder="请输入题库名称" id="name"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label for="code">题库编码</label>
+            <input type="text" name="code" placeholder="请输入题库编码" id="code"
+                   ng-model="updates.code" required>
+            <div class="common-err proup-left" ng-show="resets.code.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item" ng-model="roles">
+            <label for="occupation">职业类型</label>
+            <input type="checkbox" name="che_role" value="1" class="radio radio1" ng-checked="radio1">其他
+            <input type="checkbox" name="che_role" value="2" class="radio radio2" ng-checked="radio2">药师
+            <input type="checkbox" name="che_role" value="3" class="radio radio3" ng-checked="radio3">医生
+            <input type="checkbox" name="che_role" value="4" class="radio radio4" ng-checked="radio4">护士
+            <input type="checkbox" name="che_role" value="5" class="radio radio5" ng-checked="radio5">学生
+            <div class="common-err proup-left" ng-show="radio_all && submitted">请选择职业类型</div>
+        </div>
+        <div class="form-item">
+            <label for="topic_type_id">试题类型</label>
+            <input type="checkbox" name="che_role1" value="1" class="radio topic_type1" ng-checked="topic1">单选
+            <input type="checkbox" name="che_role1" value="2" class="radio topic_type2" ng-checked="topic2">多选
+            <input type="checkbox" name="che_role1" value="3" class="radio topic_type3" ng-checked="topic3">填空
+            <input type="checkbox" name="che_role1" value="4" class="radio topic_type4" ng-checked="topic4">处方审核
+            <br>
+            <input type="checkbox" name="che_role1" value="5" class="radio topic_type5" style="margin-left: 68px;"ng-checked="topic5">用药交代
+            <input type="checkbox" name="che_role1" value="6" class="radio topic_type6"ng-checked="topic6">问答
+            <input type="checkbox" name="che_role1" value="7" class="radio topic_type7"ng-checked="topic7">材料题
+            <div class="common-err proup-left" ng-show="topic_all && submitted">请选择试题类型</div>
+        </div>    
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

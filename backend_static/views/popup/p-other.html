@@ -1,0 +1,83 @@
+<div class="resign popup-container">
+    <p class="bgmsg">编辑信息</p>
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label><span class="red">*</span>头像</label>
+            <input id="photo" type="file" name="head" ng-click="photo()">
+            <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
+        </div>
+        <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
+        <div class="form-item">
+            <label><span class="red">*</span>昵称</label>
+            <input type="text" name="nickname" placeholder="请输入昵称"
+                   ng-model="updates.nickname" required>
+            <div class="common-err proup-left" ng-show="resets.nickname.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>手机号</label>
+            <input type="text" name="mobile" placeholder="请输入手机号"
+                   ng-model="updates.mobile" required ng-pattern="/^1[34578]\d{9}$/">
+            <div class="common-err proup-left" ng-show="resets.mobile.$invalid && submitted">请输入正确的手机号</div>
+        </div>
+        <div class="form-item" ng-if='types == "add"'>
+            <label for="password1"><span class="red">*</span>密码</label>
+            <input type="text" name="password1" placeholder="6-16位数字、字母或者组合" id="password1" ng-model="updates.pwd"
+                   ng-maxlength="16" ng-minlength="6" required ng-pattern="/^[0-9a-zA-Z]+$/">
+            <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">6-16位数字、字母或者组合</div>
+        </div>
+        <div class="form-item" ng-if='types == "edit"'>
+            <label for="password1"><span class="red">*</span>密码</label>
+            <input type="text" name="password1" placeholder="填写则修改密码" id="password1" ng-model="updates.pwd"
+                   ng-maxlength="16" ng-minlength="6" ng-pattern="/^[0-9a-zA-Z]+$/">
+            <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">6-16位数字、字母或者组合</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>姓名</label>
+            <input type="text" name="name" placeholder="请输入姓名"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <!--<div class="form-item">-->
+        <!--<label>出生日期</label>-->
+        <!--<input type="text" name="accounts" placeholder="请输入账号"-->
+        <!--ng-model="updates.birthday" class="date-picker" value="111">-->
+        <!--</div>-->
+        <div class="form-item">
+            <label><span class="red">*</span>所在城市</label>
+            <input type="text" name="city" placeholder="请输入所在城市"
+                   ng-model="updates.perfect.city" required>
+            <div class="common-err proup-left" ng-show="resets.city.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>所在单位</label>
+            <input type="text" name="company" placeholder="请输入所在单位"
+                   ng-model="updates.perfect.company" required>
+            <div class="common-err proup-left" ng-show="resets.company.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>职务</label>
+            <select name="post" class="form-control common-select" ng-model="updates.post"
+                    required>
+                <option value="" selected>请选择</option>
+                <option value="2">临床药师</option>
+                <option value="3">咨询药师</option>
+                <option value="4">调剂药师</option>
+                <option value="5">执业药师</option>
+                <option value="1">其他</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.post.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>分组</label>
+            <select name="group_list" class="form-control common-select" ng-model="updates.group"
+                    ng-options="g.id as g.name for g in group_list" required>
+                <option value="" selected>请选择分组</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.group_list.$invalid && submitted">请选择分组</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>

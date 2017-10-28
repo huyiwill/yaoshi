@@ -1,0 +1,119 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label>会员卡类型名称</label>
+            <input type="text" name="name" placeholder="请输入会员卡类型名称"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">会员卡类型名称</div>
+        </div>
+        <div class="form-item">
+        <label>会员类型</label>
+        <input type="radio" class="radio" name="six" value="1" ng-model="updates.time_type" required>按月
+        <input type="radio" class="radio" name="six" value="2" ng-model="updates.time_type" required>按年
+            <div class="common-err proup-left" ng-show="resets.six.$invalid && submitted">请选择会员类型</div>
+        </div>
+        <div class="form-item">
+            <label>会员时长</label>
+            <input type="text" name="number" placeholder="请输入会员时长"
+                   ng-model="updates.number" required ng-pattern="/^[1-9]*[0-9]+$/"><span ng-if="updates.time_type==1"> 月</span><span ng-if="updates.time_type==2"> 年</span>
+            <div class="common-err proup-left" ng-show="resets.number.$invalid && submitted">请输入会员时长</div>
+        </div>
+        <div class="form-item">
+            <label>会员单价</label>
+            <input type="text" name="unit_price" placeholder="会员单价"
+                   ng-model="updates.unit_price" required ng-pattern="/^\d+(\.\d{0,2})$|^[1-9]*[0-9]+$|^[0]$/"><span ng-if="updates.time_type==1"> /月</span><span ng-if="updates.time_type==2"> /年</span>
+            <div class="common-err proup-left" ng-show="resets.unit_price.$invalid && submitted">请输入会员单价</div>
+        </div>
+        <div class="form-item">
+            <label>会员促销价</label>
+            <input type="text" name="discount_fee" placeholder="会员促销价"
+                   ng-model="updates.discount_fee" required ng-pattern="/^\d+(\.\d{0,2})$|^[1-9]*[0-9]+$|^[0]$/" ng-keyup="check_total()"><span ng-if="updates.time_type==1" > /月</span><span ng-if="updates.time_type==2"> /年</span>
+            <div class="proup-left">注：0为不促销</div>
+            <div class="common-err proup-left" ng-show="resets.discount_fee.$invalid && submitted">请输入会员促销价</div>
+        </div>
+        <div class="form-item">
+            <label>会员总价</label>
+            <input type="text" name="total_fee" placeholder="会员总价"
+                   ng-model="updates.total_fee" readonly>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

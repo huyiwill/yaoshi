@@ -1,0 +1,94 @@
+<title>线上实战</title>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header" style="width:100%;">
+        <h1 style="text-align:left;">
+            线上实战
+            <small>list</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">运营管理</li>
+            <li>线上实战</li>
+        </ol>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="nav-tabs-custom">
+                        <!-- tab 标签 -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="javascript:;" data-toggle="tab">线上实战</a></li>
+                        </ul>
+                        <div class="cont-btn-item">
+                            <div class="button-items" ng-class="{'button-items-active':chose_type==4}" ng-click="chose_this(4)">处方审核</div>
+                            <div class="button-items bor-none"ng-class="{'button-items-active':chose_type==5}"ng-click="chose_this(5)">用药交代</div>
+                            <div class="button-items bor-none"ng-class="{'button-items-active':chose_type==6}"ng-click="chose_this(6)">问答题</div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="bicycle">
+                                <form class="user_search_form" id="user_search_form">
+                                    <!--分页字段-->
+                                    <input type="hidden" id="page" name="page" value="1"/>
+                                    <!--排序字段-->
+                                    <input type="hidden" id="order" name="order" value=""/>
+                                    <!-- 搜索 -->
+                                    <div class="dataTables_length fa-border" style="margin: 10px 0; padding: 10px">
+                                        题干
+                                        <input type="text" name="id" value="" id="filter_text" class="input-sm"
+                                               style="border: 1px solid #a9a9a9;"
+                                               onkeydown="javascript:if(event.keyCode==13) return false;" ng-model="soso_text">
+                                        <!--                                <input type="text" name="add_time" value="" class="input-sm date-range" style="border: 1px solid #a9a9a9;" placeholder="注册时间">-->
+                                        <div class="btn btn-primary btn-sm btn-user-search" ng-click="soso()"><i class="fa fa-search"></i>&nbsp;搜索
+                                        </div>
+                                    </div>
+                                </form>
+                                <!--                        <div class="form-group">
+
+                                                        </div>-->
+                                <form id="table_form" class="table_form table-responsive" method="post">
+                                    <table class="table table-bordered table-hover dataTable table-striped text-center"
+                                           role="grid">
+                                        <thead class="tr_order">
+                                        <tr>
+                                            <th>ID<i class="fa fa-fw fa-sort-amount-desc" data-order="id"></i></th>
+                                            <th>题干<i class="fa fa-fw"></i></th>
+                                            <th>做题次数<i class="fa fa-fw"></i></th>
+                                            <th>创建时间<i class="fa fa-fw"></i></th>
+                                            <th>状态<i class="fa fa-fw"></i></th>
+                                            <th style="min-width:120px;">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tr_msg">
+                                        <tr ng-repeat="l in list track by $index">
+                                            <td>{{l.id}}</td>
+                                            <td>{{l.name}}</td>
+                                            <td>{{l.degree}}</td>
+                                            <td>{{l.create_time*1000|date:"yyyy-MM-dd"}}</td>
+                                            <td ng-show="l.status==1">正常</td>
+                                            <td ng-show="l.status==2">禁用</td>
+                                            <td ng-show="l.status==3">删除</td>
+                                            <td>
+                                                <button class='btn btn-xs  btn-primary btn-user-edit'
+                                                        ui-sref="main.online_info({id:l.id})"><i
+                                                        class='fa fa-fw fa-edit'></i>管理
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tcdPageCode"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

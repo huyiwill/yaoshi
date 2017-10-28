@@ -1,0 +1,77 @@
+<title>会议</title>
+<div class="meeting bg-620">
+    <!--暂无会议-->
+    <div class="no-meeting" style="display: none;">
+        <img src="front_static/assets/img/meetingno.png" alt="">
+        <p>暂无会议哦！</p>
+    </div>
+    <!--会议列表-->
+    <div class="meeting-list">
+        <div class="meeting-top">
+            <div class="top-list" style="height: auto;">
+                <b>省份：</b> 
+                <div class="provinces">
+                    <span ng-click="chose_province()" ng-class="{'meeting_check':c_prives == undefined}">不限</span>
+                
+                    <ul ng-repeat="p in province_list track by $index">
+                        <li ng-click="chose_province(p.id)" ng-class="{'meeting_check':c_prives == p.id}">{{p.name}}</li>
+                    </ul>
+                </div>
+               
+            </div>
+            <div class="dashed"></div>
+            <div class="top-list">
+                <b>时间：</b> 
+                <span ng-click="chose_time()"  ng-class="{'meeting_check':c_times == undefined}">全部</span>
+                <ul>
+                    <li ng-click="chose_time(0)" ng-class="{'meeting_check':c_times == 0}">今天</li>
+                    <li ng-click="chose_time(1)" ng-class="{'meeting_check':c_times == 1}">明天</li>
+                    <li ng-click="chose_time(7)" ng-class="{'meeting_check':c_times == 7}">本周</li>
+                    <li ng-click="chose_time(30)" ng-class="{'meeting_check':c_times == 30}">本月</li>
+                    <!--<li>-->
+                        <!--<select>-->
+                            <!--<option selected>本月</option>-->
+                        <!--</select>-->
+                    <!--</li>-->
+                    <li class="dateImg" style="width: auto;">
+                        <input class="times_start" placeholder="开始时间" readonly>&nbsp;&nbsp;&nbsp;<input class="times_end"  placeholder="结束时间" readonly>
+                        <button ng-click="choseTimes()">检索</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="meeting-body">
+            <b class="yellow">最新会议</b>
+            <div class="rowline"></div>
+            <div class="meeting-items">
+                <div class="item-word" ng-repeat="m in meeting track by $index">
+                    <img ng-src="{{m.icon}}" width="140px" height="140px" alt="">
+                    <div class="words">
+                        <h3>{{m.name}}</h3>
+                        <p><i>主办单位：</i>北京药科在线有限公司</p>
+                        <p><i>地点：</i>{{m.venue_name}}</p>
+                        <p><i>举行时间：</i>{{m.time_start*1000|date:'yyyy-MM-dd'}}-{{m.time_end*1000|date:'yyyy-MM-dd'}}</p>
+                        <button class="button-click" ui-sref="main.meetingDetail({id:m.id})">我要参会</button>
+                    </div>
+                </div>
+                <!--<div class="coline"></div>-->
+            </div>
+            
+            <div class="pages">
+                <div class="tcdPageCode" style="display: inline-block;">
+                </div>
+                <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                        ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script>-->
+    <!--$('.times').datepicker({-->
+        <!--language: 'zh-CN',-->
+        <!--autoclose: true,-->
+        <!--todayHighlight: true,-->
+        <!--format: "yyyy-mm-dd",-->
+        <!--clearBtn:true-->
+    <!--});-->
+<!--</script>-->

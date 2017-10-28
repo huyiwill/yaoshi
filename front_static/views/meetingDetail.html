@@ -1,0 +1,115 @@
+<title>会议详情</title>
+
+<div class="meeting-detail bg-620">
+   <div class="meeting-list">
+        <div class="detail-top">
+            <ul>
+                <li ng-repeat="info in meeting_msg.detail_info track by $index"ng-click="chose_this(info.type)" ng-class="{'yellow':chose_type==info.type}" ng-if="info.state==1">{{info.type_name}}</li>
+            </ul>
+        </div>
+        <div class="rowline"></div>
+        <div class="detail-body">
+            <!--会议-->
+            <div class="list1" ng-show="chose_type==1">
+                <div class="detail-word">
+                    <img ng-src="{{meeting_msg.icon}}" width="180px" height="140px" alt="">
+                    <div class="words">
+                         <h3>{{meeting_msg.name}}</h3>
+                         <p>主办方：北京药科在线有限公司</p>
+                         <p>会议时间：{{meeting_msg.time_start*1000|date:'yyyy-MM-dd'}}-{{meeting_msg.time_end*1000|date:'yyyy-MM-dd'}}</p>
+                         <p>会议地点：{{meeting_msg.province_name}} {{meeting_msg.city_name}} {{meeting_msg.address}} {{meeting_msg.venue_name}}</p>
+                         <!--<span class="icons"><i class="collect"></i>收藏 分享到：<b class="b-icons gamewei"></b><b class="b-icons gameqq"></b><b class="b-icons gamebo"></b><b class="b-icons gamedou"></b></span>-->
+                        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+                         <button class="button-click" ng-click="baoming()">我要参会</button>
+                    </div>
+                </div>
+                <div class="detail-intro" ng-if="meeting_msg.detail_info[chose_type-1].state==1"  ng-bind-html="meeting_msg.detail_info[chose_type-1].content|to_trusted"></div>
+                <div class="detail-contact">
+                    <h3>联系方式：</h3>
+                    <p>联系人：{{meeting_msg.contacts}}</p>
+                    <p>联系方式：{{meeting_msg.mobile}}</p>
+                </div>
+                <div class="detail-contact">
+                    <h3>会议资料：</h3>
+                    <ul>
+                        <li ng-repeat="d in meeting_msg.data track by $index">
+                            <img src="front_static/assets/img/psd.png" alt="" ng-if="d.fileName.indexOf('.pdf')!=-1">
+                            <img src="front_static/assets/img/doc.png" alt="" ng-if="d.fileName.indexOf('.doc')!=-1">
+                            <img src="front_static/assets/img/exl.png" alt="" ng-if="d.fileName.indexOf('.xls')!=-1">
+                            <div>
+                                <p>{{d.fileName}}</p>
+                                <a ng-href="/meeting/front/download?real_path={{d.realPath}}&filename={{d.fileName}}" target="_blank">下载</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--会议日程-->
+            <div class="list2" ng-if="chose_type==2">
+                <div ng-repeat="two in meeting_two track by $index">
+                    <p>第{{two.days}}天</p>
+                    <img ng-src="{{two.photo}}" alt="">
+                </div>
+            </div>
+            
+            <!--会议嘉宾-->
+            <div class="list3" ng-if="chose_type==3">
+                <ul>
+                    <li ng-repeat="three in meeting_three track by $index">
+                        <img ng-src="{{three.head}}" alt="" ng-click="see_detail(three.id)">
+                        <h3>{{three.name}}</h3>
+                        <!--<p>北京办和医院</p>-->
+                        <div ng-bind-html="three.remark|to_trusted"></div>
+                    </li>
+                </ul>
+
+            </div>
+            <!--会议嘉宾详情-->
+            <div class="list3-detail" ng-if="chose_type==10">
+                <img ng-src="{{meeting_ten.head}}" alt="">
+                <div>
+                    <b>{{meeting_ten.name}}</b>
+                    <!--<i>北京协和医院</i>-->
+                    <!--<i>药剂科主任</i>-->
+                </div>
+                <!--<h3></h3>-->
+                <!--<p>北京办和医院</p>-->
+                <div ng-bind-html="meeting_ten.remark|to_trusted"></div>
+
+                <button ng-click="back_three()">返回</button>
+            </div>
+            <!--参会报名-->
+            <div class="list4" ng-if="chose_type==4">
+                <img ng-src="{{meeting_msg.detail_info[chose_type-1].photo}}" alt="">
+            </div>
+        </div>
+       
+       
+       
+       
+       <div class="rowline"></div>
+       <!--<div class="detail-foot">比赛创建者添加的底部内容！</div>-->
+   </div>
+</div>
+
+<!--    弹窗显示文本
+<img ng-src="{{meeting_ten.head}}" alt="">
+<p>{{meeting_ten.name}}</p>
+<div ng-bind-html="meeting_ten.remark|to_trusted"></div>-->
+
+
+<!--<div class="bg_popup popup-fade-contianer meetWin" ng-if="shose_show" ng-click="close_proup()"></div>-->
+<!--<div class="container_popup popup-fade meetWin" ng-if="shose_show">-->
+    <!--<div class="top_title">-->
+        <!--<div class="title-left"></div>-->
+        <!--<div class="tltle-center">嘉宾详情</div>-->
+        <!--<div class="title-close" ng-click="close_proup()"></div>-->
+    <!--</div>-->
+    <!--<div class="container_text">-->
+        <!--&lt;!&ndash;<p ng-if="exercise_all.length==0">暂无分类信息</p>&ndash;&gt;-->
+        <!--<img ng-src="{{meeting_ten.head}}" alt="">-->
+        <!--<p>{{meeting_ten.name}}</p>-->
+        <!--<div ng-bind-html="meeting_ten.remark|to_trusted"></div>-->
+    <!--</div>-->
+<!--</div>-->

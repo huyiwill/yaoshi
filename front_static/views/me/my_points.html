@@ -1,0 +1,50 @@
+<div class="account-jifen">
+    <ul class="jifen-top">
+        <li class="yellow" ng-click="score_type(1)" ng-class="{'yellow':types == 1}">我的积分</li>
+        <li ng-click="score_type(2)" ng-class="{'yellow':types == 2}">积分记录</li>
+        <li class="gain">如何获取积分？</li>
+    </ul>
+    <div>
+        <ul class="jifen-foot" ng-show="types == 1">
+            <li ng-show="!pays_show">
+                <p>当前积分：<b class="yellow"> {{sign_msg.score||0}} </b>积分</p>
+                <button class="button-click" ng-click="pay_now()">立即充值</button>
+            </li>
+            <li ng-show="pays_show">
+                <div class="money" ng-init="pay_type=1">充值金额：
+                    <input type="number" ng-model="pays_money" min="0">元<br>
+                    <p>1元可充值10积分</p>
+                </div>
+                <div class="money">支付方式：
+                    <button ng-class="{'hasbuy':pay_type==1,'nobuy':pay_type!=1}" ng-click="pay_type = 1"><img
+                            src="front_static/assets/img/zhibuy.png" alt="">支付宝
+                    </button>
+                    <button ng-class="{'hasbuy':pay_type==2,'nobuy':pay_type!=2}" ng-click="pay_type = 2"><img
+                            src="front_static/assets/img/weibuy.png" alt="">微信支付
+                    </button>
+                </div>
+                <button class="button-click" ng-click="pay_end(pays_money,pay_type)">确定</button>
+            </li>
+        </ul>
+        <ul class="record" ng-show="types == 2">
+            <li ng-repeat="scores in score_list track by $index">
+                <p>{{score_type[scores.type]}}{{scores.score}}积分</p>
+                <span>{{scores.create_time*1000|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+            </li>
+            <div class="pages" ng-show="total_page>1">
+                <div class="tcdPageCode" style="display: inline-block;">
+                </div>
+                <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+                        ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+            </div>
+        </ul>
+    </div>
+</div>
+<div class="popup-fade-container wei_login_container" ng-if="logn_wei_show" ng-click="close_proup()">
+
+</div>
+<div id="login_container" class="popup-fade" ng-if="logn_wei_show" style="height: 340px;">
+    <img ng-src="{{choses_types}}" alt="" style="width: 300px; height: 300px;">
+    <p style="font-size: 20px;text-align: center;">请使用微信扫一扫支付</p>
+</div>
+<div ng-bind-html="choses_type_alipay|to_trusted"></div>

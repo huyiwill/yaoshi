@@ -1,0 +1,167 @@
+<title>考核</title>
+
+<div class="assess-start bg-620" ng-if="do!=1">
+    <div>
+        <div class="exam-head">
+            <ul>
+                <li><img ng-src="{{sign_msg.head}}" alt="" style="width: 50px;height:50px;border-radius: 50%;"></li>
+                <li>
+                    <p>姓名：{{sign_msg.name}}</p>
+                    <p>所在医院：{{sign_msg.hospital}}</p>
+                    <p>职位：{{role_arr[sign_msg.role]}}</p>
+                </li>
+            </ul>
+            <h3>{{ex_name}}</h3>
+        </div>
+
+        <div class="exam-body">
+            <h3 class="yellow">考核须知</h3>
+            <ul>
+                <li>1. 请在规定时间内独立完成考核</li>
+                <li>2. 考核完成之后，会立即给出理论部分的成绩</li>
+                <li>3. 处方批阅完成之后，将站内通知告知考核成绩</li>
+            </ul>
+            <button class="button-beat yellow-bg" ng-click="chose_in()">进入考试</button>
+        </div>
+
+        <div class="exam-foot yellow">
+            <p>距离考试还有{{times}}秒</p>
+            <p> 倒计时结束之后，自动进入答题页面</p>
+        </div>
+    </div>
+</div>
+<!--考试区域-->
+
+<div class="assess-exam" ng-if="do==1">
+    <div class="examDo bg-620">
+        <!--答题-->
+        <div class="answer" ng-if="!achievement">
+            <div class="do-title">
+                <h3>{{exam_msg.assess_info.name}}</h3>
+                <span>总分数：{{exam_msg.total}}分</span>
+                <span>答题时间：<b class="yellow">{{exam_msg.assess_info.time}}分钟</b></span>
+                <span>总题数：<b class="green">{{exam_msg.count||0}}</b>题</span>
+            </div>
+            <div class="do-content">
+                <div class="do-text" ng-if="exam_now.topic_type==1">
+                    <h1 class="topic">一、单选题（{{exam_now.score||0}}分，共{{exam_now.total||0}}题）</h1>
+                    <ul>
+                        <li>{{now_number+1}}. {{exam_now.name}}?</li>
+                        <li ng-repeat="e in exam_now.choice">
+                        <span ng-click="click_end(e.key)">
+                            <i class="circlebtn openbtn greybtn"
+                               ng-class="{'redbtn':click_this==e.key||exam_now.do==e.key}"></i>{{e.key}}. {{e.value}}
+                        </span>
+                        </li>
+                    </ul>
+                    <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                            ng-if="now_number+1 != exam_msg.count">下一题
+                    </button>
+                    <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                    </button>
+                </div>
+
+                <div class="do-text" ng-if="exam_now.topic_type==2">
+                    <h1 class="topic">二、多选题（{{exam_now.score||0}}分，共{{exam_now.total||0}}题）</h1>
+                    <ul>
+                        <li>{{now_number+1}}. {{exam_now.name}}?</li>
+                        <li ng-repeat="e in exam_now.choice">
+                            <i class="circlebtn openbtn greyclick"
+                               toggle-class="redclick"
+                               ng-click="click_chose($event,e.key)"
+                               ng-class="{'redclick':exam_now.do.indexOf(e.key)!=-1}"></i>{{e.key}}. {{e.value}}
+                        </li>
+                    </ul>
+                    <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                            ng-if="now_number+1 != exam_msg.count">下一题
+                    </button>
+                    <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                    </button>
+                </div>
+
+                <div class="do-text" ng-if="exam_now.topic_type==4">
+                    <h1 class="topic">三、处方审核题（{{exam_now.score||0}}分，共{{exam_now.total||0}}题）</h1>
+                    <ul>
+                        <li>{{now_number+1}}. {{exam_now.name}}?</li>
+                        <li><img ng-src="{{exam_now.photo}}" alt="" style="width: 150px;height: 150px;"></li>
+                        <li><textarea placeholder="请在此区域作答" ng-model="exam_now.do"></textarea></li>
+                    </ul>
+                    <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                            ng-if="now_number+1 != exam_msg.count">下一题
+                    </button>
+                    <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                    </button>
+                </div>
+
+                <div class="do-text" ng-if="exam_now.topic_type==5">
+                    <h1 class="topic">四、用药交代题（{{exam_now.score||0}}分，共{{exam_now.total||0}}题）</h1>
+                    <ul>
+                        <li>{{now_number+1}}. {{exam_now.name}}?</li>
+                        <li><img ng-src="{{exam_now.photo}}" alt="" style="width: 150px;height: 150px;"></li>
+                        <li><textarea placeholder="请在此区域作答" ng-model="exam_now.do"></textarea></li>
+                    </ul>
+                    <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                            ng-if="now_number+1 != exam_msg.count">下一题
+                    </button>
+                    <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                    </button>
+                </div>
+
+                <div class="do-text" ng-if="exam_now.topic_type==6">
+                    <h1 class="topic">五、问答题（{{exam_now.score||0}}分，共{{exam_now.total||0}}</h1>
+                    <ul>
+                        <li>{{now_number+1}}. {{exam_now.name}}?</li>
+                        <li><textarea placeholder="请在此区域作答" ng-model="exam_now.do"></textarea></li>
+                    </ul>
+                    <button class="button-click huang-bg mr-100" ng-click="next(now_number+1)"
+                            ng-if="now_number+1 != exam_msg.count">下一题
+                    </button>
+                    <button class="button-click yellow-bg mr-30" ng-click="next(now_number-1)" ng-if="now_number!=0">上一题
+                    </button>
+                </div>
+
+                <div class="do-card">
+                    <h1 class="formjl">答题卡</h1>
+                    <p class="yellow"><b></b>{{show_time}}</p>
+                    <ul>
+                        <li ng-repeat="d in exam" ng-class="{'nodone':d.do=='','done':d.do!=''}" ng-click="next($index)">
+                            {{$index+1}}
+                        </li>
+                    </ul>
+                    <!--<button class="button-click" ng-click="assignment()"><a ui-sref="main.examGrade" class="a-click">交卷</a></button>-->
+                    <button class="button-click" ng-click="assignment()"><a class="a-click">交卷</a></button>
+                </div>
+            </div>
+        </div>
+
+        <!--成绩-->
+        <div class="grades" ng-if="achievement">
+
+            <!--公用头部-->
+            <div class="do-title">
+                <h3>{{exam_msg.assess_info.name}}</h3>
+                <span>总分数：{{exam_msg.total}}分</span>
+                <span>答题时间：<b class="yellow">{{exam_msg.assess_info.time}}分钟</b></span>
+                <span>总题数：<b class="green">{{exam_msg.count||0}}</b>题</span>
+                <div class="grade-user">
+                    <span class="user-pic"></span>
+                    <div class="user-name">
+                        <p>姓名：{{sign_msg.name}}</p>
+                        <p>所在医院：{{sign_msg.hospital}}</p>
+                        <p>职业：{{r_role[sign_msg.role]}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="see-grade">
+                <h1>考试成绩</h1>
+                <p><i>总成绩：</i><b class="yellow">{{data_id.theory_score}}分</b></p>
+                <p><i>答题用时：</i><b>{{data_id.answer_time}}分钟</b></p>
+                <div>
+                    <button class="button-click huang-bg"><a class="a-click" ui-sref="main.assessGrade({id:datas_id})">查看答案</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

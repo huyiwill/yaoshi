@@ -1,0 +1,203 @@
+<title>个人资料</title>
+<div class="data-inner person_data">
+    <div class="personal">
+        <form class="form">
+            <div class="form-item">
+                <label class="marginl-8">头像</label>
+                    <img ng-src="{{sign_msg.head}}" alt="">
+            </div>
+            <div class="form-item">
+                <label class="marginl-8">昵称</label>
+                    <input type="text" name="name" ng-model="sign_msg.nickname" required>
+            </div>
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label>姓名</label>
+                    <input type="text" name="name" ng-model="sign_msg.name" required>
+            </div>
+            <!--<div class="form-item">-->
+            <!--<labell class="marginl-8">性别</label>-->
+            <!--<i class="circlebtn" ng-class="{'redbtn':otnerhostipal==1,'greybtn':otnerhostipal!=1}"-->
+            <!--ng-click="isOtner(1)"></i><b ng-click="isOtner(1)">男</b>-->
+            <!--<i class="circlebtn" ng-class="{'redbtn':otnerhostipal==2,'greybtn':otnerhostipal!=2}"-->
+            <!--ng-click="isOtner(2)"></i><b ng-click="isOtner(2)">女</b>-->
+            <!--</div>-->
+            <div class="form-item">
+                <label class="marginl-8">出生日期</label>
+                <input id="dd" type="text" value="1980-01-01" class="birthday" ng-model="birthdays" readonly>
+            </div>
+            <div class="form-item" ng-if="sign_msg.role==2">
+                <span class="redstar">*</span>
+                <label>岗位</label>
+                    <select name="inoffice" ng-model="sign_msg.perfect.post">
+                        <option value="">请选择</option>
+                        <option value="2">临床药师</option>
+                        <option value="3">咨询药师</option>
+                        <option value="4">调剂药师</option>
+                        <option value="5">执业药师</option>
+                        <option value="1">其他</option>
+                    </select>
+            </div>
+            <div class="form-item" ng-if="sign_msg.role==2">
+                <span class="redstar">*</span>
+                <label>职务</label>
+                    <select name="inoffice" ng-model="sign_msg.perfect.title">
+                        <option value="" selected>请选择</option>
+                        <option value="主任药师">主任药师</option>
+                        <option value="副主任药师">副主任药师</option>
+                        <option value="主管药师">主管药师</option>
+                        <option value="初级药师">初级药师</option>
+                    </select>
+            </div>
+
+            <div class="form-item" ng-if="sign_msg.role==3||sign_msg.role==4">
+                <span class="redstar">*</span>
+                <label>职务</label>
+                <select name="inoffice" ng-model="sign_msg.perfect.title">
+                    <option value="" selected>请选择</option>
+                    <option value="主任医师">主任医师</option>
+                    <option value="副主任医师">副主任医师</option>
+                    <option value="主治医师">主治医师</option>
+                    <option value="住院医师">住院医师</option>
+                </select>
+            </div>
+
+
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label>所在医院</label>
+                <input type="text" name="hospital" placeholder="请输入医院"
+                       ng-model="sign_msg.perfect.hospital" required readonly ng-click="chose_hosp(1)">
+            </div>
+            <div class="form-item">
+                <span class="redstar">*</span>
+                <label>实习医院</label>
+                <input type="text" name="hospital" placeholder="没有则不填"
+                       ng-model="sign_msg.perfect.teaching_hospital" required readonly ng-click="chose_hosp(2)">
+            </div>
+
+            <div class="form-item">
+                <p class="rz" ui-sref="main.data">认证信息</p>
+            </div>
+            <div class="step">
+                <button class="person-save blue-bg" ng-click="save()">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $('.birthday').datepicker({
+        language: 'zh-CN',
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy-mm-dd"
+    })
+</script>
+
+<!--医院弹窗-->
+<div class="bg_popup popup-fade-contianer" ng-if="shose_show" ng-click="close_proup()"></div>
+<div class="container_popup popup-fade" ng-if="shose_show">
+    <form style="height: 220px;" class="container_text form markWin" name="markWin" novalidate>
+        <div class="form-item">
+            <label>省</label>
+            <select ng-model="province_id" class="form-control common-select" ng-options="p.id as p.name for p in provinces" ng-change="chose_this(province_id)"name="provinces" required>
+                <option value="">请选择省份</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.provinces.$invalid && submitted">请选择省份</div>
+        </div>
+        <div class="form-item">
+            <label>市</label>
+            <select ng-model="city_id" class="form-control common-select" name="city_id" ng-options="p.id as p.name for p in cities" required ng-change="chose_city(city_id)">
+                <option value="">请选择城市</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.city_id.$invalid && submitted">请选择城市</div>
+        </div>
+        <div class="form-item">
+            <label>医院等级</label>
+            <select ng-model="level" class="form-control common-select" required name="level" ng-change="chose_level(level)">
+                <option value="">请选择</option>
+                <option value="2">一甲</option>
+                <option value="3">二甲</option>
+                <option value="4">三甲</option>
+                <option value="5">一乙</option>
+                <option value="6">二乙</option>
+                <option value="7">三乙</option>
+                <option value="1">其他</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.level.$invalid && submitted">请选择医院等级</div>
+        </div>
+        <div class="form-item">
+            <label>医院</label>
+            <select ng-model="se_his" class="form-control common-select" required name="se_his" ng-options="p.id as p.name for p in hispo">
+                <option value="">请选择</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.level.$invalid && submitted">请选择医院</div>
+        </div>
+    </form>
+    <div class="btns">
+        <div class="step">
+            <button class="last-step" ng-click="close_proup()">取消</button>
+            <button class="next-step" ng-click="ti_score(se_his)" ng-disabled="">确定</button>
+        </div>
+    </div>
+</div>
+<style>
+    .bg_popup{
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom: 0;
+        background-color: #292929;
+        opacity: 0.8;
+        z-index:8888;
+    }
+    .container_popup{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        color: #000;
+        font-size: 16px;
+        background-color: #fff;
+        z-index:9999;
+    }
+    .container_popup .top_title{
+        height:40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+    .top_title .tltle-center{
+        float: left;
+        width:270px;
+    }
+    .top_title .title-left{
+        float: left;
+        width: 40px;
+        height:40px;
+    }
+
+    .top_title .title-close{
+        float: left;
+        width: 40px;
+        height:40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+    .container_text{
+        height:350px;
+        overflow:auto;
+    }
+    .container_text label{
+        width: 80px;
+        margin: 10px 5px;
+    }
+    .container_text .form-item{
+        margin:10px auto;
+    }
+</style>
+

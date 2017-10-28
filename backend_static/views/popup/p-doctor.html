@@ -1,0 +1,203 @@
+<div class="resign popup-container">
+    <p class="bgmsg">编辑信息</p>
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <div class="form-item">
+            <label><span class="red">*</span>头像</label>
+            <input id="photo" type="file" name="head" ng-click="photo()">
+            <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
+        </div>
+        <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
+        <div class="form-item">
+            <label><span class="red">*</span>昵称</label>
+            <input type="text" name="nickname" placeholder="请输入账号"
+                   ng-model="updates.nickname" required>
+            <div class="common-err proup-left" ng-show="resets.nickname.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>手机号</label>
+            <input type="text" name="mobile" placeholder="请输入手机号"
+                   ng-model="updates.mobile" required ng-pattern="/^1[34578]\d{9}$/">
+            <div class="common-err proup-left" ng-show="resets.mobile.$invalid && submitted">请输入正确的手机号</div>
+        </div>
+        <div class="form-item" ng-if='types == "add"'>
+            <label for="password1"><span class="red">*</span>密码</label>
+            <input type="text" name="password1" placeholder="6-16位数字、字母或者组合" id="password1" ng-model="updates.pwd"
+                   ng-maxlength="16" ng-minlength="6" required ng-pattern="/^[0-9a-zA-Z]+$/">
+            <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">6-16位数字、字母或者组合</div>
+        </div>
+        <div class="form-item" ng-if='types == "edit"'>
+            <label for="password1"><span class="red">*</span>密码</label>
+            <input type="text" name="password1" placeholder="填写则修改密码" id="password1" ng-model="updates.pwd"
+                   ng-maxlength="16" ng-minlength="6" ng-pattern="/^[0-9a-zA-Z]+$/">
+            <div class="common-err proup-left" ng-show="resets.password1.$invalid && submitted">6-16位数字、字母或者组合</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>姓名</label>
+            <input type="text" name="name" placeholder="请输入账号"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>所在医院</label>
+            <input type="text" name="hospital" placeholder="请输入医院"
+                   ng-model="hospital" required readonly ng-click = chose_hosp() class="hisp">
+            <div class="common-err proup-left" ng-show="resets.hospital.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>所在科室</label>
+            <!--<input id="accounts" type="text" name="department" placeholder="请输入医院" id="phone"-->
+                   <!--ng-model="updates.perfect.department"required>-->
+            <!--<div class="common-err proup-left" ng-show="resets.department.$invalid && submitted">这是一个必填字段</div>-->
+            <select name="department" ng-bind-html="department_list|to_trusted" ng-model="updates.perfect.department" id="department"></select>
+            <div class="common-err proup-left" ng-show="resets.department.$invalid && submitted">这是一个必填字段</div>
+
+        </div>
+        <div class="form-item">
+            <label>职务</label>
+            <select name="title" class="form-control common-select" ng-model="updates.perfect.title"
+                    required>
+                <option value="" selected>请选择</option>
+                <option value="主任医师">主任医师</option>
+                <option value="副主任医师">副主任医师</option>
+                <option value="主治医师">主治医师</option>
+                <option value="住院医师">住院医师</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.title.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <!--<div class="form-item">-->
+            <!--<label for="accounts"><span class="red">*</span>他院实习</label>-->
+            <!--<input type="radio" class="radio" name="six" value="1">是-->
+            <!--<input type="radio" class="radio" name="six" value="2">否-->
+        <!--</div>-->
+        <div class="form-item">
+            <label>实习医院</label>
+            <input type="text" name="accounts" placeholder="没有可不填"
+                   ng-model="updates.perfect.teaching_hospital">
+        </div>
+        <div class="form-item">
+            <label>实习科室</label>
+            <input type="text" name="accounts" placeholder="没有可不填"
+                   ng-model="updates.perfect.teaching_department">
+        </div>
+        <div class="form-item">
+            <label><span class="red">*</span>分组</label>
+            <select name="group_list" class="form-control common-select" ng-model="updates.group"
+                    ng-options="g.id as g.name for g in group_list" required>
+                <option value="" selected>请选择分组</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.group_list.$invalid && submitted">请选择分组</div>
+        </div>
+        <div class="form-item submit">
+            <button type="submit">确定
+            </button>
+        </div>
+    </form>
+</div>
+
+<!--医院弹窗-->
+<div class="bg_popup popup-fade-contianer" ng-if="shose_show" ng-click="close_proup()"></div>
+<div class="container_popup popup-fade" ng-if="shose_show">
+    <form style="height: 220px;" class="container_text form markWin" name="markWin" novalidate>
+        <div class="form-item">
+            <label>省</label>
+            <select ng-model="province_id" class="form-control common-select" ng-options="p.id as p.name for p in provinces" ng-change="chose_this(province_id)"name="provinces" required>
+                <option value="">请选择省份</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.provinces.$invalid && submitted">请选择省份</div>
+        </div>
+        <div class="form-item">
+            <label>市</label>
+            <select ng-model="city_id" class="form-control common-select" name="city_id" ng-options="p.id as p.name for p in cities" required ng-change="chose_city(city_id)">
+                <option value="">请选择城市</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.city_id.$invalid && submitted">请选择城市</div>
+        </div>
+        <div class="form-item">
+            <label>医院等级</label>
+            <select ng-model="level" class="form-control common-select" required name="level" ng-change="chose_level(level)">
+                <option value="">请选择</option>
+                <option value="2">一甲</option>
+                <option value="3">二甲</option>
+                <option value="4">三甲</option>
+                <option value="5">一乙</option>
+                <option value="6">二乙</option>
+                <option value="7">三乙</option>
+                <option value="1">其他</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.level.$invalid && submitted">请选择医院等级</div>
+        </div>
+        <div class="form-item">
+            <label>医院</label>
+            <select ng-model="se_his" class="form-control common-select" required name="se_his" ng-options="p.id as p.name for p in hispo">
+                <option value="">请选择</option>
+            </select>
+            <div class="common-err proup-left" ng-show="markWin.level.$invalid && submitted">请选择医院</div>
+        </div>
+    </form>
+    <div class="btns">
+        <div class="step">
+            <button class="last-step" ng-click="close_proup()">取消</button>
+            <button class="next-step" ng-click="ti_score(se_his)" ng-disabled="">确定</button>
+        </div>
+    </div>
+</div>
+<style>
+    .bg_popup{
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom: 0;
+        background-color: #292929;
+        opacity: 0.8;
+        z-index:8888;
+    }
+    .container_popup{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        color: #000;
+        font-size: 16px;
+        background-color: #fff;
+        z-index:9999;
+    }
+    .container_popup .top_title{
+        height:40px;
+        background: #f15917;
+        line-height: 40px;
+        text-align: center;
+
+    }
+    .top_title .tltle-center{
+        float: left;
+        width:270px;
+    }
+    .top_title .title-left{
+        float: left;
+        width: 40px;
+        height:40px;
+    }
+
+    .top_title .title-close{
+        float: left;
+        width: 40px;
+        height:40px;
+        background: url(/front_static/assets/img/icon_poup_close.png) no-repeat;
+        background-position: center center;
+    }
+    .container_text{
+        height:350px;
+        overflow:auto;
+    }
+    .container_text label{
+        width: 80px;
+        margin: 10px 5px;
+    }
+    .container_text .form-item{
+        margin:10px auto;
+    }
+</style>
+
+

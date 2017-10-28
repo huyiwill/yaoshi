@@ -1,0 +1,98 @@
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="nav-tabs-custom">
+                <!-- tab 标签 -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="javascript:;" data-toggle="tab">题目列表</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="bicycle">
+                        <form class="user_search_form" id="user_search_form">
+                            <!--分页字段-->
+                            <input type="hidden" id="page" name="page" value="1"/>
+                            <!--排序字段-->
+                            <input type="hidden" id="order" name="order" value=""/>
+                            <!-- 搜索 -->
+                            <div class="dataTables_length fa-border" style="margin: 10px 0; padding: 10px">
+                                <select ng-init="filter_type=id" name="filter_type" id="filter_type" ng-model="soso_type" class="input-sm">
+                                    <option value="" selected="selected">请选择</option>
+                                    <option value="id">ID</option>
+                                    <option value="price">分值</option>
+                                </select>
+                                <input type="text" name="id" value="" id="filter_text" class="input-sm"
+                                       style="border: 1px solid #a9a9a9;"
+                                       onkeydown="javascript:if(event.keyCode==13) return false;" ng-model="soso_text">
+                                <!--                                <input type="text" name="add_time" value="" class="input-sm date-range" style="border: 1px solid #a9a9a9;" placeholder="注册时间">-->
+                                <div class="btn btn-primary btn-sm btn-user-search" ng-click="soso()"><i class="fa fa-search"></i>&nbsp;搜索
+                                </div>
+                            </div>
+                        </form>
+                        <!--                        <div class="form-group">
+
+                                                </div>-->
+                        <form id="table_form" class="table_form table-responsive" method="post">
+                            <table class="table table-bordered table-hover dataTable table-striped text-center"
+                                   role="grid">
+                                <thead class="tr_order">
+                                <tr>
+                                    <th><input type="checkbox" ng-model="selectAll" ng-click="all(selectAll)">全选</th>
+                                    <th>ID<i class="fa fa-fw fa-sort-amount-desc" data-order="id"></i></th>
+                                    <th>题目<i class="fa fa-fw"</i></th>
+                                    <th>分值<i class="fa fa-fw fa-sort-amount-desc"data-order="price"></i></th>
+                                    <th>药学分类<i class="fa fa-fw fa-sort-amount-desc"
+                                               data-order="pharmacy_id"></i></th>
+                                    <!--<th>角色<i class="fa fa-fw"></i></th>-->
+                                    <th>适合角色<i class="fa fa-fw"></i></th>
+                                    <th>是否启用付费<i class="fa fa-fw fa-sort-amount-desc" data-order="is_price"></i></th>
+                                    <th>创建时间<i class="fa fa-fw fa-sort-amount-desc"
+                                               data-order="create_time"></i></th>
+                                    <th>状态<i class="fa fa-fw fa-sort-amount-desc" data-order="status"></i></th>
+                                    <th style="min-width:120px;">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody class="tr_msg">
+                                <tr ng-repeat="l in list track by $index">
+                                    <td><input type="checkbox" ng-checked="selectAll" ng-model="l.state" ng-click="total()"></td>
+                                    <td>{{l.id}}</td>
+                                    <td>{{l.name}}</td>
+                                    <td>{{l.price}}</td>
+                                    <td>{{l.pharmacy_id}}</td>
+                                    <td>{{role_arr[l.role]}}</td>
+                                    <td>{{price_arr[l.is_price]}}</td>
+                                    <td>{{l.create_time*1000|date:"yyyy-MM-dd"}}</td>
+                                    <td ng-show="l.status==1">正常</td>
+                                    <td ng-show="l.status==2">禁用</td>
+                                    <td ng-show="l.status==3">删除</td>
+                                    <td>
+                                        <button class='btn btn-xs  btn-primary btn-user-edit'
+                                                ui-sref="main.update_dan({id:l.id,chose_type:1})"><i
+                                                class='fa fa-fw fa-edit'></i>编辑
+                                        </button>
+                                        <button class='btn btn-xs  btn-primary btn-user-edit'
+                                                ng-show="l.status==1" ng-click="set_jin(l.id)">设为禁用</button>
+                                        <button class='btn btn-xs  btn-primary btn-user-edit'
+                                                ng-show="l.status==2" ng-click="recovery(l.id)">恢复正常</button>
+                                        <button class='btn btn-xs  btn-primary btn-user-delete disabled-"+data[j].status+"' ng-click="delete(l.id)" ng-disabled="l.status==3">
+                                            <i class='fa fa-fw fa-close'></i>删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="tcdPageCode"></div>
+                    </div>
+                    <div class="col-xs-12" ng-show="cheackTotal">
+                        <button class="btn btn-default" ng-click="chose_ti()">批量删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

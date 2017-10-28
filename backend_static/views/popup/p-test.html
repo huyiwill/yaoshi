@@ -1,0 +1,179 @@
+<div class="popup-container resign">
+    <p class="bgmsg">编辑信息</p>
+
+    <form class="form" name="resets" ng-submit="chose(resets)" novalidate>
+        <!--<div class="form-item">-->
+        <!--<label>试卷分组</label>-->
+        <!--<select name="" class="form-control common-select" ng-model="updates.test_group_id"-->
+        <!--ng-options="role.id as role.name for role in roles">-->
+        <!--<option value="" selected>请选择</option>-->
+        <!--</select>-->
+        <!--</div>-->
+        <div class="form-item">
+            <label>试卷名称</label>
+            <input type="text" name="name" placeholder="请输入试卷名称"
+                   ng-model="updates.name" required>
+            <div class="common-err proup-left" ng-show="resets.name.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>试卷logo</label>
+            <input id="photo" type="file" name="accounts" ng-click="photo()">
+            <div class="common-err proup-left" ng-show="updates.photo==undefined && submitted">请长传logo</div>
+        </div>
+        <img ng-src="{{updates.photo}}" alt="" class="head-photo" id="head" ng-show="updates.photo!=undefined">
+        <div class="form-item">
+            <label>答题时间</label>
+            <input type="text" name="time" placeholder="请输入答题时间"
+                   ng-model="updates.time" required>
+            <span>分钟</span>
+            <div class="common-err proup-left" ng-show="resets.time.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>试卷备注</label>
+            <input type="text" name="remark" placeholder="请输入试卷备注"
+                   ng-model="updates.remark" required>
+            <div class="common-err proup-left" ng-show="resets.remark.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>试卷价格</label>
+            <input type="text" name="price" placeholder="请输入试卷价格"
+                   ng-model="updates.price" required>
+            <span>元</span>
+            <div class="common-err proup-left" ng-show="resets.price.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>是否促销</label>
+            <input type="radio" class="radio" name="six" value="1" ng-model="updates.is_discount" ng-checked="true">是
+            <input type="radio" class="radio" name="six" value="2" ng-model="updates.is_discount">否
+        </div>
+        <div class="form-item" ng-if="updates.is_discount!=2">
+            <label>促销力度</label>
+            <select name="discount" class="form-control common-select" ng-model="updates.discount" required>
+                <option value="" selected>请选择</option>
+                <option value="1">一折</option>
+                <option value="2">二折</option>
+                <option value="3">三折</option>
+                <option value="4">四折</option>
+                <option value="5">五折</option>
+                <option value="6">六折</option>
+                <option value="7">七折</option>
+                <option value="8">八折</option>
+                <option value="9">九折</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.discount.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item" ng-show="updates.is_discount!=2">
+            <label>促销截止时间</label>
+            <input type="text" name="accounts" placeholder="请填写促销截止时间"
+                   ng-model="updates.discount_ends" id="discount_ends">
+        </div>
+        <div class="form-item">
+            <label>试卷有效期</label>
+            <input type="text" id="datetimeformat" name="test_ends" ng-model="updates.test_ends" required/>
+            <div class="common-err proup-left" ng-show="resets.test_ends.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item">
+            <label>适合职业</label>
+            <select name="role" class="form-control common-select" ng-model="updates.role" required>
+                <option value="" selected>请选择</option>
+                <option value="1">其他</option>
+                <option value="2">药师</option>
+                <option value="3">医生</option>
+                <option value="4">护士</option>
+                <option value="5">学生</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.role.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <div class="form-item" ng-if="updates.role==2">
+            <label>具体职务</label>
+            <select name="post" class="form-control common-select" ng-model="updates.post" required>
+                <option value="" selected>请选择</option>
+                <option value="1">其他</option>
+                <option value="2">临床药师</option>
+                <option value="3">咨询药师</option>
+                <option value="4">调剂药师</option>
+                <option value="5">执业药师</option>
+            </select>
+            <div class="common-err proup-left" ng-show="resets.post.$invalid && submitted">这是一个必填字段</div>
+        </div>
+        <!--<div class="form-item">-->
+        <!--<label>前台是否显示</label>-->
+        <!--<input type="radio" class="radio" name="six2" value="2" ng-model="updates.is_show">是-->
+        <!--<input type="radio" class="radio" name="six2" value="1" ng-model="updates.is_show">否-->
+        <!--</div>-->
+        <div class="form-item submit">
+            <button type="submit">确定</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

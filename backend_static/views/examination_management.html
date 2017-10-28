@@ -1,0 +1,36 @@
+<title>考卷管理</title>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header" style="width:100%;">
+        <h1 style="text-align:left;">
+            考卷管理
+            <small>list</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">考核</li>
+            <li>考卷管理</li>
+        </ol>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="nav-tabs-custom">
+                        <!-- tab 标签 -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="javascript:;" data-toggle="tab">考卷管理</a></li>
+                        </ul>
+                        <form method="post" action="/meeting/data.json" enctype="multipart/form-data">
+                            <input class="display:hidden" id="1" value="1">
+                            <input type="file" name="data[]">
+                            <input type="file" name="data[]">
+                            <input type="file" name="data[]">
+                            <input type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
