@@ -44,9 +44,9 @@ class SiteController extends Controller
         }
         //msg
         $msg = '欢迎注册账号,注册验证码： ';
-        if ($post['reset'] == 1) {
+        if (isset($post['reset']) && $post['reset'] == 1) {
             $msg = '重置密码,手机验证码： ';
-        } else if ($post['change'] == 1) {
+        } else if (isset($post['change']) && $post['change'] == 1) {
             $msg = '更换手机号,手机验证码： ';
         }
 
