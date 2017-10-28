@@ -6,10 +6,17 @@
  * @since 1.0, 2016-06-15 15:07:35
  */
 class KoubeiQualityTestCloudacptItemQueryRequest
+<<<<<<< HEAD
 {
 	/** 
 	 * 云验收单品列表查询(废弃)
 	 **/
+=======
+{
+	/** 
+	 * 云验收单品列表查询(废弃)
+	 **/
+>>>>>>> f17eeb8aa628718f07aa12af6a0fc37221022c7d
 	private $bizContent;
 
 	private $apiParas = array();
@@ -21,6 +28,7 @@ class KoubeiQualityTestCloudacptItemQueryRequest
 	private $returnUrl;
     private $needEncrypt=false;
 
+<<<<<<< HEAD
 	
 	public function setBizContent($bizContent)
 	{
@@ -31,6 +39,18 @@ class KoubeiQualityTestCloudacptItemQueryRequest
 	public function getBizContent()
 	{
 		return $this->bizContent;
+=======
+	
+	public function setBizContent($bizContent)
+	{
+		$this->bizContent = $bizContent;
+		$this->apiParas["biz_content"] = $bizContent;
+	}
+
+	public function getBizContent()
+	{
+		return $this->bizContent;
+>>>>>>> f17eeb8aa628718f07aa12af6a0fc37221022c7d
 	}
 
 	public function getApiMethodName()
