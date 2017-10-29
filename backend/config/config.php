@@ -8,9 +8,9 @@ return [
 
     /* db config */
     'db' => [
-        'host' => 'localhost',
+        'host' => '127.0.0.1',//'localhost',
         'user' => 'root',
-        'pass' => '7&8&8^67HkjU',
+        'pass' => 'aa',//'7&8&8^67HkjU',
         'dbname' => 'yaoshi',
     ],
 
