@@ -1,6 +1,6 @@
 angular
     .module('ohapp')
-    .controller('membershipCtrl', function membershipCtrl($scope, $injector, $rootScope, ngDialog) {
+    .controller('addMatchCtrl', function addMatchCtrl($scope, $injector, $rootScope, ngDialog) {
         var $http = $injector.get('$http');
         var $location = $injector.get('$location');
         var $state = $injector.get('$state');
