@@ -213,3 +213,6 @@ $app->get('/member/drop.json', 'backend\api\MemberController:actionDrop')->add($
 /* OrderController */
 $app->get('/order/list.json', 'backend\api\OrderController:actionList')->add($login_middleware);
 $app->get('/order/info.json', 'backend\api\OrderController:actionInfo')->add($login_middleware);
+
+/*MatchController比赛*/
+$app->get('/match/add.json','backend\api\MatchController:actionAdd')->add($login_middleware);

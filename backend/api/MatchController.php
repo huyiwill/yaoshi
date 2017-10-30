@@ -8,5 +8,8 @@
 namespace backend\api;
 
 class MatchController extends Controller{
-    
+    //新增比赛
+    public function actionAdd(){
+
+    }
 }
