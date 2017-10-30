@@ -1,364 +1,106 @@
 <title>新增比赛</title>
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+  <!-- Content Header (Page header) -->
 
-    <div class="content-header" style="width:100%;">
-        <h1 style="text-align:left;">
-            试卷管理
-            <small>list</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">试卷管理</li>
-            <li>新增试题</li>
-        </ol>
-        <div class="cont-btn-item">
-            <div class="button-items" ng-class="{'button-items-active':chose_type==1}" ng-click="chose_this(1)">单选</div>
-            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==2}"
-                 ng-click="chose_this(2)">多选
-            </div>
-            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==4}"
-                 ng-click="chose_this(4)">处方审核
-            </div>
-            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==5}"
-                 ng-click="chose_this(5)">用药交代
-            </div>
-            <div class="button-items bor-none" ng-class="{'button-items-active':chose_type==6}"
-                 ng-click="chose_this(6)">问答
-            </div>
+  <div class="content-header" style="width:100%;">
+    <h1 style="text-align:left;">
+      比赛管理
+      <small>list</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a ui-sref="main.home"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">比赛管理</li>
+      <li>新增比赛</li>
+    </ol>
+    <!-- Main content -->
+    <form role="form">
+      <div class="form-group">
+        <label>比赛名称:</label>
+        <input type="text" class="form-control" placeholder="请输入比赛名称" ng-model="updates.name">
+      </div>
+      <div class="form-group">
+        <div class="form-item">
+          <label><span class="red">*</span>比赛banner:</label><br/>
+          <input id="photo" type="file" name="head" ng-click="photo()">
+          <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
         </div>
-        <!-- Main content -->
-        <!--单选区域-->
-        <section class="content col-md-6 col-sm-12" ng-if="chose_type==1">
-            <form role="form">
-                <div class="form-group">
-                    <label>题干</label>
-                    <input type="text" class="form-control" placeholder="请输入题干信息" ng-model="updates.name">
-                </div>
-                <div class="form-group">
-                    <label>答案A</label>
-                    <input type="text" class="form-control" ng-model="updates.a_ans">
-                    <input type="radio" name="danxuan" value="A" ng-model="updates.right_key">正确答案
-                </div>
-                <div class="form-group">
-                    <label>答案B</label>
-                    <input type="text" class="form-control" ng-model="updates.b_ans">
-                    <input type="radio" name="danxuan" value="B" ng-model="updates.right_key">正确答案
-                </div>
-                <div class="form-group">
-                    <label>答案C</label>
-                    <input type="text" class="form-control" ng-model="updates.c_ans">
-                    <input type="radio" name="danxuan" value="C" ng-model="updates.right_key">正确答案
-                </div>
-                <div class="form-group">
-                    <label>答案D</label>
-                    <input type="text" class="form-control" ng-model="updates.d_ans">
-                    <input type="radio" name="danxuan" value="D" ng-model="updates.right_key">正确答案
-                </div>
-                <div class="form-group">
-                    <label>分值</label>
-                    <input type="number" class="form-control" min="0" ng-model="updates.score">
-                </div>
-                <div class="form-group">
-                    <label>适用人群</label>
-                    <input type="radio" name="ss" value="2" ng-model="updates.role">药师
-                    <input type="radio" name="ss" value="3" ng-model="updates.role">医生
-                    <input type="radio" name="ss" value="4" ng-model="updates.role">护士
-                    <input type="radio" name="ss" value="5" ng-model="updates.role">学生
-                    <input type="radio" name="ss" value="1" ng-model="updates.role">其他
-                </div>
-                <div class="form-group" ng-show="updates.role==2">
-                    <label>职务</label>
-                    <select class="form-control" ng-model="updates.post">
-                        <option value="">请选择</option>
-                        <option value="2">临床药师</option>
-                        <option value="3">咨询药师</option>
-                        <option value="4">调剂药师</option>
-                        <option value="5">执业药师</option>
-                        <option value="1">其他</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>难易程度</label>
-                    <select class="form-control" ng-model="updates.degree">
-                        <option value="">请选择</option>
-                        <option value="1">简单</option>
-                        <option value="2">中等</option>
-                        <option value="3">困难</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>药学分类</label>
-                    <select class="form-control" ng-model="updates.pharmacy_id" id="pharmacy_id" ng-bind-html="category|to_trusted">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>解析</label>
-                    <textarea name="" id="analysis" cols="30" rows="10" class="form-control" ng-model="updates.analysis"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>价格</label>
-                    <input type="text" class="form-control" ng-model="updates.price">
-                </div>
-                <div class="form-group">
-                    <label>价格</label>
-                    <input type="radio" name="price" value="2" ng-model="updates.is_price">启用
-                    <input type="radio" name="price" value="1" ng-model="updates.is_price">禁用
-                </div>
+        <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
+        <br/><p>注：大小不超过xXx，支持jpg、png格式。</p>
+      </div>
+      <div class="form-group">
+        <div class="form-item">
+          <label><span class="red">*</span>比赛logo:</label><br/>
+          <input id="photo" type="file" name="head" ng-click="photo()">
+          <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
+        </div>
+        <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
+        <br/><p>注：此图片作为该比赛的头图展示在比赛列表里面，请上传可以代表该比赛内容的图片，大小不超过xXx，支持jpg、png格式。</p>
+      </div>
+      <div class="form-group">
+        <label>答案C</label>
+        <input type="text" class="form-control" ng-model="updates.c_ans">
+        <input type="radio" name="danxuan" value="C" ng-model="updates.right_key">正确答案
+      </div>
+      <div class="form-group">
+        <label>答案D</label>
+        <input type="text" class="form-control" ng-model="updates.d_ans">
+        <input type="radio" name="danxuan" value="D" ng-model="updates.right_key">正确答案
+      </div>
+      <div class="form-group">
+        <label>分值</label>
+        <input type="number" class="form-control" min="0" ng-model="updates.score">
+      </div>
+      <div class="form-group">
+        <label>适用人群</label>
+        <input type="radio" name="ss" value="2" ng-model="updates.role">药师
+        <input type="radio" name="ss" value="3" ng-model="updates.role">医生
+        <input type="radio" name="ss" value="4" ng-model="updates.role">护士
+        <input type="radio" name="ss" value="5" ng-model="updates.role">学生
+        <input type="radio" name="ss" value="1" ng-model="updates.role">其他
+      </div>
+      <div class="form-group" ng-show="updates.role==2">
+        <label>职务</label>
+        <select class="form-control" ng-model="updates.post">
+          <option value="">请选择</option>
+          <option value="2">临床药师</option>
+          <option value="3">咨询药师</option>
+          <option value="4">调剂药师</option>
+          <option value="5">执业药师</option>
+          <option value="1">其他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>难易程度</label>
+        <select class="form-control" ng-model="updates.degree">
+          <option value="">请选择</option>
+          <option value="1">简单</option>
+          <option value="2">中等</option>
+          <option value="3">困难</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>药学分类</label>
+        <select class="form-control" ng-model="updates.pharmacy_id" id="pharmacy_id"
+                ng-bind-html="category|to_trusted">
+        </select>
+      </div>
+      <div class="form-group">
+        <label>解析</label>
+        <textarea name="" id="analysis" cols="30" rows="10" class="form-control"
+                  ng-model="updates.analysis"></textarea>
+      </div>
+      <div class="form-group">
+        <label>价格</label>
+        <input type="text" class="form-control" ng-model="updates.price">
+      </div>
+      <div class="form-group">
+        <label>价格</label>
+        <input type="radio" name="price" value="2" ng-model="updates.is_price">启用
+        <input type="radio" name="price" value="1" ng-model="updates.is_price">禁用
+      </div>
 
-                <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
-            </form>
-        </section>
-        <!-- /.content -->
-        <section class="content col-md-6 col-sm-12" ng-if="chose_type==2">
-            <form role="form">
-                <div class="form-group">
-                    <label>题干</label>
-                    <input type="text" class="form-control" placeholder="请输入题干信息" ng-model="updates.name">
-                </div>
-                <div class="form-group">
-                    <label>答案A</label>
-                    <input type="text" class="form-control" ng-model="updates.a_ans">
-                    <input type="checkbox" class="right_key1" name="danxuan" value="A" ng-model="updates.right_key1">正确答案
-                </div>
-                <div class="form-group">
-                    <label>答案B</label>
-                    <input type="text" class="form-control" ng-model="updates.b_ans">
-                    <input type="checkbox" class="right_key2" name="danxuan" value="B" ng-model="updates.right_key2">正确答案
-                </div>
-                <div class="form-group">
-                    <label>答案C</label>
-                    <input type="text" class="form-control" ng-model="updates.c_ans">
-                    <input type="checkbox" class="right_key3" name="danxuan" value="C" ng-model="updates.right_key3">正确答案
-                </div>
-                <div class="form-group">
-                    <label>答案D</label>
-                    <input type="text" class="form-control" ng-model="updates.d_ans">
-                    <input type="checkbox" class="right_key4" name="danxuan" value="D" ng-model="updates.right_key4">正确答案
-                </div>
-                <div class="form-group">
-                    <label>分值</label>
-                    <input type="number" class="form-control" min="0" ng-model="updates.score">
-                </div>
-                <div class="form-group">
-                    <label>适用人群</label>
-                    <input type="radio" name="ss" value="2" ng-model="updates.role">药师
-                    <input type="radio" name="ss" value="3" ng-model="updates.role">医生
-                    <input type="radio" name="ss" value="4" ng-model="updates.role">护士
-                    <input type="radio" name="ss" value="5" ng-model="updates.role">学生
-                    <input type="radio" name="ss" value="1" ng-model="updates.role">其他
-                </div>
-                <div class="form-group" ng-show="updates.role==2">
-                    <label>职务</label>
-                    <select class="form-control" ng-model="updates.post">
-                        <option value="">请选择</option>
-                        <option value="2">临床药师</option>
-                        <option value="3">咨询药师</option>
-                        <option value="4">调剂药师</option>
-                        <option value="5">执业药师</option>
-                        <option value="1">其他</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>难易程度</label>
-                    <select class="form-control" ng-model="updates.degree">
-                        <option value="">请选择</option>
-                        <option value="1">简单</option>
-                        <option value="2">中等</option>
-                        <option value="3">困难</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>药学分类</label>
-                    <select class="form-control" ng-model="updates.pharmacy_id" id="pharmacy_id" ng-bind-html="category|to_trusted">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>解析</label>
-                    <textarea name="" id="analysis" cols="30" rows="10" class="form-control" ng-model="updates.analysis"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>价格</label>
-                    <input type="text" class="form-control" ng-model="updates.price">
-                </div>
-                <div class="form-group">
-                    <label>价格</label>
-                    <input type="radio" name="price" value="2" ng-model="updates.is_price">启用
-                    <input type="radio" name="price" value="1" ng-model="updates.is_price">禁用
-                </div>
+      <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
+    </form>
 
-                <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
-            </form>
-        </section>
-        <section class="content col-md-6 col-sm-12" ng-if="chose_type==4||chose_type==5">
-            <form role="form">
-                <div class="form-group">
-                    <label>题干</label>
-                    <input type="text" class="form-control" placeholder="请输入题干信息" ng-model="updates.name">
-                </div>
-                <div class="form-group">
-                    <label>处方</label>
-                    <input type="file"id="photo" ng-click="photo()">
-                    <img id="head" alt="" style="width:100px;height: 100px;">
-                </div>
-                <div class="form-group">
-                    <label>分值</label>
-                    <input type="number" class="form-control" min="0" ng-model="updates.score">
-                </div>
-                <div class="form-group">
-                    <div class="form-group">
-                        <label>答案</label>
-                        <textarea name="" id="right_key" cols="30" rows="10" class="form-control" ng-model="updates.right_key"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>适用人群</label>
-                        <input type="radio" name="ss" value="2" ng-model="updates.role">药师
-                        <input type="radio" name="ss" value="3" ng-model="updates.role">医生
-                        <input type="radio" name="ss" value="4" ng-model="updates.role">护士
-                        <input type="radio" name="ss" value="5" ng-model="updates.role">学生
-                        <input type="radio" name="ss" value="1" ng-model="updates.role">其他
-                    </div>
-                    <div class="form-group" ng-show="updates.role==2">
-                        <label>职务</label>
-                        <select class="form-control" ng-model="updates.post">
-                            <option value="">请选择</option>
-                            <option value="2">临床药师</option>
-                            <option value="3">咨询药师</option>
-                            <option value="4">调剂药师</option>
-                            <option value="5">执业药师</option>
-                            <option value="1">其他</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>难易程度</label>
-                        <select class="form-control" ng-model="updates.degree">
-                            <option value="">请选择</option>
-                            <option value="1">简单</option>
-                            <option value="2">中等</option>
-                            <option value="3">困难</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>药学分类</label>
-                        <select class="form-control" ng-model="updates.pharmacy_id" id="pharmacy_id" ng-bind-html="category|to_trusted">
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>解析</label>
-                        <textarea name="" id="analysis" cols="30" rows="10" class="form-control" ng-model="updates.analysis"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>价格</label>
-                        <input type="text" class="form-control" ng-model="updates.price">
-                    </div>
-                    <div class="form-group">
-                        <label>价格</label>
-                        <input type="radio" name="price" value="2" ng-model="updates.is_price">启用
-                        <input type="radio" name="price" value="1" ng-model="updates.is_price">禁用
-                    </div>
-                    <p>患者信息收集（非必填）</p>
-                    <div class="form-group">
-                        <label>性别</label>
-                        <input type="radio" name="six" value="1" ng-model="updates.sex">男
-                        <input type="radio" name="six" value="2" ng-model="updates.sex">女
-                    </div>
-                    <div class="form-group">
-                        <label>年龄</label>
-                        <input type="text" class="form-control" ng-model="updates.age">
-                        <span>注：若患者的年龄小于1岁，请以小数表示患者的年龄</span>
-                    </div>
-                    <div class="form-group">
-                        <label>科室</label>
-                        <input type="text" class="form-control" ng-model="updates.department">
-                    </div>
-                    <div class="form-group">
-                        <label>临床诊断</label>
-                        <textarea name="" id="clinical_diagnosis" cols="30" rows="10" class="form-control" ng-model="updates.clinical_diagnosis"></textarea>
-                    </div>
-                    <!--<table class="table table-bordered table-hover">-->
-                    <!--<thead>-->
-                    <!--<tr>-->
-                    <!--<th>药品名称（规格）</th>-->
-                    <!--<th>剂量</th>-->
-                    <!--<th>给药途径</th>-->
-                    <!--<th>频率</th>-->
-                    <!--<th>疗程</th>-->
-                    <!--<th>数量</th>-->
-                    <!--<th>价格（元）</th>-->
-                    <!--</tr>-->
-                    <!--</thead>-->
-                    <!--<tbody>-->
-                    <!--<tr>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--<td><input type="text" class="not-border"></td>-->
-                    <!--</tr>-->
-                    <!--</tbody>-->
-                    <!--</table>-->
-
-
-
-
-                    <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
-            </form>
-        </section>
-        <section class="content col-md-6 col-sm-12" ng-if="chose_type==6">
-            <form role="form">
-                <div class="form-group">
-                    <label>题干</label>
-                    <input type="text" class="form-control" placeholder="请输入题干信息" ng-model="updates.name">
-                </div>
-                <div class="form-group">
-                    <label>分值</label>
-                    <input type="number" class="form-control" min="0" ng-model="updates.score">
-                </div>
-                <div class="form-group">
-                    <div class="form-group">
-                        <label>答案</label>
-                        <textarea name="" id="right_key" cols="30" rows="10" class="form-control" ng-model="updates.right_key"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>适用人群</label>
-                        <input type="radio" name="ss" value="2" ng-model="updates.role">药师
-                        <input type="radio" name="ss" value="3" ng-model="updates.role">医生
-                        <input type="radio" name="ss" value="4" ng-model="updates.role">护士
-                        <input type="radio" name="ss" value="5" ng-model="updates.role">学生
-                        <input type="radio" name="ss" value="1" ng-model="updates.role">其他
-                    </div>
-                    <div class="form-group">
-                        <label>难易程度</label>
-                        <select class="form-control" ng-model="updates.degree">
-                            <option value="">请选择</option>
-                            <option value="1">简单</option>
-                            <option value="2">中等</option>
-                            <option value="3">困难</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>药学分类</label>
-                        <select class="form-control" ng-model="updates.pharmacy_id" id="pharmacy_id" ng-bind-html="category|to_trusted">
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>解析</label>
-                        <textarea name="" id="analysis" cols="30" rows="10" class="form-control" ng-model="updates.analysis"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>价格</label>
-                        <input type="text" class="form-control" ng-model="updates.price">
-                    </div>
-                    <div class="form-group">
-                        <label>价格</label>
-                        <input type="radio" name="price" value="2" ng-model="updates.is_price">启用
-                        <input type="radio" name="price" value="1" ng-model="updates.is_price">禁用
-                    </div>
-                    <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
-            </form>
-        </section>
-
-    </div>
+    <!-- /.content -->
+  </div>
