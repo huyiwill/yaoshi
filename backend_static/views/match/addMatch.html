@@ -25,7 +25,8 @@
           <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
         </div>
         <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
-        <br/><p>注：大小不超过xXx，支持jpg、png格式。</p>
+        <br/>
+        <p>注：大小不超过xXx，支持jpg、png格式。</p>
       </div>
       <div class="form-group">
         <div class="form-item">
@@ -34,21 +35,55 @@
           <div class="common-err proup-left" ng-show="updates.head==undefined && submitted">这是一个必填字段</div>
         </div>
         <img ng-src="{{updates.head}}" alt="" class="head-photo" id="head" ng-show="updates.head!=undefined">
-        <br/><p>注：此图片作为该比赛的头图展示在比赛列表里面，请上传可以代表该比赛内容的图片，大小不超过xXx，支持jpg、png格式。</p>
+        <br/>
+        <p>注：此图片作为该比赛的头图展示在比赛列表里面，请上传可以代表该比赛内容的图片，大小不超过xXx，支持jpg、png格式。</p>
       </div>
       <div class="form-group">
-        <label>答案C</label>
-        <input type="text" class="form-control" ng-model="updates.c_ans">
-        <input type="radio" name="danxuan" value="C" ng-model="updates.right_key">正确答案
+        <label>报名时间:</label>
+        <input class="Wdate" name="sign_start" type="text" onClick="WdatePicker()" width='270px'>---
+        <input class="Wdate" name="sign_end" type="text" onClick="WdatePicker()" width='270px'>
       </div>
       <div class="form-group">
-        <label>答案D</label>
-        <input type="text" class="form-control" ng-model="updates.d_ans">
-        <input type="radio" name="danxuan" value="D" ng-model="updates.right_key">正确答案
+        <label>比赛时间:</label>
+        <input class="Wdate" name="match_start" type="text" onClick="WdatePicker()" width='270px'>---
+        <input class="Wdate" name="match_end" type="text" onClick="WdatePicker()" width='270px'>
       </div>
       <div class="form-group">
-        <label>分值</label>
-        <input type="number" class="form-control" min="0" ng-model="updates.score">
+        <label>参赛地区</label>
+        <div id="content-wrap">
+          <div id="content-left" class="demo">
+
+            <form action="" name="form1">
+              <div class="infolist">
+                <lable>所在地区：</lable>
+                <div class="liststyle">
+                                <span id="Province">
+                                    <i>请选择省份</i>
+                                    <ul>
+                                        <li><a href="javascript:void(0)" alt="请选择省份">请选择省份</a></li>
+                                    </ul>
+                                    <input type="hidden" name="cho_Province" value="请选择省份">
+                                </span>
+                  <span id="City">
+                                    <i>请选择城市</i>
+                                    <ul>
+                                        <li><a href="javascript:void(0)" alt="请选择城市">请选择城市</a></li>
+                                    </ul>
+                                    <input type="hidden" name="cho_City" value="请选择城市">
+                                </span>
+                  <span id="Area">
+                                    <i>请选择地区</i>
+                                    <ul>
+                                        <li><a href="javascript:void(0)" alt="请选择地区">请选择地区</a></li>
+                                    </ul>
+                                    <input type="hidden" name="cho_Area" value="请选择地区">
+                                </span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div id="content-right"></div>
+        </div>
       </div>
       <div class="form-group">
         <label>适用人群</label>
