@@ -653,10 +653,8 @@ angular
                 "/backend_static/components/controller/main-ctrls.js",
                 "/backend_static/components/controller/match/addMatch-ctrls.js",
                 "/backend_static/components/controller/carlendar/WdatePicker.js",
-                "/backend_static/components/controller/cityselect/js/city.min.js",
-                //"/backend_static/components/controller/cityselect/js/jquery.min.js",
-                "/backend_static/components/controller/cityselect/css/city.css",
-                "/backend_static/components/controller/cityselect/images/jt_nor.png"
+                "/backend_static/components/controller/ueditor/ueditor.config.js",
+                "/backend_static/components/controller/ueditor/ueditor.all.js",
               ]
             })
           }

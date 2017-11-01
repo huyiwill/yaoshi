@@ -8,7 +8,7 @@ angular
         var $config = $injector.get('$config');
         var $session = $injector.get('$session');
 
-        $rootScope.root = "/membership.html";
+        $rootScope.root = "/addMatch.html";
         $scope.submitted = false;
         $scope.lead = function (page, order, filter_type, id) {
 
