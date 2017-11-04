@@ -276,8 +276,8 @@ abstract class  Controller
             $this->redis->setex($key, 60 * 10, $code);
         }
         $sms = new Sms();
-        $msg =  '【药学工具网】' . $message . $code . '，十分钟之内有效！请勿重复获取之，如非本人操作，请忽略之。';
-        //$msg = "【药学工具网】欢迎注册药学工具网账号，验证码为".$message . $code ."（请勿泄露），如有任何疑问，请拨打010-80877977。";
+        //$msg =  '【易百加药学工具网】' . $message . $code . '，十分钟之内有效！请勿重复获取之，如非本人操作，请忽略之。';
+        $msg = "【药学工具网】欢迎注册药学工具网账号，验证码为".$message . $code ."（请勿泄露），如有任何疑问，请拨打010-80877977。";
         $return = $sms->send($mobile, $msg, 'true');
         return $return;
     }
