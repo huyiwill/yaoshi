@@ -13,6 +13,7 @@
       <li>新增比赛</li>
     </ol>
     <!-- Main content -->
+    <br/>
     <form role="form">
       <div class="form-group">
         <label>比赛名称:</label>
@@ -49,92 +50,78 @@
         <input class="Wdate" name="match_end" type="text" onClick="WdatePicker()" width='270px'>
       </div>
       <div class="form-group">
-        <label>参赛地区</label>
+        <label>参赛地区:</label>
         <div id="content-wrap">
           <div id="content-left" class="demo">
 
-            <form action="" name="form1">
-              <div class="infolist">
-                <lable>所在地区：</lable>
-                <div class="liststyle">
-                                <span id="Province">
-                                    <i>请选择省份</i>
-                                    <ul>
-                                        <li><a href="javascript:void(0)" alt="请选择省份">请选择省份</a></li>
-                                    </ul>
-                                    <input type="hidden" name="cho_Province" value="请选择省份">
-                                </span>
-                  <span id="City">
-                                    <i>请选择城市</i>
-                                    <ul>
-                                        <li><a href="javascript:void(0)" alt="请选择城市">请选择城市</a></li>
-                                    </ul>
-                                    <input type="hidden" name="cho_City" value="请选择城市">
-                                </span>
-                  <span id="Area">
-                                    <i>请选择地区</i>
-                                    <ul>
-                                        <li><a href="javascript:void(0)" alt="请选择地区">请选择地区</a></li>
-                                    </ul>
-                                    <input type="hidden" name="cho_Area" value="请选择地区">
-                                </span>
-                </div>
-              </div>
-            </form>
+
+            <div class="form-group">
+              <input type="text" placeholder="请输入省份" class="form-control" ng-model="updates.provice">
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="请输入城市" class="form-control" ng-model="updates.city">
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="请输入县镇" class="form-control" ng-model="updates.town">
+            </div>
+
+
           </div>
           <div id="content-right"></div>
         </div>
       </div>
+
+
       <div class="form-group">
-        <label>适用人群</label>
-        <input type="radio" name="ss" value="2" ng-model="updates.role">药师
-        <input type="radio" name="ss" value="3" ng-model="updates.role">医生
-        <input type="radio" name="ss" value="4" ng-model="updates.role">护士
-        <input type="radio" name="ss" value="5" ng-model="updates.role">学生
-        <input type="radio" name="ss" value="1" ng-model="updates.role">其他
-      </div>
-      <div class="form-group" ng-show="updates.role==2">
-        <label>职务</label>
+        <label>参赛人员:</label>
         <select class="form-control" ng-model="updates.post">
           <option value="">请选择</option>
-          <option value="2">临床药师</option>
-          <option value="3">咨询药师</option>
-          <option value="4">调剂药师</option>
-          <option value="5">执业药师</option>
-          <option value="1">其他</option>
+          <option value="2">药师</option>
+          <option value="3">医生</option>
+          <option value="4">护士</option>
+          <option value="5">医药学生</option>
+          <option value="6">其他</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label>难易程度</label>
-        <select class="form-control" ng-model="updates.degree">
-          <option value="">请选择</option>
-          <option value="1">简单</option>
-          <option value="2">中等</option>
-          <option value="3">困难</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>药学分类</label>
-        <select class="form-control" ng-model="updates.pharmacy_id" id="pharmacy_id"
-                ng-bind-html="category|to_trusted">
-        </select>
-      </div>
-      <div class="form-group">
-        <label>解析</label>
-        <textarea name="" id="analysis" cols="30" rows="10" class="form-control"
-                  ng-model="updates.analysis"></textarea>
-      </div>
-      <div class="form-group">
-        <label>价格</label>
-        <input type="text" class="form-control" ng-model="updates.price">
-      </div>
-      <div class="form-group">
-        <label>价格</label>
-        <input type="radio" name="price" value="2" ng-model="updates.is_price">启用
-        <input type="radio" name="price" value="1" ng-model="updates.is_price">禁用
       </div>
 
-      <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
+
+      <div class="form-group">
+        <label>报名审核:</label>
+        <input type="radio" name="aduit" value="1" ng-model="updates.check">审核
+        <input type="radio" name="aduit" value="2" ng-model="updates.nocheck">不审核
+      </div>
+
+
+      <div class="form-group">
+        <label>实名认证:</label>
+        <input type="radio" name="real_auth" value="1" ng-model="updates.check">需要
+        <input type="radio" name="real_auth" value="2" ng-model="updates.nocheck">不需要
+      </div>
+
+
+      <div class="form-group">
+        <label>底部内容:</label>
+        <textarea name="bottom_content" id="analysis" cols="30" rows="10" class="form-control"
+                  ng-model="updates.analysis"></textarea>
+      </div>
+      <br/>
+      <div class="form-group">
+        <label>比赛介绍:</label>
+        <input type="radio" name="shows" value="1" ng-model="updates.check">展示
+        <input type="radio" name="hiddens" value="2" ng-model="updates.nocheck">隐藏
+      </div>
+
+
+      <div class="form-group">
+        <label>比赛简介内容:</label>
+        <textarea name="profile_content" id="analysis" cols="30" rows="10" class="form-control"
+                  ng-model="updates.analysis"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-default" ng-click="chose()">提交</button>
+      </div>
+      <br/>
     </form>
 
     <!-- /.content -->
