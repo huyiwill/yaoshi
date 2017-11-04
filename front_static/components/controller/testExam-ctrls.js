@@ -53,7 +53,7 @@ angular
                     if(data.status){
                         $scope.pay_order(data.data,type);
                     }else{
-                        swal("易百加提醒您", data.message,"error");
+                        swal("药学工具网提醒您", data.message,"error");
                     }
                 });
         }
@@ -75,7 +75,7 @@ angular
                         $scope.choses_types = data.data.url;
                         console.log($scope.choses_types)
                     }else{
-                        swal("易百加提醒您", data.message,"error");
+                        swal("药学工具网提醒您", data.message,"error");
                     }
                 });
         }

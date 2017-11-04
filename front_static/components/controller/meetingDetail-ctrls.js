@@ -100,7 +100,7 @@ angular
                 .post('/meeting/front/enroll.json',{meeting_id:$stateParams.id})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "报名成功", "success");
+                        swal("药学工具网提醒您", "报名成功", "success");
                     } else {
                         swal("OMG!", data.message, "error");
                     }

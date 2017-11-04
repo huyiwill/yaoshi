@@ -148,7 +148,7 @@ angular
                 })
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "您的打分已提交", "success");
+                        swal("药学工具网提醒您", "您的打分已提交", "success");
                         $scope.close_back();
                     } else {
                         swal("OMG!", data.message, "error");

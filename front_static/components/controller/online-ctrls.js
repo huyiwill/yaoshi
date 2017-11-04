@@ -95,7 +95,7 @@ angular
                 .post('/online/add.json',{subject_id:$scope.chose_id,user_answer:user_answer,synchro:$scope.synchro})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "答案提交成功","success");
+                        swal("药学工具网提醒您", "答案提交成功","success");
                         $scope.chose_this = 3;
                         $scope.leads();
                         $http
@@ -127,7 +127,7 @@ angular
                             $scope.see_analysis = 1;
                         } else {
                             swal({
-                                title: "易百加提醒您",
+                                title: "药学工具网提醒您",
                                 text: data.message,
                                 type: "warning",
                                 showCancelButton: true,
@@ -211,7 +211,7 @@ angular
                 .post('/online/comment/add.json', {subject_id: $scope.chose_id,pid:0,answer_id:$scope.pid,content:content,synchro:$scope.synchro2})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "您的评论已提交","success");
+                        swal("药学工具网提醒您", "您的评论已提交","success");
                         $scope.close_proup();
                         $scope.leads();
                     } else {
