@@ -43,9 +43,9 @@ class SiteController extends Controller
             return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status' => false, 'message' => '手机号码格式错误']));
         }
         //msg
-        $msg = '欢迎注册账号,注册验证码： ';
+        $msg = '欢迎注册药学工具网账号，验证码为： ';
         if (isset($post['reset']) && $post['reset'] == 1) {
-            $msg = '重置密码,手机验证码： ';
+            $msg = '您正在重置药学工具网账号，验证码为： ';
         } else if (isset($post['change']) && $post['change'] == 1) {
             $msg = '更换手机号,手机验证码： ';
         }
