@@ -68,7 +68,7 @@ angular
                 .post('/verification.json', {mobile: $scope.signup_phone})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "验证码已发送", "success");
+                        swal("药学工具网提醒您", "验证码已发送", "success");
                         $scope.time = 60;
                         $scope.timmer = $interval(toDo, 1000);
 
@@ -98,7 +98,7 @@ angular
                 })
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "注册成功,请登录", "success");
+                        swal("药学工具网提醒您", "注册成功,请登录", "success");
                         $state.go("main.logo", {"signin": 1});
                     } else {
                         swal("OMG!", data.message, "error");
@@ -115,7 +115,7 @@ angular
                 })
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "绑定成功", "success");
+                        swal("药学工具网提醒您", "绑定成功", "success");
                         $state.go("main.home");
                     } else {
                         swal("OMG!", data.message, "error");
@@ -127,7 +127,7 @@ angular
                 .post('/login.json', {mobile: $scope.signin_phone, password: $scope.signin_pwd})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "登录成功", "success");
+                        swal("药学工具网提醒您", "登录成功", "success");
                         $state.go("main.home");
                     } else {
                         swal("OMG!", data.message, "error");
@@ -142,7 +142,7 @@ angular
                 .post('/verification.json', {mobile: $scope.reset_phone, reset: 1})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "验证码已发送", "success");
+                        swal("药学工具网提醒您", "验证码已发送", "success");
                         $scope.time = 60;
                         $scope.timmer = $interval(toDo, 1000);
 
@@ -161,7 +161,7 @@ angular
                 })
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "密码重置成功", "success");
+                        swal("药学工具网提醒您", "密码重置成功", "success");
                         $state.go("main.logo", {"signin": 1});
                     } else {
                         swal("OMG!", data.message, "error");

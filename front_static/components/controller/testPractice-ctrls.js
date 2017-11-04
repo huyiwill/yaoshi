@@ -111,7 +111,7 @@ angular
                 .success(function (data) {
                     if (data.status) {
                         swal({
-                            title: "易百加提醒您",
+                            title: "药学工具网提醒您",
                             text: "收藏成功",
                             timer: 2000,
                             allowOutsideClick:true
@@ -129,7 +129,7 @@ angular
                 .success(function (data) {
                     if (data.status) {
                         swal({
-                            title: "易百加提醒您",
+                            title: "药学工具网提醒您",
                             text: "取消收藏成功",
                             timer: 2000,
                             allowOutsideClick:true
@@ -170,7 +170,7 @@ angular
                             $scope.analy = data.data.analysis.analysis;
                         } else {
                             swal({
-                                title: "易百加提醒您",
+                                title: "药学工具网提醒您",
                                 text: data.message,
                                 type: "warning",
                                 showCancelButton: true,
@@ -196,7 +196,7 @@ angular
         $scope.correction = function () {
             if ($("#text_error").val() == '') {
                 swal({
-                    title: "易百加提醒您",
+                    title: "药学工具网提醒您",
                     text: "请先填写纠错信息",
                     timer: 2000,
                     allowOutsideClick:true
@@ -209,7 +209,7 @@ angular
                     $scope.correction_list = 0;
                     if (data.status) {
                         swal({
-                            title: "易百加提醒您",
+                            title: "药学工具网提醒您",
                             text: "您的纠错已提交",
                             timer: 2000,
                             allowOutsideClick:true
@@ -245,7 +245,7 @@ angular
         $scope.click_end = function (key, id, s) {
             if ($scope.old_id == id) {
                 swal({
-                    title: "易百加提醒您",
+                    title: "药学工具网提醒您",
                     text: "不能重复提交答案",
                     timer: 2000,
                     allowOutsideClick:true
@@ -280,7 +280,7 @@ angular
 
                 //判断用户是否做完
                 if ($scope.ex_num == $scope.exercise_all.length) {
-                    swal("易百加提醒您", "您已经做完了", "success");
+                    swal("药学工具网提醒您", "您已经做完了", "success");
                     $session.purge('userMsg');
                 } else {
                     //记录用户的答题相关信息

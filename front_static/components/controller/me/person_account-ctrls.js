@@ -16,7 +16,7 @@ angular
                 .post('/verification.json', {mobile: $scope.mobile_new})
                 .success(function (data) {
                     if (data.status) {
-                        swal("易百加提醒您", "验证码已发送", "success");
+                        swal("药学工具网提醒您", "验证码已发送", "success");
                         $scope.time = 60;
                         $scope.timmer = $interval(toDo, 1000);
 

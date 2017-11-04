@@ -35,7 +35,7 @@ angular
                     if(data.status){
                         $scope.sign = 0;
                         $scope.sign_msg='';
-                        swal("易百加提醒您", "退出成功","success");
+                        swal("药学工具网提醒您", "退出成功","success");
                         $state.go("main.logo",{"signin":1});
                     }
                 });

@@ -46,7 +46,7 @@ angular
                 .post('/code/add.json',{code:code})
                 .success(function (data) {
                     if(data.status){
-                        swal("易百加提醒您", "操作成功","success");
+                        swal("药学工具网提醒您", "操作成功","success");
                     }else{
                         swal("OMG!", data.message, "error");
                     }

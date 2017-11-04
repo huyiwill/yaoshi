@@ -16,7 +16,7 @@ angular
         //查看是否为支付宝跳转回来的页面
         if (location.href.indexOf('seller_id') != -1) {
             swal({
-                title: "易百加提醒您",
+                title: "药学工具网提醒您",
                 text: "支付成功！如未到账，请刷新页面",
                 timer: 2000,
                 allowOutsideClick: true
@@ -162,7 +162,7 @@ angular
                         $scope.pay_order(data.data, type);
                         $scope.order_msg(data.data);
                     } else {
-                        swal("易百加提醒您", data.message, "error");
+                        swal("药学工具网提醒您", data.message, "error");
                     }
                 });
         }
@@ -180,7 +180,7 @@ angular
                         $scope.choses_types = data.data.url;
                         $scope.timmer = $interval(search_order, 3000);
                     } else {
-                        swal("易百加提醒您", data.message, "error");
+                        swal("药学工具网提醒您", data.message, "error");
                     }
                 });
         }
@@ -197,7 +197,7 @@ angular
                             $scope.close_proup();
                             $interval.cancel($scope.timmer);
                             swal({
-                                title: "易百加提醒您",
+                                title: "药学工具网提醒您",
                                 text: "支付成功！",
                                 timer: 2000,
                                 allowOutsideClick: true
@@ -220,7 +220,7 @@ angular
                         $scope.order_info = data.data;
 
                     } else {
-                        swal("易百加提醒您", data.message, "error");
+                        swal("药学工具网提醒您", data.message, "error");
                     }
                 });
         }
@@ -232,7 +232,7 @@ angular
                 .success(function (data) {
                     if (data.status) {
                         swal({
-                            title: "易百加提醒您",
+                            title: "药学工具网提醒您",
                             text: "开通成功！",
                             timer: 2000,
                             allowOutsideClick: true
@@ -241,7 +241,7 @@ angular
                         $scope.cart_number = undefined;
                         $scope.load_user();
                     } else {
-                        swal("易百加提醒您", data.message, "error");
+                        swal("药学工具网提醒您", data.message, "error");
                     }
                 });
         }

@@ -77,7 +77,7 @@ angular
                 .post('/user/perfect.json',{id:$scope.id,role:5,name:$scope.name,entrance_time:$(".birthday").val(),head:$scope.head,photo:$scope.path,school:$scope.school,major:$scope.major,education:$scope.education})
                 .success(function (data) {
                     if(data.status){
-                        swal("易百加提醒您", "您的资料已完善","success");
+                        swal("药学工具网提醒您", "您的资料已完善","success");
                         $state.go("main.home");
                     }else{
                         swal("OMG!", data.message,"error");

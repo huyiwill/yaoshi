@@ -173,7 +173,7 @@ angular
         //发布
         $scope.release = function (id, type) {
             swal({
-                title: "易百加提醒您",
+                title: "药学工具网提醒您",
                 text: "修改发布信息吗！",
                 type: "warning",
                 showCancelButton: true,
@@ -204,7 +204,7 @@ angular
         //报名
         $scope.sign_up = function (id, type) {
             swal({
-                title: "易百加提醒您",
+                title: "药学工具网提醒您",
                 text: "修改报名信息吗！",
                 type: "warning",
                 showCancelButton: true,
@@ -236,7 +236,7 @@ angular
         //会议
         $scope.close_meet = function (id, type) {
             swal({
-                title: "易百加提醒您",
+                title: "药学工具网提醒您",
                 text: "修改会议信息吗！",
                 type: "warning",
                 showCancelButton: true,

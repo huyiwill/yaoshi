@@ -3,7 +3,7 @@
     <div class="resign zhuce" ng-show="signup==1">
         <div class="form-title">
             <h1>注 册</h1>
-            <p>已有易百加账号，请直接<a id="resign-logo" ui-sref="main.logo({signin:1})">登录</a></p>
+            <p>已有药学工具网账号，请直接<a id="resign-logo" ui-sref="main.logo({signin:1})">登录</a></p>
         </div>
         <form class="form" name="resign" ng-submit="submitForm(resign.$valid)" novalidate>
             <div class="form-item">
@@ -58,7 +58,7 @@
             </div>
             <div class="form-item deal" ng-init="agree=true">
                 <span class="dealcheck" ng-class="{'dealcheck':agree==true}" ng-click="agree=!agree"></span>
-                <p>阅读并同意《<a href="/agreement.html" target="_blank">易百加用户服务协议</a>》</p>
+                <p>阅读并同意《<a href="/agreement.html" target="_blank">药学工具网用户服务协议</a>》</p>
             </div>
             <div class="form-item submit">
                 <!--<input type="submit" value="注册" >-->
@@ -85,14 +85,14 @@
                 <img ng-src="{{u_msg.headimgurl}}" alt="">
             </div>
             <h5>{{u_msg.nickname}}</h5>
-            <p>为了更好的为您服务，请关联一个易百加账号</p>
+            <p>为了更好的为您服务，请关联一个药学工具网账号</p>
             <ul>
                 <li>
-                    <p>已有易百加账号？</p>
+                    <p>已有药学工具网账号？</p>
                     <span ng-click="u_signin()">关联账号</span>
                 </li>
                 <li>
-                    <p>还没有易百加账号？</p>
+                    <p>还没有药学工具网账号？</p>
                     <span><a ng-click="u_signup()">立即注册账号</a></span>
                 </li>
             </ul>
@@ -141,7 +141,7 @@
     <div class="resign" ng-show="signins==1">
         <div class="form-title">
             <h1>登 录</h1>
-            <p style="margin-top: 14px;">还没有易百加账号？请前往<a ui-sref="main.logo({signin:0})" class="yellow">注册</a></p>
+            <p style="margin-top: 14px;">还没有药学工具网账号？请前往<a ui-sref="main.logo({signin:0})" class="yellow">注册</a></p>
         </div>
         <form class="form" name="signin" ng-submit="submitForm(signin.$valid)" novalidate>
             <div class="form-item">
@@ -171,7 +171,7 @@
                         ng-click="sign_in()">登录
                 </button>
                 <!--<input type="submit" value="登录">-->
-                <!--<p style="margin-top: 14px;">还没有易百加账号？请前往<a ui-sref="main.logo({signin:0})" class="yellow">注册</a></p>-->
+                <!--<p style="margin-top: 14px;">还没有药学工具网账号？请前往<a ui-sref="main.logo({signin:0})" class="yellow">注册</a></p>-->
             </div>
         </form>
         <div class="form-weixin">
