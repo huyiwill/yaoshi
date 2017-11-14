@@ -11,7 +11,10 @@ $config = array_merge(
     require(__DIR__ . '/config/config.php'),
     require(__DIR__ . '/config/config-local.php')
 );
-
+function p($a){
+    echo "<pre>";
+    print_r($a);die;
+}
 try {
     $app = new \Slim\App(["settings" => $config]);
     require(__DIR__ . '/config/container.php');

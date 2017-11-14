@@ -26,21 +26,22 @@ class OnlineController extends Controller
             return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status' => false, 'message' => '必填参数错误']));
         }
         $search = [
-            'topic_type' => $get['topic_type'] ? $get['topic_type'] : [4,5,6],
-            'therapeutic' => $get['therapeutic'] ? $get['therapeutic'] : '',
+            'topic_type' => isset($get['topic_type']) ? $get['topic_type'] : [4,5,6],
+            'therapeutic' => isset($get['therapeutic']) ? $get['therapeutic'] : '',
         ];
         $limit = 8;
         $page = !empty($get['page']) ? $get['page'] : 1;
         $search = $this->_commonSearch($search, $this->_search_black);
         $order = !empty($get['order']) ? $get['order'] : 'create_time desc';
-        $count = $this->db->subject()->select('')->where($search)->count();
+        $count = $this->db->subject()->select('*')->where($search)->count();
         $number = ceil($count / $limit);
         $result = $this->db->subject()->select('id, name, topic_type, right_key, score, degree, price, is_price')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
         $data = $this->iterator_array($result);
+
         if (!empty($data)) {
             array_walk($data, function(&$item) {
-                $item['comments_count'] = $this->db->practice_comment()->select('')
-                    ->where(['subject_id'=>$item['subject_id'],'answer_id'=>$item['id'],'synchro'=>1,'status'=>1])->count();
+                $item['comments_count'] = $this->db->practice_comment()->select('*')
+                    ->where(['subject_id'=>$item['id'],'answer_id'=>$item['id'],'synchro'=>1,'status'=>1])->count();
             });
         }
         $return = [
@@ -134,9 +135,9 @@ class OnlineController extends Controller
         $page = !empty($get['page']) ? $get['page'] : 1;
         $search = $this->_commonSearch($search, $this->_search_black);
         $order = !empty($get['order']) ? $get['order'] : 'create_time desc';
-        $count = $this->db->practice_answer()->select('')->where($search)->count();
+        $count = $this->db->practice_answer()->select('*')->where($search)->count();
         $number = ceil($count / $limit);
-        $result = $this->db->practice_answer()->select('')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
+        $result = $this->db->practice_answer()->select('*')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
         $data = $this->iterator_array($result);
         if (!empty($data)) {
             //问题下的评论列表
@@ -150,7 +151,7 @@ class OnlineController extends Controller
                 $comments_tree = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
                 $comments_tree = Tools::getTree($comments_tree);
-                $comments_count = $this->db->practice_comment()->select('')
+                $comments_count = $this->db->practice_comment()->select('*')
                     ->where(['subject_id'=>$item['subject_id'],'answer_id'=>$item['id'],'synchro'=>1,'status'=>1])->count();
                 $item['comments_tree'] = $comments_tree;
                 $item['comments_count'] = $comments_count;

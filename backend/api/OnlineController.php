@@ -25,17 +25,19 @@ class OnlineController extends Controller
         if (!empty($get['topic_type']) && !in_array($get['topic_type'], [4,5,6])) {
             return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status' => false, 'message' => '必填参数错误']));
         }
+
         $search = [
-            'topic_type' => $get['topic_type'] ? $get['topic_type'] : [4,5,6],
-            'name' => $get['name'] ? $get['name'] : ''
+            'topic_type' => isset($get['topic_type']) ? $get['topic_type'] : [4,5,6],
+            'name' => isset($get['name']) ? $get['name'] : ''
         ];
+
         $limit = $this->_limit;
         $page = !empty($get['page']) ? $get['page'] : 1;
         $search = $this->_commonSearch($search, $this->_search_black);
         $order = !empty($get['order']) ? $get['order'] : 'create_time desc';
-        $count = $this->db->subject()->select('')->where($search)->count();
+        $count = $this->db->subject()->select('*')->where($search)->count();
         $number = ceil($count / $limit);
-        $result = $this->db->subject()->select('')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
+        $result = $this->db->subject()->select('*')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
         $data = $this->iterator_array($result);
         $return = [
             'status' => true,
