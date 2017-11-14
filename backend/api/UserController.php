@@ -42,13 +42,14 @@ class UserController extends Controller
             'password' => md5($post['password']),
             'nickname' => $post['nickname'],
             'perfect' => 2,
-            'role' => $post['role'] ? $post['role'] : 1,
-            'birthday' => $post['birthday'] ? strtotime($post['birthday']) : 0,
-            'code' => $post['code'] ? $post['code'] : '',
+            'role' => isset($post['role']) ? $post['role'] : 1,
+            'birthday' => isset($post['birthday']) ? strtotime($post['birthday']) : 0,
+            'code' => isset($post['code']) ? $post['code'] : 0,
             '`group`' => $post['group'],
             '`from`' => 2,
             'create_time' => time()
         ];
+
         //头像处理
         $uploadHead = $this->uploadBase64Image($post['head'], $post['mobile'], 'user/head', 'user_head');
         if (!empty($uploadHead)) {
