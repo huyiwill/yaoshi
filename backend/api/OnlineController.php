@@ -45,6 +45,7 @@ class OnlineController extends Controller
             'total' => $number,
             'data' => $data,
         ];
+
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 

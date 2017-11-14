@@ -63,7 +63,7 @@
                                         <tr ng-repeat="l in list track by $index">
                                             <td>{{l.id}}</td>
                                             <td>{{l.name}}</td>
-                                            <td>{{l.degree}}</td>
+                                            <td>{{l.do_times}}</td>
                                             <td>{{l.create_time*1000|date:"yyyy-MM-dd"}}</td>
                                             <td ng-show="l.status==1">正常</td>
                                             <td ng-show="l.status==2">禁用</td>

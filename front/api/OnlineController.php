@@ -108,7 +108,9 @@ class OnlineController extends Controller
         $result = $this->db->practice_answer()->insert($insert_row);
         //热度
         $weight = $subject_info['weight'] + 1;
-        $subject_update_result = $this->db->subject()->where(['id'=>$post['subject_id']])->update(['weight'=>$weight]);
+        //做题次数
+        $do_times = $subject_info['do_times']+1;
+        $subject_update_result = $this->db->subject()->where(['id'=>$post['subject_id']])->update(['weight'=>$weight,'do_times'=>$do_times]);
         if ($result !== false && $subject_update_result !== false) {
             $this->db->transaction = 'COMMIT';
             $return = ['status' => true, 'message' => '操作成功'];
