@@ -27,7 +27,7 @@ class OnlineController extends Controller
         }
         $search = [
             'topic_type' => isset($get['topic_type']) ? $get['topic_type'] : [4,5,6],
-            'therapeutic' => isset($get['therapeutic']) ? $get['therapeutic'] : '',
+            'therapeutic' => isset($get['therapeutic'])&&!empty($get['therapeutic']) ? $get['therapeutic'] : '',
         ];
         $limit = 8;
         $page = !empty($get['page']) ? $get['page'] : 1;
