@@ -118,13 +118,13 @@ class AssessUserController extends Controller
         }
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
         //check
-        $assess_info = $this->db->assess()->where(['id' => $get['assess_id'], 'uid_admin' => $cache_user_info['id'], 'status'=>1])->fetch();
-        if (!$assess_info) {
-            return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status'=>false,'message'=>'非法请求']));
-        }
+        //$assess_info = $this->db->assess()->where(['id' => $get['assess_id'], 'uid_admin' => $cache_user_info['id'], 'status'=>1])->fetch();
+        //if (!$assess_info) {
+        //    return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status'=>false,'message'=>'非法请求']));
+        //}
         $search = [
             'assess_id' => $get['assess_id'],
-            'uid' => $get['uid'] ? $get['uid'] : '',
+            'uid' => @$get['uid'] ? $get['uid'] : '',
         ];
         if (!empty($get['state'] && in_array($get['state'], [1,2,3,4]))) {
             $search['state'] = $get['state'];

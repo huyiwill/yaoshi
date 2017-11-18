@@ -488,7 +488,7 @@ class App
         }
         /** @var callable $notFoundHandler */
         $notFoundHandler = $this->container->get('notFoundHandler');
-        return $notFoundHandler($request, $response);
+        return @$notFoundHandler($request, $response);
     }
 
     /**

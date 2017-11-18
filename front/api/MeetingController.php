@@ -122,10 +122,10 @@ class MeetingController extends Controller
         if (!$this->formControlEmpty(['meeting_id','sort','type','state'], $post)) {
             return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status'=>false,'message'=>'必填参数错误']));
         }
-        $meeting_details_id = $this->db->meeting_details()->where(['meeting_id' => $post['meeting_id'], 'sort' => $post['sort'], 'status'=>1])->fetch('id');
-        if (!empty($meeting_details_id)) {
-            return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status'=>false,'message'=>'排序已存在']));
-        }
+        //$meeting_details_id = $this->db->meeting_details()->where(['meeting_id' => $post['meeting_id'], 'sort' => $post['sort'], 'status'=>1])->fetch('id');
+        //if (!empty($meeting_details_id)) {
+        //    return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status'=>false,'message'=>'排序已存在']));
+        //}
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
         $meeting_info = $this->db->meeting()->where(['id' => $post['meeting_id'], 'uid_admin'=>$cache_user_info['id'],'status'=>1])->fetch();
         if (!$meeting_info) {
@@ -513,7 +513,7 @@ class MeetingController extends Controller
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
         $search = [
             'uid_admin' => $cache_user_info['id'],
-            'name' => $get['name'] ? $get['name'] : ''
+            'name' => @$get['name'] ? $get['name'] : ''
         ];
         $limit = $this->_limit;
         $page = !empty($get['page']) ? $get['page'] : 1;
@@ -615,11 +615,11 @@ class MeetingController extends Controller
             $insert_row = [
                 'meeting_id' => $post['meeting_id'],
                 'name' => $item['name'],
-                'remark' => $post['remark'],
+                'remark' => @$post['remark'],
                 'create_time' => time()
             ];
             //嘉宾头像
-            $uploadPhoto = $this->uploadBase64Image($item['head'], '', 'meeting/detail/guest', 'guest.head');
+            $uploadPhoto = $this->uploadBase64Image(@$item['head'], '', 'meeting/detail/guest', 'guest.head');
             if (!empty($uploadPhoto)) {
                 //上传新图片
                 $insert_row['real_head'] = $uploadPhoto['realPath'];

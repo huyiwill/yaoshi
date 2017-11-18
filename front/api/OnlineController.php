@@ -26,8 +26,8 @@ class OnlineController extends Controller
             return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status' => false, 'message' => '必填参数错误']));
         }
         $search = [
-            'topic_type' => isset($get['topic_type']) ? $get['topic_type'] : [4,5,6],
-            'therapeutic' => isset($get['therapeutic'])&&!empty($get['therapeutic']) ? $get['therapeutic'] : '',
+            'topic_type' => @$get['topic_type'] ? $get['topic_type'] : [4,5,6],
+            'therapeutic' => @$get['therapeutic'] ? $get['therapeutic'] : '',
         ];
         $limit = 8;
         $page = !empty($get['page']) ? $get['page'] : 1;
