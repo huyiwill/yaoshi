@@ -161,7 +161,7 @@ class UserController extends Controller
             'nickname' => $post['nickname'],
             'role' => $post['role'] ? $post['role'] : 1,
             'birthday' => $post['birthday'] ? strtotime($post['birthday']) : 0,
-            'code' => $post['code'] ? $post['code'] : '',
+            'code' => @$post['code'] ? $post['code'] : '',
             '`group`' => $post['group'],
         ];
         //密码处理
