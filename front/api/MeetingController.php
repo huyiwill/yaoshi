@@ -506,7 +506,7 @@ class MeetingController extends Controller
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 
-    /* list */
+    /* list  筛选没有*/
     public function actionList(Request $request, Response $response)
     {
         $get = $request->getQueryParams();

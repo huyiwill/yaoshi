@@ -105,7 +105,7 @@ class TestController extends Controller
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
         $search = [
             'uid_admin' => $cache_user_info['id'],
-            'name' => $get['name'] ? $get['name'] : ''
+            'name' => @$get['name'] ? $get['name'] : ''
         ];
         $limit = $this->_limit;
         $page = !empty($get['page']) ? $get['page'] : 1;
