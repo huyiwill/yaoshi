@@ -32,10 +32,11 @@ class ExercisesController extends Controller
         $limit = 2;
         $page = !empty($get['page']) ? $get['page'] : 1;
         $order = 'id asc';
-        $count = $this->db->exercises()->select('')->where($search)->count();
+        $count = $this->db->exercises()->select('*')->where($search)->count();
         $number = ceil($count / $limit);
         $result = $this->iterator_array($this->db->exercises()->select('id,name,time,remark,price,price,is_discount,discount,discount_end,test_end,photo')
             ->where($search)->order($order)->limit($limit, ($page - 1) * $limit));
+
         if (!empty($result)) {
             foreach ($result as $key=>$item) {
                 //免费 || 已购买

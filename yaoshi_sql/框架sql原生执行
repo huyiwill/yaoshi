@@ -1,0 +1,10 @@
+$sql = "SELECT s.id, s.`name`, s.topic_type, s.choice, s.right_key, s.score, s.degree FROM `ys_subject_relation` sr, `ys_subject` s
+                  WHERE sr.subject_id = s.id AND sr.purpose = 2 AND sr.status = 1 AND sr.uid = :uid AND s.topic_type = :topic_type";
+            //单选题 数量 && 数据
+            $sth1 = $this->pdo->prepare($sql);
+            $topic_type = self::SUBJECT_ONE;
+            $sth1->bindParam(':topic_type', $topic_type, \PDO::PARAM_INT);
+            $sth1->bindParam(':uid', $user_cache_info['id'], \PDO::PARAM_STR);
+            $sth1->execute();
+            $one_result = $sth1->fetchAll(\PDO::FETCH_ASSOC);
+            $one_count = count($one_result);

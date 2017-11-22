@@ -140,6 +140,7 @@ class NotORM_Result extends NotORM_Abstract implements Iterator, ArrayAccess, Co
 	}
 	
 	protected function query($query, $parameters) {
+	    //echo $query;
 		if ($this->notORM->debug) {
 			if (!is_callable($this->notORM->debug)) {
 				$debug = "$query;";

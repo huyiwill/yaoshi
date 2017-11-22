@@ -42,7 +42,7 @@ angular
 
         //搜索
         $scope.chose_topic = function (i) {
-            $scope.chose_this = 1;
+            $scope.topic_type = i;
 
             $scope.lead();
         }

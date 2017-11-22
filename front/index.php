@@ -1,4 +1,7 @@
 <?php
+//ini_set("display_errors","On");
+//error_reporting(E_ALL);
+
 require(__DIR__ . '/../vendor/autoload.php');
 spl_autoload_register(function ($className) {
     $file = dirname(__DIR__) . '/' . str_replace("\\", "/", $className) . '.php';

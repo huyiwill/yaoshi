@@ -25,6 +25,7 @@ class OnlineController extends Controller
         if (!empty($get['topic_type']) && !in_array($get['topic_type'], [4,5,6])) {
             return $response->withHeader('Content-type', 'application/json')->write(json_encode(['status' => false, 'message' => '必填参数错误']));
         }
+
         $search = [
             'topic_type' => @$get['topic_type'] ? $get['topic_type'] : [4,5,6],
             'therapeutic' => @$get['therapeutic'] ? $get['therapeutic'] : '',
