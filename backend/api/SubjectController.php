@@ -350,7 +350,6 @@ class SubjectController extends Controller
         $page = !empty($get['page']) ? $get['page'] : 1;
         $search = $this->_commonSearch($get, $this->_search_black);
         $order = !empty($get['order']) ? $get['order'] : 'id asc';
-        unset($search['status']); //表中没有该字段
         $count = $this->db->subject()->select('*')->where($search)->count();
         $number = ceil($count / $limit);
         $result = $this->db->subject()->select('')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
