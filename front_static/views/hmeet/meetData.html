@@ -1,0 +1,59 @@
+<title>会议资料</title>
+
+<div class="lists meetList">
+  <div class="list-top color-y">
+
+    资料名称<input type="text" ng-model="search_name">
+    <button class="button-click" ng-click="soso()">查询</button>
+    <button class="button-click" ng-click="add()" ui-sref="main.bs.meetAdd">添加会议资料</button>
+  </div>
+  <div class="list-body">
+    <form method="post">
+      <table>
+        <thead class="tr_order">
+        <tr>
+          <th>会议名称</th>
+          <th style="width: 52px">状态</th>
+          <th style="width: 74px">操作</th>
+        </tr>
+        </thead>
+        <tbody class="tr_msg">
+        <tr ng-repeat="l in list track by $index">
+          <td>{{l.name}}</td>
+          <td>{{ex_type[l.examine_type]}}</td>
+          <td ng-show="l.status==1">上传</td>
+          <td ng-show="l.status==2">禁用</td>
+          <td ng-show="l.status==3">删除</td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <!--分页器-->
+  <div class="pages">
+    <div class="tcdPageCode" style="display: inline-block;">
+    </div>
+    <span style="display: inline-block;">到第<input type="text" ng-model="to_page" ng-pattern="/^[0-9]+$/">页 <button
+      ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
+  </div>
+</div>
+<div class="bg_popup popup-fade-container" ng-show="meeting_add"></div>
+<div class="container_popup popup-fade" ng-show="meeting_add">
+  <div class="top_title">
+    <div class="title-left"></div>
+    <div class="tltle-center">上传文件</div>
+    <div class="title-close" ng-click="close_proup()"></div>
+  </div>
+  <div class="container_text">
+    <form action="">
+      <input type="file" name="data[]" file-model="fileToUpload" style="margin: 20px;">
+    </form>
+  </div>
+  <div class="btns">
+    <div class="step">
+      <button class="last-step" ng-click="close_proup()">取消</button>
+      <button class="next-step" ng-click="chose()">确定</button>
+    </div>
+  </div>
+</div>
