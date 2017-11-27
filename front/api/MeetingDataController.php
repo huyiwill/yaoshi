@@ -31,13 +31,40 @@ class MeetingDataController extends Controller{
      *会议资料列表
      */
     public function actionMeetingDataList(Request $request, Response $response){
-        $post = $request -> getQueryParams();
-        p($post);
-
-        return $response->withHeader('Content-type', 'application/json')->write(json_encode([
-            'status'  => false,
-            'message' => '会议不存在'
-        ]));
+        $get = $request->getQueryParams();
+        //获取用户信息（缓存中获取）
+        $cache_user_info = $this->getLogin('_ys_front_login', $request);
+        $user_id         = $cache_user_info['id'];
+        //会议资料
+        $search = [
+            'meet_data_name' => @$get['search_name'] ? $get['search_name'] : '',
+            'user_id'        => $user_id
+        ];
+        $order  = !empty($get['order']) ? $get['order'] : 'id desc';
+        $limit  = $this->_limit;
+        $page   = !empty($get['page']) ? $get['page'] : 1;
+        $search = $this->_commonSearch($search, $this->_search_black);
+        try{
+            $count  = $this->db->meeting()->select('*')->where($search)->count();
+            $number = ceil($count / $limit);
+            //$result          = $this->db->meeting()->select('')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
+            $result    = $this->db->meeting_data()->select('*')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
+            $meet_data = $this->iterator_array($result);
+            p($meet_data);
+            $return = [
+                'status'  => true,
+                'current' => $page,
+                'total'   => $number,
+                'data'    => $meet_data,
+            ];
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
+        }
+        catch(\Exception $e){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '无会议资料数据'
+            ]));
+        }
     }
 
     /* 会议资料 */

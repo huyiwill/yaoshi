@@ -20,11 +20,11 @@
         </thead>
         <tbody class="tr_msg">
         <tr ng-repeat="l in list track by $index">
-          <td>{{l.name}}</td>
-          <td>{{ex_type[l.examine_type]}}</td>
-          <td ng-show="l.status==1">上传</td>
-          <td ng-show="l.status==2">禁用</td>
-          <td ng-show="l.status==3">删除</td>
+          <td>{{l.meet_data_name}}</td>
+          <td>{{ex_type[l.meet_data_status]}}</td>
+          <td ng-show="l.meet_data_operation_status==0">启用</td>
+          <td ng-show="l.meet_data_operation_status==1">禁用</td>
+          <td ng-show="l.meet_data_operation_status==2">删除</td>
         </tr>
 
         </tbody>
