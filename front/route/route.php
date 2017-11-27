@@ -193,6 +193,8 @@ $app->post('/meeting/detail/add.json', 'front\api\MeetingController:actionDetail
 $app->get('/meeting/detail/info.json', 'front\api\MeetingController:actionDetailInfo')->setName('meeting.detail.info')->add($login_middleware);
 $app->post('/meeting/detail/update.json', 'front\api\MeetingController:actionDetailUpdate')->setName('meeting.detail.update')->add($login_middleware);
 
+/* MeetingDataController  */
+$app->get('/meetingdata/list.json', 'front\api\MeetingDataController:actionMeetingDataList')->setName('meetingdata.list')->add($login_middleware);
 
 
 //$app->any('/test/', function () {

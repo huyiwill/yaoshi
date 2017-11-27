@@ -1,12 +1,13 @@
 <title>会议资料</title>
 
 <div class="lists meetList">
-  <div class="list-top color-y">
 
+  <div class="list-top color-y">
     资料名称<input type="text" ng-model="search_name">
     <button class="button-click" ng-click="soso()">查询</button>
     <button class="button-click" ng-click="add()" ui-sref="main.bs.meetAdd">添加会议资料</button>
   </div>
+
   <div class="list-body">
     <form method="post">
       <table>
@@ -25,6 +26,7 @@
           <td ng-show="l.status==2">禁用</td>
           <td ng-show="l.status==3">删除</td>
         </tr>
+
         </tbody>
       </table>
     </form>
@@ -38,6 +40,7 @@
       ng-click="lead(to_page)" ng-disabled="(to_page==undefined||to_page==0)||to_page>total_page">确定</button></span>
   </div>
 </div>
+
 <div class="bg_popup popup-fade-container" ng-show="meeting_add"></div>
 <div class="container_popup popup-fade" ng-show="meeting_add">
   <div class="top_title">

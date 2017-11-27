@@ -903,6 +903,7 @@ angular
                 }]
             }
         };
+        /*会议模块*/
         this.routes[ 'main.bs.meetList'] =
         {
             url: '^/meetList.html',
@@ -948,7 +949,26 @@ angular
                 }]
             }
         };
+        /*会议资料模块*/
+          this.routes['main.bs.meetData'] =
+          {
+              url: '^/meetData.html?id',
+              title: '会议资料',
+              templateUrl: 'front_static/views/hmeet/meetData.html',
+              controller: 'meetDataCtrl',
+              resolve:{
+                  loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                      return $ocLazyLoad.load({
+                          name:"meetDataCtrl",
+                          files: ["/front_static/components/controller/main-ctrls.js","/front_static/components/controller/hmeet/meetData-ctrls.js"]
+                      })
+                  }]
+              }
+          }
+        this.routes['main.bs.meetSignup'] =
+        {
 
+        }
 
     this.routes[ '404' ] =
         {
