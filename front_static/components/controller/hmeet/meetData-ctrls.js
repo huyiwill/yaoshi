@@ -279,7 +279,9 @@ angular
     $scope.add_dataMsg = function(id){
       $scope.chose_id = id;
       $scope.meeting_add = 1;
-    }
+
+    };
+
     $scope.chose = function(){
       var url = "/meeting/data.json", file = $scope.fileToUpload;
       if(!file){

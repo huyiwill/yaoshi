@@ -29,7 +29,7 @@
           <td ng-show="l.jin==0">正常</td>
           <td ng-show="l.jin==1">被禁用</td>
           <td>
-            <span><button ng-disabled="(l.jin == 1)" ng-click="set_jin()">上传</button></span>
+            <span><button ng-disabled="(l.jin == 1)" ng-click="close_proup()">上传</button></span>
             <span ng-click="set_jin(l.id,$index)">禁用</span>
             <span ng-click="delete(l.id,$index)">删除</span>
           </td>
