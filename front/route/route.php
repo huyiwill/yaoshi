@@ -196,6 +196,7 @@ $app->post('/meeting/detail/update.json', 'front\api\MeetingController:actionDet
 /* MeetingDataController  */
 $app->get('/meetingdata/list.json', 'front\api\MeetingDataController:actionMeetingDataList')->setName('meetingdata.list')->add($login_middleware);
 
+/* Meeting*/
 
 //$app->any('/test/', function () {
 //    echo 'test';
