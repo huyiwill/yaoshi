@@ -167,7 +167,7 @@ class MeetingDataController extends Controller{
         if(count($data) > 1){
             //$data[$post['index']] = '';
             unset($data[$post['index']]);
-            $update_row           = array(
+            $update_row = array(
                 'data' => json_encode($data)
             );
         }else{
@@ -184,6 +184,13 @@ class MeetingDataController extends Controller{
                 'message' => '操作失败'
             ];
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
+    }
+
+    /**
+     *会议资料上传
+     */
+    public function actionUploadFile(){
+
     }
 
     /* 会议资料 */
@@ -850,83 +857,5 @@ class MeetingDataController extends Controller{
             ];
         }
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
-    }
-
-    /**
-     * 新增日程
-     *
-     * @param $post
-     *
-     * @return bool
-     */
-    private function _insert_schedule($post){
-        if(empty($post['schedule'])){
-            return false;
-        }
-        $i     = 0;
-        $count = count($post['schedule']);
-        foreach($post['schedule'] as $key => $item){
-            $meeting_schedule_id = $this->db->meeting_schedule()->where([
-                'meeting_id' => $post['meeting_id'],
-                'days'       => $item['days']
-            ])->fetch('id');
-            if(!empty($meeting_schedule_id)){
-                continue;
-            }
-            $insert_row = [
-                'meeting_id'  => $post['meeting_id'],
-                'days'        => $item['days'],
-                'create_time' => time()
-            ];
-            //邀请函处理
-            $uploadPhoto = $this->uploadBase64Image($item['photo'], '', 'meeting/detail/schedule', 'schedule.photo');
-            if(!empty($uploadPhoto)){
-                //上传新图片
-                $insert_row['real_photo'] = $uploadPhoto['realPath'];
-                $insert_row['photo']      = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $uploadPhoto['photo'];
-            }
-            $result = $this->db->meeting_schedule()->insert($insert_row);
-            !$result ? : $i++;
-        }
-        if($i != $count){
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 新增嘉宾
-     *
-     * @param $post
-     *
-     * @return bool
-     */
-    private function _insert_guest($post){
-        if(empty($post['guest'])){
-            return false;
-        }
-        $i     = 0;
-        $count = count($post['guest']);
-        foreach($post['guest'] as $key => $item){
-            $insert_row = [
-                'meeting_id'  => $post['meeting_id'],
-                'name'        => $item['name'],
-                'remark'      => @$post['remark'],
-                'create_time' => time()
-            ];
-            //嘉宾头像
-            $uploadPhoto = $this->uploadBase64Image(@$item['head'], '', 'meeting/detail/guest', 'guest.head');
-            if(!empty($uploadPhoto)){
-                //上传新图片
-                $insert_row['real_head'] = $uploadPhoto['realPath'];
-                $insert_row['head']      = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $uploadPhoto['photo'];
-            }
-            $result = $this->db->meeting_guest()->insert($insert_row);
-            !$result ? : $i++;
-        }
-        if($i != $count){
-            return false;
-        }
-        return true;
     }
 }

@@ -83,7 +83,10 @@ angular
         });
     };
 
-    //删除
+
+    /**
+     *删除
+     */
     $scope.delete = function(id, i){
       swal({
         title             : "确定删除吗？",
@@ -236,8 +239,7 @@ angular
           swal.close();
         }
       });
-
-    }
+    };
 
     //会议
     $scope.close_meet = function(id, type){
@@ -290,7 +292,7 @@ angular
         fd.append("data[]", file);
         fd.append("id", $scope.chose_id);
         $http
-          .post('/meeting/data.json', fd, {
+          .post('/meetingdata/data.json', fd, {
             transformRequest: angular.identity,
             headers         : {"Content-Type": undefined}
           })
@@ -307,12 +309,12 @@ angular
       }else{
         swal("OMG!", '上传的格式错误', "error");
       }
+    };
 
-    }
     $scope.close_proup = function(){
       $scope.meeting_add = 0;
       $("input[type='file']").val('');
-    }
+    };
 
     //操作
     $scope.change_select = function(id, i){
