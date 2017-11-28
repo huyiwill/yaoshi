@@ -48,26 +48,29 @@ angular
       $scope.lead(1, '', $scope.soso_search_name);
     };
 
-    //设置禁用或者恢复
-    $scope.set_jin = function(id){
+    //设置禁用
+    $scope.set_jin = function(id,i){
       $http
-        .post('/meeting/status.json', {
+        .post('/meetingdata/status.json', {
           id    : id,
-          status: 2
+          index : i
         })
         .success(function(data){
           if(data.status){
             swal("干得漂亮！", "禁用成功！", "success");
-            $scope.lead('', '', $scope.soso_end_type, $scope.soso_end_text);
+            $scope.lead('', '',$scope.soso_search_name);
           }else{
             swal("OMG!", data.message, "error");
           }
         });
-    }
-    $scope.recovery = function(id){
+    };
+
+    //设置恢复
+    $scope.recovery = function(id,index){
       $http
-        .post('/meeting/status.json', {
+        .post('/meetingdata/status.json', {
           id    : id,
+          index : index,
           status: 1
         })
         .success(function(data){
@@ -79,6 +82,7 @@ angular
           }
         });
     };
+
     //删除
     $scope.delete = function(id){
       swal({
@@ -107,18 +111,21 @@ angular
           swal.close();
         }
       });
-    }
+    };
+
     //翻页
     function next(p){
       $('#page').val(p);
       $scope.lead(p, '', $scope.soso_end_type, $scope.soso_end_text);
     };
+
     //排序
     $(".tr_order").on('click', ".fa-sort-amount-asc", function(){
       $(this).attr('class', 'fa fa-fw fa-sort-amount-desc');
       var order = $(this).data('order') + ' asc';
       $scope.lead('', order, $scope.soso_end_type, $scope.soso_end_text);
     });
+
     $(".tr_order").on('click', ".fa-sort-amount-desc", function(){
       $(this).attr('class', 'fa fa-fw fa-sort-amount-asc');
       var order = $(this).data('order') + ' desc';
@@ -147,7 +154,7 @@ angular
           return;
         }
       }
-    }
+    };
     //提交选中
     $scope.chose_ti = function(){
       //获取选中的id
@@ -159,7 +166,7 @@ angular
       }
       $scope.delete($scope.chose_arr);
 
-    }
+    };
 
     //发布
     $scope.release = function(id, type){

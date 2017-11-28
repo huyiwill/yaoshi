@@ -56,6 +56,7 @@ class MeetingDataController extends Controller{
                         }else{
                             $v['data'][$k1]['data_status'] = 1;  //表示已上传资料
                         }
+                        $v['data'][$k1]['jin']   = (!isset($v1['jin'])) ? 0 : $v1['jin'];  //是否被禁用
                         $v['data'][$k1]['id']   = $v['id'];
                         $v['data'][$k1]['name'] = $v['name'];
                         $meet_data[]            = $v['data'][$k1];
@@ -84,6 +85,52 @@ class MeetingDataController extends Controller{
      * 添加会议资料
      */
     public function actionAddMeetData(Request $request, Response $response){
+    }
+
+    /**
+     * 会议资料禁用
+     */
+    public function actionMeetDatajin(Request $request, Response $response){
+        $post = $request->getParsedBody();
+        //form control empty
+        if(!$this->formControlEmpty(['id', 'index'], $post)){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '必填参数错误'
+            ]));
+        }
+        $cache_user_info = $this->getLogin('_ys_front_login', $request);
+        $search          = [
+            'uid_admin' => $cache_user_info['id'],
+            'id'        => @$post['id'] ? $post['id'] : 0
+        ];
+        $meet_data       = $this->db->meeting()->where($search)->fetch();
+        if(!$meet_data){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '会议资料不存在'
+            ]));
+        }
+        //jin
+        $result     = $this->db->meeting()->select('id,data')->where($search);
+        $meet_data  = $this->iterator_array($result);
+        $meet_data  = $meet_data[0];
+        $data       = json_decode($meet_data['data'], true);
+        $one        = $data[$post['index']];
+        $one['jin'] = 1;
+        //反转
+        $data[$post['index']] = $one;
+        $update_row           = array(
+            'data' => json_encode($data)
+        );
+        $res                  = $this->db->meeting()->where($search)->update($update_row);
+        $return               = $res
+            ? ['status' => true, 'message' => '操作成功']
+            : [
+                'status'  => false,
+                'message' => '操作失败'
+            ];
+        return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 
     /* 会议资料 */
@@ -745,31 +792,6 @@ class MeetingDataController extends Controller{
 
         $result = $this->db->meeting()->where(['id' => $post['id']])->update($update_row);
         $return = $result ? ['status' => true, 'message' => '操作成功'] : ['status' => false, 'message' => '操作失败'];
-        return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
-    }
-
-    /* list  筛选没有*/
-    public function actionList(Request $request, Response $response){
-        $get             = $request->getQueryParams();
-        $cache_user_info = $this->getLogin('_ys_front_login', $request);
-        $search          = [
-            'uid_admin' => $cache_user_info['id'],
-            'name'      => @$get['name'] ? $get['name'] : ''
-        ];
-        $limit           = $this->_limit;
-        $page            = !empty($get['page']) ? $get['page'] : 1;
-        $search          = $this->_commonSearch($search, $this->_search_black);
-        $order           = !empty($get['order']) ? $get['order'] : 'id asc';
-        $count           = $this->db->meeting()->select('')->where($search)->count();
-        $number          = ceil($count / $limit);
-        $result          = $this->db->meeting()->select('')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
-        $data            = $this->iterator_array($result);
-        $return          = [
-            'status'  => true,
-            'current' => $page,
-            'total'   => $number,
-            'data'    => $data,
-        ];
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 

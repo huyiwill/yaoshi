@@ -16,6 +16,7 @@
           <th>会议ID</th>
           <th>资料名称</th>
           <th style="width: 52px">状态</th>
+          <th style="width: 100px">操作状态</th>
           <th style="width: 100px">操作</th>
         </tr>
         </thead>
@@ -25,9 +26,11 @@
           <td>{{l.fileName}}</td>
           <td ng-show="l.data_status==0">未上传</td>
           <td ng-show="l.data_status==1">已上传</td>
+          <td ng-show="l.jin==0">正常</td>
+          <td ng-show="l.jin==1">被禁用</td>
           <td>
-            <span>上传</span>
-            <span>禁用</span>
+            <span><button ng-disabled="(l.jin == 1)" ng-click="set_jin()">上传</button></span>
+            <span ng-click="set_jin(l.id,$index)">禁用</span>
             <span>删除</span>
           </td>
         </tr>
