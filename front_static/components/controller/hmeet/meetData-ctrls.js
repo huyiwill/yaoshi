@@ -11,7 +11,7 @@ angular
     $rootScope.root = "/meeting.html";
     $scope.submitted = false;
 
-    $scope.ex_type = ['未上传','已上传'];
+    $scope.ex_type = ['未发布','已发布'];
 
     $scope.lead = function(page, order){
       //若有数据传递，将传递过来的变量push进对象中。。

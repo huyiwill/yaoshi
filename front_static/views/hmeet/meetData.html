@@ -5,7 +5,7 @@
   <div class="list-top color-y">
     资料名称<input type="text" ng-model="search_name">
     <button class="button-click" ng-click="soso()">查询</button>
-    <button class="button-click" ng-click="add()" ui-sref="main.bs.meetAdd">添加会议资料</button>
+    <!--<button class="button-click" ui-sref="main.bs.meetAdd">添加会议资料</button>-->
   </div>
 
   <div class="list-body">
@@ -13,20 +13,24 @@
       <table>
         <thead class="tr_order">
         <tr>
-          <th>会议名称</th>
+          <th>会议ID</th>
+          <th>资料名称</th>
           <th style="width: 52px">状态</th>
-          <th style="width: 74px">操作</th>
+          <th style="width: 100px">操作</th>
         </tr>
         </thead>
         <tbody class="tr_msg">
         <tr ng-repeat="l in list track by $index">
-          <td>{{l.meet_data_name}}</td>
-          <td>{{ex_type[l.meet_data_status]}}</td>
-          <td ng-show="l.meet_data_operation_status==0">启用</td>
-          <td ng-show="l.meet_data_operation_status==1">禁用</td>
-          <td ng-show="l.meet_data_operation_status==2">删除</td>
+          <td>{{l.id}}</td>
+          <td>{{l.fileName}}</td>
+          <td ng-show="l.data_status==0">未上传</td>
+          <td ng-show="l.data_status==1">已上传</td>
+          <td>
+            <span>上传</span>
+            <span>禁用</span>
+            <span>删除</span>
+          </td>
         </tr>
-
         </tbody>
       </table>
     </form>

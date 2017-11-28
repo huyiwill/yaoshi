@@ -31,26 +31,39 @@ class MeetingDataController extends Controller{
      *会议资料列表
      */
     public function actionMeetingDataList(Request $request, Response $response){
-        $get = $request->getQueryParams();
-        //获取用户信息（缓存中获取）
+        $get             = $request->getQueryParams();
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
-        $user_id         = $cache_user_info['id'];
-        //会议资料
-        $search = [
-            'meet_data_name' => @$get['search_name'] ? $get['search_name'] : '',
-            'user_id'        => $user_id
+        $search          = [
+            'uid_admin' => $cache_user_info['id'],
+            'name'      => @$get['name'] ? $get['name'] : ''
         ];
-        $order  = !empty($get['order']) ? $get['order'] : 'id desc';
-        $limit  = $this->_limit;
-        $page   = !empty($get['page']) ? $get['page'] : 1;
-        $search = $this->_commonSearch($search, $this->_search_black);
+        $limit           = $this->_limit;
+        $page            = !empty($get['page']) ? $get['page'] : 1;
+        $search          = $this->_commonSearch($search, $this->_search_black);
+        $order           = !empty($get['order']) ? $get['order'] : 'id desc';
         try{
-            $count  = $this->db->meeting()->select('*')->where($search)->count();
-            $number = ceil($count / $limit);
-            //$result          = $this->db->meeting()->select('')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
-            $result    = $this->db->meeting_data()->select('*')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
-            $meet_data = $this->iterator_array($result);
-            p($meet_data);
+            $count     = $this->db->meeting()->select('')->where($search)->count();
+            $number    = ceil($count / $limit);//,data,from,status
+            $result    = $this->db->meeting()->select('id', 'name', 'data', 'status')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
+            $data      = $this->iterator_array($result);
+            $meet_data = array();
+            foreach($data as $k => $v){
+                if(!empty($v['data'])){
+                    $v['data'] = json_decode($v['data'], true);
+                    foreach($v['data'] as $k1 => $v1){
+                        if(empty($v1['realPath']) || !isset($v1['realPath'])){
+                            $v['data'][$k1]['data_status'] = 0;  //表示未上传资料
+                        }else{
+                            $v['data'][$k1]['data_status'] = 1;  //表示已上传资料
+                        }
+                        $v['data'][$k1]['id']   = $v['id'];
+                        $v['data'][$k1]['name'] = $v['name'];
+                        $meet_data[]            = $v['data'][$k1];
+                    }
+                }else{
+                    unset($data[$k]);
+                }
+            }
             $return = [
                 'status'  => true,
                 'current' => $page,
@@ -65,6 +78,12 @@ class MeetingDataController extends Controller{
                 'message' => '无会议资料数据'
             ]));
         }
+    }
+
+    /**
+     * 添加会议资料
+     */
+    public function actionAddMeetData(Request $request, Response $response){
     }
 
     /* 会议资料 */
@@ -751,7 +770,6 @@ class MeetingDataController extends Controller{
             'total'   => $number,
             'data'    => $data,
         ];
-        //print_r($return);die;
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 
