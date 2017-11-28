@@ -56,7 +56,7 @@ class MeetingDataController extends Controller{
                         }else{
                             $v['data'][$k1]['data_status'] = 1;  //表示已上传资料
                         }
-                        $v['data'][$k1]['jin']   = (!isset($v1['jin'])) ? 0 : $v1['jin'];  //是否被禁用
+                        $v['data'][$k1]['jin']  = (!isset($v1['jin'])) ? 0 : $v1['jin'];  //是否被禁用
                         $v['data'][$k1]['id']   = $v['id'];
                         $v['data'][$k1]['name'] = $v['name'];
                         $meet_data[]            = $v['data'][$k1];
@@ -125,6 +125,59 @@ class MeetingDataController extends Controller{
         );
         $res                  = $this->db->meeting()->where($search)->update($update_row);
         $return               = $res
+            ? ['status' => true, 'message' => '操作成功']
+            : [
+                'status'  => false,
+                'message' => '操作失败'
+            ];
+        return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
+    }
+
+    /**
+     * 会议资料删除
+     */
+    public function actionDel(Request $request, Response $response){
+        $post = $request->getParsedBody();
+        //form control empty
+        if(!$this->formControlEmpty(['id'], $post)){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '必填参数错误'
+            ]));
+        }
+        $cache_user_info = $this->getLogin('_ys_front_login', $request);
+        $search          = [
+            'uid_admin' => $cache_user_info['id'],
+            'id'        => @$post['id'] ? $post['id'] : 0
+        ];
+        $meeting_info    = $this->db->meeting()->where($search)->fetch();
+        if(!$meeting_info){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '会议不存在'
+            ]));
+        }
+
+        //del
+        $result    = $this->db->meeting()->select('id,data')->where($search);
+        $meet_data = $this->iterator_array($result);
+        $meet_data = $meet_data[0];
+        $data      = json_decode($meet_data['data'], true);
+        //反转
+        if(count($data) > 1){
+            //$data[$post['index']] = '';
+            unset($data[$post['index']]);
+            $update_row           = array(
+                'data' => json_encode($data)
+            );
+        }else{
+            $update_row = array(
+                'data' => ''
+            );
+        }
+
+        $res    = $this->db->meeting()->where($search)->update($update_row);
+        $return = $res
             ? ['status' => true, 'message' => '操作成功']
             : [
                 'status'  => false,
@@ -671,36 +724,6 @@ class MeetingDataController extends Controller{
         }
         $update_row = [
             'state' => $post['state']
-        ];
-        $result     = $this->db->meeting()->where(['id' => $post['id']])->update($update_row);
-        $return     = $result ? ['status' => true, 'message' => '操作成功'] : ['status' => false, 'message' => '操作失败'];
-        return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
-    }
-
-    /* 删除 */
-    public function actionDel(Request $request, Response $response){
-        $post = $request->getParsedBody();
-        //form control empty
-        if(!$this->formControlEmpty(['id'], $post)){
-            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
-                'status'  => false,
-                'message' => '必填参数错误'
-            ]));
-        }
-        $cache_user_info = $this->getLogin('_ys_front_login', $request);
-        $meeting_info    = $this->db->meeting()->where([
-            'id'        => $post['id'],
-            'uid_admin' => $cache_user_info['id'],
-            'status'    => 1
-        ])->fetch();
-        if(!$meeting_info){
-            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
-                'status'  => false,
-                'message' => '会议不存在'
-            ]));
-        }
-        $update_row = [
-            'status' => 3
         ];
         $result     = $this->db->meeting()->where(['id' => $post['id']])->update($update_row);
         $return     = $result ? ['status' => true, 'message' => '操作成功'] : ['status' => false, 'message' => '操作失败'];

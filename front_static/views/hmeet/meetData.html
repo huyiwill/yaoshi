@@ -31,7 +31,7 @@
           <td>
             <span><button ng-disabled="(l.jin == 1)" ng-click="set_jin()">上传</button></span>
             <span ng-click="set_jin(l.id,$index)">禁用</span>
-            <span>删除</span>
+            <span ng-click="delete(l.id,$index)">删除</span>
           </td>
         </tr>
         </tbody>

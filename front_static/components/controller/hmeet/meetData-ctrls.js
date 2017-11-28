@@ -11,7 +11,7 @@ angular
     $rootScope.root = "/meeting.html";
     $scope.submitted = false;
 
-    $scope.ex_type = ['未发布','已发布'];
+    $scope.ex_type = ['未发布', '已发布'];
 
     $scope.lead = function(page, order){
       //若有数据传递，将传递过来的变量push进对象中。。
@@ -49,16 +49,16 @@ angular
     };
 
     //设置禁用
-    $scope.set_jin = function(id,i){
+    $scope.set_jin = function(id, i){
       $http
         .post('/meetingdata/status.json', {
-          id    : id,
-          index : i
+          id   : id,
+          index: i
         })
         .success(function(data){
           if(data.status){
             swal("干得漂亮！", "禁用成功！", "success");
-            $scope.lead('', '',$scope.soso_search_name);
+            $scope.lead('', '', $scope.soso_search_name);
           }else{
             swal("OMG!", data.message, "error");
           }
@@ -66,7 +66,7 @@ angular
     };
 
     //设置恢复
-    $scope.recovery = function(id,index){
+    $scope.recovery = function(id, index){
       $http
         .post('/meetingdata/status.json', {
           id    : id,
@@ -84,7 +84,7 @@ angular
     };
 
     //删除
-    $scope.delete = function(id){
+    $scope.delete = function(id, i){
       swal({
         title             : "确定删除吗？",
         text              : "删除后不可恢复该操作！",
@@ -98,11 +98,14 @@ angular
       }, function(isConfirm){
         if(isConfirm){
           $http
-            .post('/meeting/del.json', {id: id})
+            .post('/meetingdata/del.json', {
+              id   : id,
+              index: i
+            })
             .success(function(data){
               if(data.status){
                 swal("干得漂亮！", "删除成功！", "success");
-                $scope.lead('', '', $scope.soso_end_type, $scope.soso_end_text);
+                $scope.lead('', '', $scope.soso_search_name);
               }else{
                 swal("OMG!", data.message, "error");
               }
