@@ -12,6 +12,12 @@ angular
     $scope.submitted = false;
 
     $scope.ex_type = ['未知', '待审核', '审核通过', '审核未通过'];
+    $scope.search_selects = [
+      {search_select_name : "全部",value:0},
+      {search_select_name : "待审核",value:1},
+      {search_select_name : "已通过",value:2},
+      {search_select_name : "未通过",value:3}
+    ];
 
     $scope.lead = function(page, order){
 
@@ -20,8 +26,9 @@ angular
         page : page,
         order: order
       };
+      p['_type'] = $scope.soso_end_type;
       p['name'] = $scope.soso_end_text;
-      p['examine_type'] = $scope.soso_end_type;
+
 
       $http
         .get('/meeting/list.json', {params: p})
@@ -44,11 +51,15 @@ angular
     $scope.lead();
 
     //搜索
+    var select = $("#search_select_nameID").val();
     $scope.soso = function(){
-      $scope.soso_end_type = $scope.soso_type;
-      $scope.soso_end_text = $scope.soso_text;
+
+      $scope.soso_end_type = $scope.search_select_name;
+
+      $scope.soso_end_text = $scope.search_name;
+      alert(select);
       $scope.lead(1, '', $scope.soso_end_type, $scope.soso_end_text);
-    }
+    };
     //设置禁用或者恢复
     $scope.set_jin = function(id){
       $http

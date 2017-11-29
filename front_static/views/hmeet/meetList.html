@@ -4,11 +4,8 @@
     <div class="list-top color-y">
         
         会议名称<input type="text" ng-model="search_name">
-        状态<select ng-model="search_select">
-        <option value="">全部</option>
-        <option value="1">待审核</option>
-        <option value="2">已通过</option>
-        <option value="3">未通过</option>
+        状态<select id="search_select_nameID" ng-model="search_select_name">
+      <option ng-repeat="x in search_selects" value="x.value">{{x.search_select_name}}</option>
                 </select>
         <button class="button-click" ng-click="soso()">查询</button>
         <button class="button-click" ng-click="add()" ui-sref="main.bs.meetAdd">新增会议</button>
