@@ -324,6 +324,18 @@ class MeetingDataController extends Controller{
         }
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
+    /**
+     * 会议资料 会员个人注册
+     */
+    public function actionMemberOneReg(Request $request, Response $response){
+
+    }
+    /**
+     *会议资料   会员团体注册
+     */
+    public function actionMemberOrganizationReg(Request $request, Response $response){
+
+    }
 
     /* 详细信息添加 */
     public function actionDetailAdd(Request $request, Response $response){

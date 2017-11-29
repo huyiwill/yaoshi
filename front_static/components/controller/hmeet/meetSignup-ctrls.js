@@ -1,6 +1,6 @@
 angular
     .module('ohapp')
-    .controller('meetListCtrl', function meetListCtrl($scope, $injector, $rootScope) {
+    .controller('meetSignupCtrl', function meetSignupCtrl($scope, $injector, $rootScope) {
         var $http = $injector.get('$http');
         var $location = $injector.get('$location');
         var $state = $injector.get('$state');

@@ -199,6 +199,9 @@ $app->any('/meetingdata/status.json', 'front\api\MeetingDataController:actionMee
 $app->post('/meetingdata/del.json', 'front\api\MeetingDataController:actionDel')->setName('meetingdata.del')->add($login_middleware);
 $app->post('/meetingdata/data.json', 'front\api\MeetingDataController:actionUploadFile')->setName('meetingdata.data')->add($login_middleware);
 
+$app->any('/meetingdata/memReg.json', 'front\api\MeetingDataController:actionMemberOneReg')->setName('meetingdata.memReg')->add($login_middleware);
+$app->any('/meetingdata/organizationReg.json', 'front\api\MeetingDataController:actionMemberOrganizationReg')->setName('meetingdata.organizationReg')->add($login_middleware);
+
 /* Meeting*/
 
 //$app->any('/test/', function () {
