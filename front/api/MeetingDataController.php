@@ -35,7 +35,7 @@ class MeetingDataController extends Controller{
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
         $search          = [
             'uid_admin' => $cache_user_info['id'],
-            'name'      => @$get['name'] ? $get['name'] : ''
+            'name'      => @$get['soso_search_name'] ? $get['soso_search_name'] : ''
         ];
         $limit           = $this->_limit;
         $page            = !empty($get['page']) ? $get['page'] : 1;
@@ -43,7 +43,7 @@ class MeetingDataController extends Controller{
         $order           = !empty($get['order']) ? $get['order'] : 'id desc';
         try{
             $count     = $this->db->meeting()->select('')->where($search)->count();
-            $number    = ceil($count / $limit);//,data,from,status
+            $number    = ceil($count / $limit);
             $result    = $this->db->meeting()->select('id', 'name', 'data', 'status')->where($search)->order($order)->limit($limit, ($page - 1) * $limit);
             $data      = $this->iterator_array($result);
             $meet_data = array();
@@ -85,6 +85,94 @@ class MeetingDataController extends Controller{
      * 添加会议资料
      */
     public function actionAddMeetData(Request $request, Response $response){
+        $post = $request->getParsedBody();
+        //form control empty
+        if(!$this->formControlEmpty([
+            'name',
+            'contacts',
+            'mobile',
+            'enroll_start',
+            'enroll_end',
+            'time_start',
+            'time_end',
+            'attend_time',
+            'province_id',
+            'city_id',
+            'address',
+            'venue_name',
+            'is_credit',
+            'credis',
+            'type',
+            'subject'
+        ], $post)
+        ){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '必填参数错误'
+            ]));
+        }
+        $cache_user_info = $this->getLogin('_ys_front_login', $request);
+        $meeting_id      = $this->db->meeting()->where([
+            'name'      => $post['name'],
+            'uid_admin' => $cache_user_info['id'],
+            'status'    => [1, 2]
+        ])->fetch('id');
+        if($meeting_id){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '会议名称已存在'
+            ]));
+        }
+        $insert_row = [
+            'uid_admin'    => $cache_user_info['id'],
+            'contacts'     => $post['contacts'],
+            'mobile'       => $post['mobile'],
+            'name'         => $post['name'],
+            'name_english' => $post['name_english'] ? $post['name_english'] : '',
+            'enroll_start' => strtotime($post['enroll_start']),
+            'enroll_end'   => strtotime($post['enroll_end']),
+            'time_start'   => strtotime($post['time_start']),
+            'time_end'     => strtotime($post['time_end']),
+            'attend_time'  => strtotime($post['attend_time']),
+            'province_id'  => $post['province_id'],
+            'city_id'      => $post['city_id'],
+            'address'      => $post['address'],
+            'venue_name'   => $post['venue_name'],
+            'is_credit'    => $post['is_credit'],
+            'credis'       => $post['credis'],
+            'type'         => $post['type'],
+            'subject'      => $post['subject'],
+            '`from`'       => 1,
+            'create_time'  => time()
+        ];
+        if(!empty($post['banner'])){
+            //banner处理
+            $uploadBanner = $this->uploadBase64Image($post['banner'], '', 'meeting/banner', 'banner');
+            if(!empty($uploadBanner)){
+                //上传新图片
+                $insert_row['real_banner'] = $uploadBanner['realPath'];
+                $insert_row['banner']      = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $uploadBanner['photo'];
+            }
+        }
+        if(!empty($post['icon'])){
+            //icon处理
+            $uploadIcon = $this->uploadBase64Image($post['icon'], '', 'meeting/icon', 'icon');
+            if(!empty($uploadIcon)){
+                //上传新图片
+                $insert_row['real_icon'] = $uploadIcon['realPath'];
+                $insert_row['icon']      = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $uploadIcon['photo'];
+            }
+        }
+
+        $result    = $this->db->meeting()->insert($insert_row);
+        $insert_id = $this->db->meeting()->insert_id();
+        $return    = $result
+            ? ['status' => true, 'message' => '操作成功', 'data' => $insert_id]
+            : [
+                'status'  => false,
+                'message' => '操作失败'
+            ];
+        return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 
     /**
@@ -189,12 +277,7 @@ class MeetingDataController extends Controller{
     /**
      *会议资料上传
      */
-    public function actionUploadFile(){
-
-    }
-
-    /* 会议资料 */
-    public function actionData(Request $request, Response $response){
+    public function actionUploadFile(Request $request, Response $response){
         $post = $request->getParsedBody();
         //form control empty
         if(!$this->formControlEmpty(['id'], $post)){
@@ -204,21 +287,33 @@ class MeetingDataController extends Controller{
             ]));
         }
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
-        $meeting_id      = $this->db->meeting()->where([
+        $search          = [
             'id'        => $post['id'],
             'uid_admin' => $cache_user_info['id'],
             'status'    => 1
-        ])->fetch('id');
+        ];
+        $meeting_id      = $this->db->meeting()->where($search)->fetch('id');
         if(empty($meeting_id)){
             return $response->withHeader('Content-type', 'application/json')->write(json_encode([
                 'status'  => false,
                 'message' => '会议不存在'
             ]));
         }
-
         $result = $this->uploadFiles($_FILES, '', 'meeting/data', 'data');
         if(!empty($result)){
-            $data_update = $this->db->meeting()->where(['id' => $post['id']])->update(['data' => json_encode($result)]);
+            $res       = $this->db->meeting()->select('id,data')->where($search);
+            $meet_data = $this->iterator_array($res);
+            if(empty($meet_data) || !$meet_data){
+                $data_update = $this->db->meeting()->where(['id' => $post['id']])->update(['data' => json_encode($result)]);
+            }else{
+                $meet_data = $meet_data[0];
+                $data      = json_decode($meet_data['data'], true);
+                foreach($result as $v){
+                    array_push($data, $v);
+                }
+                $result      = $data;
+                $data_update = $this->db->meeting()->where(['id' => $post['id']])->update(['data' => json_encode($result)]);
+            }
             if($data_update !== false){
                 $return = ['status' => true, 'message' => '操作成功'];
             }else{
@@ -227,98 +322,6 @@ class MeetingDataController extends Controller{
         }else{
             $return = ['status' => false, 'message' => '操作失败'];
         }
-        return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
-    }
-
-    /* add */
-    public function actionAdd(Request $request, Response $response){
-        $post = $request->getParsedBody();
-        //form control empty
-        if(!$this->formControlEmpty([
-            'name',
-            'contacts',
-            'mobile',
-            'enroll_start',
-            'enroll_end',
-            'time_start',
-            'time_end',
-            'attend_time',
-            'province_id',
-            'city_id',
-            'address',
-            'venue_name',
-            'is_credit',
-            'credis',
-            'type',
-            'subject'
-        ], $post)
-        ){
-            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
-                'status'  => false,
-                'message' => '必填参数错误'
-            ]));
-        }
-        $cache_user_info = $this->getLogin('_ys_front_login', $request);
-        $meeting_id      = $this->db->meeting()->where([
-            'name'      => $post['name'],
-            'uid_admin' => $cache_user_info['id'],
-            'status'    => [1, 2]
-        ])->fetch('id');
-        if($meeting_id){
-            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
-                'status'  => false,
-                'message' => '会议名称已存在'
-            ]));
-        }
-        $insert_row = [
-            'uid_admin'    => $cache_user_info['id'],
-            'contacts'     => $post['contacts'],
-            'mobile'       => $post['mobile'],
-            'name'         => $post['name'],
-            'name_english' => $post['name_english'] ? $post['name_english'] : '',
-            'enroll_start' => strtotime($post['enroll_start']),
-            'enroll_end'   => strtotime($post['enroll_end']),
-            'time_start'   => strtotime($post['time_start']),
-            'time_end'     => strtotime($post['time_end']),
-            'attend_time'  => strtotime($post['attend_time']),
-            'province_id'  => $post['province_id'],
-            'city_id'      => $post['city_id'],
-            'address'      => $post['address'],
-            'venue_name'   => $post['venue_name'],
-            'is_credit'    => $post['is_credit'],
-            'credis'       => $post['credis'],
-            'type'         => $post['type'],
-            'subject'      => $post['subject'],
-            '`from`'       => 1,
-            'create_time'  => time()
-        ];
-        if(!empty($post['banner'])){
-            //banner处理
-            $uploadBanner = $this->uploadBase64Image($post['banner'], '', 'meeting/banner', 'banner');
-            if(!empty($uploadBanner)){
-                //上传新图片
-                $insert_row['real_banner'] = $uploadBanner['realPath'];
-                $insert_row['banner']      = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $uploadBanner['photo'];
-            }
-        }
-        if(!empty($post['icon'])){
-            //icon处理
-            $uploadIcon = $this->uploadBase64Image($post['icon'], '', 'meeting/icon', 'icon');
-            if(!empty($uploadIcon)){
-                //上传新图片
-                $insert_row['real_icon'] = $uploadIcon['realPath'];
-                $insert_row['icon']      = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $uploadIcon['photo'];
-            }
-        }
-
-        $result    = $this->db->meeting()->insert($insert_row);
-        $insert_id = $this->db->meeting()->insert_id();
-        $return    = $result
-            ? ['status' => true, 'message' => '操作成功', 'data' => $insert_id]
-            : [
-                'status'  => false,
-                'message' => '操作失败'
-            ];
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
 

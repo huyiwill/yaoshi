@@ -204,7 +204,7 @@ abstract class  Controller
         for ($i = 0; $i < $count; $i++) {
             $tmp_only = $only . '_' . $i;
             $tmp = $files['data']['tmp_name'][$i];
-            $suffix = array_pop(explode(".", $files['data']['name'][$i]));
+            $suffix = @array_pop(explode(".", $files['data']['name'][$i]));
             $fileName = $file_name . '_' . $tmp_only .'_'. date('Y_m_d_H_i_s', time()) . '.' .$suffix;
             $realDir = __DIR__ . "/../../upload/" . $dir;
             if (!is_dir($realDir)) {

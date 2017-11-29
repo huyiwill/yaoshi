@@ -42,13 +42,17 @@ angular
 
     $scope.lead();
 
-    //搜索
+    /**
+     * 搜索
+     */
     $scope.soso = function(){
       $scope.soso_search_name = $scope.search_name;
       $scope.lead(1, '', $scope.soso_search_name);
     };
 
-    //设置禁用
+    /**
+     * 设置禁用
+     * */
     $scope.set_jin = function(id, i){
       $http
         .post('/meetingdata/status.json', {
@@ -82,7 +86,6 @@ angular
           }
         });
     };
-
 
     /**
      *删除
@@ -137,6 +140,66 @@ angular
       var order = $(this).data('order') + ' desc';
       $scope.lead('', order, $scope.soso_end_type, $scope.soso_end_text);
     });
+
+    /**
+     * 上传按钮
+     */
+    $scope.uploadData = function(id, i){
+      $scope.add_dataMsg(id, i);
+    };
+
+    /**
+     *上传资料
+     */
+    $scope.add_dataMsg = function(id, i){
+      $scope.chose_id = id;
+      $scope.meeting_add = 1;
+      $scope.index = i;
+    };
+
+    /**
+     *关闭上传资料界面
+     */
+    $scope.close_proup = function(){
+      $scope.meeting_add = 0;
+      $("input[type='file']").val('');
+    };
+
+    /**
+     * 开始上传资料
+     */
+    $scope.chose = function(){
+      var url = "/meetingdata/data.json";
+      var file = $scope.fileToUpload;
+      if(!file){
+        swal("OMG!", '请先上传文件', "error");
+        return;
+      }
+      if(file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type == 'application/docx' || file.type == 'application/pdf' || file.type == 'application/msword' || file.type == 'application/vnd.ms-excel' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.template' || file.type == 'application/vnd.ms-excel.addin.macroEnabled.12' || file.type == 'application/vnd.ms-excel.sheet.binary.macroEnabled.12'){
+        // fileUpload.uploadFileToUrl( file, url,$scope.chose_id );
+        var fd = new FormData();
+        fd.append("data[]", file);
+        fd.append("id", $scope.chose_id);
+        fd.append("i", $scope.index);
+        $http
+          .post('/meetingdata/data.json', fd, {
+            transformRequest: angular.identity,
+            headers         : {"Content-Type": undefined}
+          })
+          .success(function(data){
+            if(data.status){
+              swal("干得漂亮！", "上传成功！", "success");
+              $scope.lead('', '', $scope.soso_search_name);
+              $scope.close_proup();
+              $("input[type='file']").val('');
+            }else{
+              swal("OMG!", data.message, "error");
+            }
+          });
+      }else{
+        swal("OMG!", '上传的格式错误', "error");
+      }
+    };
 
     //选中逻辑判定
     $scope.cheackTotal = 0;
@@ -205,8 +268,7 @@ angular
           swal.close();
         }
       });
-
-    }
+    };
 
     //报名
     $scope.sign_up = function(id, type){
@@ -273,49 +335,6 @@ angular
         }
       });
 
-    }
-
-    //上传资料
-    $scope.add_dataMsg = function(id){
-      $scope.chose_id = id;
-      $scope.meeting_add = 1;
-
-    };
-
-    $scope.chose = function(){
-      var url = "/meeting/data.json", file = $scope.fileToUpload;
-      if(!file){
-        swal("OMG!", '请先上传文件', "error");
-        return;
-      }
-      if(file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type == 'application/pdf' || file.type == 'application/msword' || file.type == 'application/vnd.ms-excel' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.template' || file.type == 'application/vnd.ms-excel.addin.macroEnabled.12' || file.type == 'application/vnd.ms-excel.sheet.binary.macroEnabled.12'){
-        // fileUpload.uploadFileToUrl( file, url,$scope.chose_id );
-        var fd = new FormData();
-        fd.append("data[]", file);
-        fd.append("id", $scope.chose_id);
-        $http
-          .post('/meetingdata/data.json', fd, {
-            transformRequest: angular.identity,
-            headers         : {"Content-Type": undefined}
-          })
-          .success(function(data){
-            if(data.status){
-              swal("干得漂亮！", "上传成功！", "success");
-              $scope.lead('', '', $scope.soso_end_type, $scope.soso_end_text);
-              $scope.close_proup();
-              $("input[type='file']").val('');
-            }else{
-              swal("OMG!", data.message, "error");
-            }
-          });
-      }else{
-        swal("OMG!", '上传的格式错误', "error");
-      }
-    };
-
-    $scope.close_proup = function(){
-      $scope.meeting_add = 0;
-      $("input[type='file']").val('');
     };
 
     //操作
