@@ -510,12 +510,11 @@ class MeetingController extends Controller
     public function actionList(Request $request, Response $response)
     {
         $get = $request->getQueryParams();
-        //p($get);
         $cache_user_info = $this->getLogin('_ys_front_login', $request);
         $search = [
             'uid_admin' => $cache_user_info['id'],
             'name' => @$get['name'] ? $get['name'] : '',
-            'examine_type' => @$get['examine_type'] ? $get['examine_type'] : ''
+            'examine_type' => @$get['_type'] ? $get['_type'] : ''
         ];
         $limit = $this->_limit;
         $page = !empty($get['page']) ? $get['page'] : 1;

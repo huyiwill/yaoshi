@@ -51,13 +51,9 @@ angular
     $scope.lead();
 
     //搜索
-    var select = $("#search_select_nameID").val();
     $scope.soso = function(){
-
       $scope.soso_end_type = $scope.search_select_name;
-
       $scope.soso_end_text = $scope.search_name;
-      alert(select);
       $scope.lead(1, '', $scope.soso_end_type, $scope.soso_end_text);
     };
     //设置禁用或者恢复
