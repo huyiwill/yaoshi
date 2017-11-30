@@ -964,11 +964,23 @@ angular
                       })
                   }]
               }
-          }
+          };
+
         this.routes['main.bs.meetSignup'] =
         {
-
-        }
+            url: '^/meetRegister.html?id',
+            title: '报名人员管理',
+            templateUrl: 'front_static/views/hmeet/meetRegister.html',
+            controller: 'meetSignupCtrl',
+            resolve:{
+                loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                    return $ocLazyLoad.load({
+                        name:"meetSignupCtrl",
+                        files: ["/front_static/components/controller/main-ctrls.js","/front_static/components/controller/hmeet/meetSignup-ctrls.js"]
+                    })
+                }]
+            }
+        };
 
     this.routes[ '404' ] =
         {
