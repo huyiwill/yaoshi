@@ -33,7 +33,7 @@
                   <option value="1">是</option>
                   <option value="0">否</option>
                 </select>
-                                                <!--<input type="text" name="add_time" value="" class="input-sm date-range" style="border: 1px solid #a9a9a9;" placeholder="注册时间">-->
+                <!--<input type="text" name="add_time" value="" class="input-sm date-range" style="border: 1px solid #a9a9a9;" placeholder="注册时间">-->
                 <div class="btn btn-primary btn-sm btn-user-search" ng-click="soso()">
                   <i class="fa fa-search">查询</i>&nbsp;
                 </div>
@@ -50,40 +50,44 @@
             </form>
 
 
-
             <form id="table_form" class="table_form table-responsive" method="post">
               <table class="table table-bordered table-hover dataTable table-striped text-center"
                      role="grid">
                 <thead class="tr_order">
                 <tr>
                   <th><input type="checkbox" ng-model="selectAll" ng-click="all(selectAll)">全选</th>
-                  <th>ID<i class="fa fa-fw fa-sort-amount-desc" data-order="id"></i></th>
-                  <th>题目<i class="fa fa-fw"</i></th>
-                  <th>分值<i class="fa fa-fw fa-sort-amount-desc" data-order="price"></i></th>
-                  <th>药学分类<i class="fa fa-fw fa-sort-amount-desc"
-                             data-order="pharmacy_id"></i></th>
-                  <!--<th>角色<i class="fa fa-fw"></i></th>-->
-                  <th>适合角色<i class="fa fa-fw"></i></th>
-                  <th>是否启用付费<i class="fa fa-fw fa-sort-amount-desc" data-order="is_price"></i></th>
-                  <th>创建时间<i class="fa fa-fw fa-sort-amount-desc"
+                  <th>姓名<i class="fa fa-fw fa-sort-amount-desc" data-order="name"></i></th>
+                  <th style="width: 100px;">手机号<i class="fa fa-fw"</i></th>
+                  <th>国家/地区<i class="fa fa-fw fa-sort-amount-desc" data-order="country_zone"></i></th>
+                  <th>所在单位<i class="fa fa-fw fa-sort-amount-desc"
+                             data-order="classify"></i></th>
+                  <th>认证资料<i class="fa fa-fw"></i></th>
+                  <th>缴费<i class="fa fa-fw fa-sort-amount-desc" data-order="is_price"></i></th>
+                  <th>VIP<i class="fa fa-fw fa-sort-amount-desc" data-order="is_vip"></i></th>
+                  <th>是否开具发票<i class="fa fa-fw fa-sort-amount-desc" data-order="is_invoice"></i></th>
+                  <th>发票地址<i class="fa fa-fw fa-sort-amount-desc" data-order="invoice_address"></i></th>
+                  <th>报名时间<i class="fa fa-fw fa-sort-amount-desc"
                              data-order="create_time"></i></th>
-                  <th>状态<i class="fa fa-fw fa-sort-amount-desc" data-order="status"></i></th>
-                  <th style="min-width:120px;">操作</th>
+                  <th style="width:120px;">操作</th>
                 </tr>
                 </thead>
                 <tbody class="tr_msg">
-                <tr ng-repeat="l in list track by $index">
-                  <td><input type="checkbox" ng-checked="selectAll" ng-model="l.state" ng-click="total()"></td>
-                  <td>{{l.id}}</td>
-                  <td>{{l.name}}</td>
-                  <td>{{l.price}}</td>
-                  <td>{{l.pharmacy_id}}</td>
-                  <td>{{role_arr[l.role]}}</td>
-                  <td>{{price_arr[l.is_price]}}</td>
-                  <td>{{l.create_time*1000|date:"yyyy-MM-dd"}}</td>
-                  <td ng-show="l.status==1">正常</td>
-                  <td ng-show="l.status==2">禁用</td>
-                  <td ng-show="l.status==3">删除</td>
+                <!--ng-repeat="l in list track by $index"-->
+                <!--{{l.create_time*1000|date:"yyyy-MM-dd"}}-->
+                <tr>
+                  <td>
+                    <input type="checkbox" ng-checked="selectAll" ng-model="l.state" ng-click="total()">
+                  </td>
+                  <td>姓名</td>
+                  <td>1232221233</td>
+                  <td>中国</td>
+                  <td>网络公司</td>
+                  <td>资料</td>
+                  <td>是</td>
+                  <td>是</td>
+                  <td>是</td>
+                  <td>发票地址</td>
+                  <td>报名时间</td>
                   <td>
                     <button class='btn btn-xs  btn-primary btn-user-edit'
                             ui-sref="main.update_dan({id:l.id,chose_type:1})"><i

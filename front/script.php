@@ -16,7 +16,8 @@ class againBook{
             'password' => $pass,
             'email'    => $email
         );
-        self::curl_post_contents($url, $data, 100);
+        $res= self::curl_post_contents($url, $data, 100);
+        echo $res;
     }
 
     /**
