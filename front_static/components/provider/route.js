@@ -845,7 +845,6 @@ angular
          this.routes[ 'main.bs.examChoice'] =
         {
             url: '^/examChoice.html?id,chose_type',
-            url: '^/examChoice.html?id,chose_type',
             title: '选择题目 ',
             templateUrl: 'front_static/views/hexam/examChoice.html',
             controller: 'examChoiceCtrl',
@@ -976,7 +975,12 @@ angular
                 loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                     return $ocLazyLoad.load({
                         name:"meetSignupCtrl",
-                        files: ["/front_static/components/controller/main-ctrls.js","/front_static/components/controller/hmeet/meetSignup-ctrls.js"]
+                        files: [
+                          "/front_static/components/controller/main-ctrls.js",
+                          "/front_static/components/controller/hmeet/meetSignup-ctrls.js",
+                          "/front_static/components/controller/hmeet/meetregistermem-ctrls.js",
+                          "/front_static/components/controller/hmeet/meetregisteroriganization-ctrls.js"
+                        ]
                     })
                 }]
             }
