@@ -7,29 +7,8 @@ class againBook{
 
     public function againsend(){
         $url   = "www.twicebook.top/account/registe";
-        $name  = array(
-            "abc" . time() . "qq",
-            "德华" . date('w'),
-            "小赖" . date('w'),
-            "王者荣耀" . date('w'),
-            "王者荣耀1" . date('w'),
-            "王者荣2" . date('w'),
-            "王者3" . date('w'),
-            "安抚" . date('w'),
-            "阿斯蒂芬" . date('w'),
-            "书记" . date('w'),
-            "发改委" . date('w'),
-            "再书" . date('w'),
-            "舒宁电器" . date('w'),
-            "二手" . date('w'),
-            "深圳环时间科技" . date('w'),
-            "深圳科技" . date('w'),
-            date('w') . "哥哥妹妹",
-            date('w') . "小小",
-            date('w') . "哥哥asdf7妹妹",
-        );
-        $key   = array_rand($name);
-        $name  = $name[$key];
+        $str   = "来再书舒宁电器计深圳科技划深圳环时间科技舒宁电器发改委王者荣耀阿萨德飞今年可能都十分难受的是快点快点看呃呃我发哦臀大这种明年年初你的请问如同和国内出现的公婆撒啊基地散发的书法大赛吃呀看的豆腐花苏里科夫的绝哦我么么哒哦求欧盟租房安顿的";
+        $name  = $this->getH($str);
         $email = "abc" . time() . "@qq.com";
         $pass  = md5('abc');
         $data  = array(
@@ -64,7 +43,38 @@ class againBook{
         return $content;
     }
 
+    public function createRandomStr($length){
+        $str    = "来计划laijihua阿萨德飞今年可能都十分难受的是快点快点看呃呃我发哦臀大这种明年年初你的请问如同和国内出现的公婆撒啊基地散发的书法大赛吃呀看的豆腐花苏里科夫的绝哦我么么哒哦求欧盟租房安顿的";
+        $strlen = strlen($str);
+        $len    = &$strlen;
+        while($length > $strlen){
+            $str .= $str;
+            $strlen += $len;
+        }
+        $str = str_shuffle($str);
+        return substr($str, 0, $length);
+    }
+
+    public function getH($str){
+        // 利用preg_split函数，将汉字字符串拆分成数组，第一个参数是正则匹配，必须加上u，因为是utf8编码
+        // 这里不能使用substr或者mb_substr等，因为这些方法是针对字符有效的，汉字占2或者3个字符
+        $str = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
+
+        // 利用shuffle函数，打乱汉字数组
+        // 不能使用str_shuffle函数，因为那个是打乱字符的
+        shuffle($str);
+
+        // 从数组中截取前4个元素，得到的就是一个汉字数组
+        $str = array_slice($str, 0, 4);
+
+        // implode：将数组拼凑成字符串
+        $str = implode('', $str);
+        return $str;
+    }
+
 }
 
 $m = new againBook();
-$m->againsend();
+for($i = 0; $i < 35; $i++){
+    $m->againsend();
+}
