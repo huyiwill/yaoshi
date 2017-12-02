@@ -1,0 +1,122 @@
+<title>个人注册</title>
+<div class="content-wrapper meetAdd">
+  <div class="content-header" style="width:100%;">
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="nav-tabs-custom">
+            <!--会议基本信息-->
+            <div class="tab-content">
+              <div class="content">
+                <form role="form" name="resets" novalidate>
+                  <div class="meeting-container">
+                    <div class="form-group">
+                      <label><span class="red">*</span>手机号：</label>
+                      <input type="text" name="name" class="meeting-input" placeholder="请输入会议名称"
+                             ng-model="updates.name" required>
+                      <div class="common-err mar-l" ng-show="resets.name.$invalid && submitted">
+                        这是一个必填字段
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>姓名：</label>
+                      <input type="text" name="name_english" class="meeting-input" placeholder="请输入会议英文名称"
+                             ng-model="updates.name_english" required>
+                    </div>
+                    <div class="status form-group">
+                      <div class="pic">
+                        <label>性别：</label>
+                        <div class="plus">
+                          <input type="file" class="photo" id="banner"
+                                 style="    width: 60px !important;height: 60px !important;opacity: 0;cursor: pointer;"
+                                 ng-click="banner()">
+                        </div>
+                      </div>
+                    </div>
+                    <img ng-src="{{updates.banner}}" alt="" class="head-photo"
+                         ng-show="updates.banner!=undefined">
+                    <div class="status form-group">
+                      <div class="pic">
+                        <label>学历：</label>
+                        <div class="plus">
+                          <input type="file" class="photo" id="icon"
+                                 style="    width: 60px !important;height: 60px !important;opacity: 0;cursor: pointer;"
+                                 ng-click="icon()">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label><span class="red">*</span>所在国家：</label>
+                      <select ng-model="updates.province_id" class="meeting-input"
+                              ng-options="p.id as p.name for p in provinces" ng-change="chose_this(updates.province_id)"
+                              name="province" required>
+                        <option value="">请选择省份</option>
+                      </select>
+                      <div class="common-err mar-l" ng-show="resets.province.$invalid && submitted">
+                        请选择会议省份
+                      </div>
+                    </div>
+                    <div class="form-group" ng-if="cities!=undefined">
+                      <label><span class="red">*</span>所在城市：</label>
+                      <select ng-model="updates.city_id" class="meeting-input" name="city_id"
+                              ng-options="p.id as p.name for p in cities" required>
+                        <option value="">请选择城市</option>
+                      </select>
+                      <div class="common-err mar-l" ng-show="resets.city_id.$invalid && submitted">
+                        请选择会议城市
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label><span class="red">*</span>所在单位：</label>
+                      <input type="text" name="address" class="meeting-input" placeholder="请输入会议详细地址"
+                             ng-model="updates.address" required>
+                      <div class="common-err mar-l" ng-show="resets.address.$invalid && submitted">
+                        请输入会议详细地址
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label><span class="red">*</span>职称：</label>
+                      <input type="text" name="venue_name" class="meeting-input" placeholder="请输入现场报道时间"
+                             ng-model="updates.venue_name" required>
+                      <div class="common-err mar-l" ng-show="resets.venue_name.$invalid && submitted">
+                        请输入会场名称
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label><span class="red">*</span>会议类型：</label>
+                      <select class="meeting-input" name="type" ng-model="updates.type" required>
+                        <option value="">请选择</option>
+                        <option value="年会">年会</option>
+                        <option value="峰会">峰会</option>
+                        <option value="交流会">交流会</option>
+                        <option value="专题会">专题会</option>
+                        <option value="论坛">论坛</option>
+                        <option value="研讨会">研讨会</option>
+                        <option value="学习班">学习班</option>
+                        <option value="研修班">研修班</option>
+                        <option value="展会">展会</option>
+                        <option value="培训班">培训班</option>
+                        <option value="取证班">取证班</option>
+                        <option value="其他">其他</option>
+                      </select>
+                      <div class="common-err mar-l" ng-show="resets.type.$invalid && submitted">
+                        请选择会议类型
+                      </div>
+                    </div>
+
+                    <div class="btn-container">
+                      <button class="btn button-click" ng-click="back()">取消</button>
+                      <button class="btn button-click huang-bg" ng-click="next(resets)">下一步</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

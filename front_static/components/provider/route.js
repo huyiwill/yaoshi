@@ -964,8 +964,11 @@ angular
                   }]
               }
           };
-
-        this.routes['main.bs.meetSignup'] =
+  /**
+   * 报名人员管理
+   * @type {{url: string, title: string, templateUrl: string, controller: string, resolve: {loadMyCtrl: [*]}}}
+   */
+  this.routes['main.bs.meetSignup'] =
         {
             url: '^/meetRegister.html?id',
             title: '报名人员管理',
@@ -985,6 +988,40 @@ angular
                 }]
             }
         };
+  /**
+   *新增报名   个人注册   团体注册
+   */
+  this.routes['main.bs.meetRegister_mem_add'] =
+    {
+      url: '^/meetRegister_mem_add.html?id',
+      title: '个人注册',
+      templateUrl: 'front_static/views/hmeet/meetRegister_mem_add.html',
+      controller: 'meetRegister_mem_addCtrl',
+      resolve:{
+        loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+          return $ocLazyLoad.load({
+            name:"meetRegister_mem_addCtrl",
+            files: ["/front_static/components/controller/main-ctrls.js","/front_static/components/controller/hmeet/meetRegister_mem_add-ctrls.js"]
+          })
+        }]
+      }
+    };
+
+  this.routes['main.bs.meetRegister_origanization_add'] =
+    {
+      url: '^/meetRegister_origanization_add.html?id',
+      title: '团队注册',
+      templateUrl: 'front_static/views/hmeet/meetRegister_origanization_add.html',
+      controller: 'meetRegister_origanization_addCtrl',
+      resolve:{
+        loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+          return $ocLazyLoad.load({
+            name:"meetRegister_origanization_addCtrl",
+            files: ["/front_static/components/controller/main-ctrls.js","/front_static/components/controller/hmeet/meetRegister_origanization_add-ctrls.js"]
+          })
+        }]
+      }
+    };
 
     this.routes[ '404' ] =
         {

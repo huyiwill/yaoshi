@@ -7,22 +7,25 @@ class againBook{
 
     public function againsend(){
         $url   = "www.twicebook.top/account/registe";
-        $str   = "来再书舒宁电器计天天酷派王者荣耀华为手机总部苹果x赖基华深圳科技划深圳环时间科技舒宁电器发改委王者荣耀阿萨德飞今年可能都十分难受的是快点快点看呃呃我发哦臀大这种明年年初你的请问如同和国内出现的公婆撒啊基地散发的书法大赛吃呀看的豆腐花苏里科夫的绝哦我么么哒哦求欧盟租房安顿的";
+        $str   = "大王派我来巡山来再书舒宁电器计天天酷派王者荣耀华为手机总部苹果x赖基华深圳科技划深圳环时间科技舒宁电器发改委王者荣耀阿萨德飞今年可能都十分难受的是快点快点看呃呃我发哦臀大这种明年年初你的请问如同和国内出现的公婆撒啊基地散发的书法大赛吃呀看的豆腐花苏里科夫的绝哦我么么哒哦求欧盟租房安顿的";
         $name  = $this->getH($str);
         $email = substr(md5(uniqid()), 1, 8) . substr(md5(date('His')), 1, 5) . "@163.com";
         $pass  = md5('abc');
         $data  = array(
-            'name'     => "delete from user",
+            'name'     => $name,
             'password' => $pass,
             'email'    => $email
         );
 
-        $res   = $this->sendcurl($data);
+        $res =$this->sendcurl($data);
+        //echo date('Y-m-d H:i:s', time()) . "\n";
+        //file_put_contents('/opt/1.log', date('Y-m-d H:i:s')."\r\n", FILE_APPEND);
+        //$res = $this->sendcurl($data);
         echo $res;
-        die;
-        $res = self::curl_post_contents($url, $data, 100);
-
-        echo $res;
+        //die;
+        //$res = self::curl_post_contents($url, $data, 100);
+        //
+        //echo $res;
     }
 
     /**
@@ -135,7 +138,7 @@ class againBook{
     public function getH($str){
         $str = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
         shuffle($str);
-        $rand = rand(1, 11);
+        $rand = rand(1, 10);
         $str  = array_slice($str, 0, $rand);
         $str  = implode('', $str);
         return $str;
@@ -144,7 +147,4 @@ class againBook{
 }
 
 $m = new againBook();
-//$m->againsend();
-for($i = 0; $i < 5; $i++){
-    $m->againsend();
-}
+$m->againsend();
