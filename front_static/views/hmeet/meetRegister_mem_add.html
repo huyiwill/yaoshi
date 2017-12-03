@@ -12,8 +12,8 @@
                   <div class="meeting-container">
                     <div class="form-group">
                       <label><span class="red">*</span>手机号：</label>
-                      <input type="text" name="name" class="meeting-input" placeholder="请输入会议名称"
-                             ng-model="updates.name" required>
+                      <input type="text" name="phone" class="meeting-input" placeholder="请输入手机号"
+                             ng-model="phone" required>
                       <div class="common-err mar-l" ng-show="resets.name.$invalid && submitted">
                         这是一个必填字段
                       </div>
@@ -25,48 +25,50 @@
                     </div>
                     <div class="status form-group">
                       <div class="pic">
-                        <label>性别：</label>
-                        <div class="plus">
-                          <input type="file" class="photo" id="banner"
-                                 style="    width: 60px !important;height: 60px !important;opacity: 0;cursor: pointer;"
-                                 ng-click="banner()">
-                        </div>
+                        <label><span class="red">*</span>学历：</label>
+                        <select class="meeting-input" name="certificate" ng-model="updates.type" required>
+                          <option value="">请选择</option>
+                          <option value="专科及以下">专科及以下</option>
+                          <option value="学士">学士</option>
+                          <option value="硕士">硕士</option>
+                          <option value="博士">博士</option>
+                        </select>
                       </div>
                     </div>
-                    <img ng-src="{{updates.banner}}" alt="" class="head-photo"
-                         ng-show="updates.banner!=undefined">
                     <div class="status form-group">
-                      <div class="pic">
-                        <label>学历：</label>
-                        <div class="plus">
-                          <input type="file" class="photo" id="icon"
-                                 style="    width: 60px !important;height: 60px !important;opacity: 0;cursor: pointer;"
-                                 ng-click="icon()">
-                        </div>
+
+                      <label><span class="red">*</span>性别：</label>
+                      <div style="margin-left: 150px;">
+                        <input type="radio" class="radio" name="sex" value="1" ng-model="updates.perfect.education"
+                               required>男
+                        <input type="radio" class="radio" name="sex" value="2" ng-model="updates.perfect.education"
+                               required>女
                       </div>
+
                     </div>
 
-                    <div class="form-group">
-                      <label><span class="red">*</span>所在国家：</label>
-                      <select ng-model="updates.province_id" class="meeting-input"
-                              ng-options="p.id as p.name for p in provinces" ng-change="chose_this(updates.province_id)"
-                              name="province" required>
+
+                    <div class="form-item">
+                      <label>省:</label>
+                      <select style="width: 150px;margin-left: 150px;margin-top: -30px;" ng-model="province_id"
+                              class="form-control common-select"
+                              ng-options="p.id as p.name for p in provinces" ng-change="chose_this(province_id)"
+                              name="provinces" required>
                         <option value="">请选择省份</option>
                       </select>
-                      <div class="common-err mar-l" ng-show="resets.province.$invalid && submitted">
-                        请选择会议省份
-                      </div>
+                      <div class="common-err proup-left" ng-show="markWin.provinces.$invalid && submitted">请选择省份</div>
                     </div>
-                    <div class="form-group" ng-if="cities!=undefined">
-                      <label><span class="red">*</span>所在城市：</label>
-                      <select ng-model="updates.city_id" class="meeting-input" name="city_id"
-                              ng-options="p.id as p.name for p in cities" required>
+                    <div class="form-item">
+                      <label>市:</label>
+                      <select style="width: 150px;margin-left: 150px;margin-bottom: 30px;" ng-model="city_id"
+                              class="form-control common-select" name="city_id"
+                              ng-options="p.id as p.name for p in cities" required ng-change="chose_city(city_id)">
                         <option value="">请选择城市</option>
                       </select>
-                      <div class="common-err mar-l" ng-show="resets.city_id.$invalid && submitted">
-                        请选择会议城市
-                      </div>
+                      <div class="common-err proup-left" ng-show="markWin.city_id.$invalid && submitted">请选择城市</div>
                     </div>
+
+
                     <div class="form-group">
                       <label><span class="red">*</span>所在单位：</label>
                       <input type="text" name="address" class="meeting-input" placeholder="请输入会议详细地址"
@@ -83,6 +85,7 @@
                         请输入会场名称
                       </div>
                     </div>
+
 
                     <div class="form-group">
                       <label><span class="red">*</span>会议类型：</label>

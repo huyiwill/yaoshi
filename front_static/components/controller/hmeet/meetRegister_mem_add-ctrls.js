@@ -19,6 +19,7 @@ angular
         }
         $http
           .post('/meeting/add.json', {
+            phone       : $scope.phone,
             name        : $scope.updates.name,
             name_english: $scope.updates.name_english,
             contacts    : $scope.updates.contacts,
@@ -50,7 +51,8 @@ angular
       }else{
         $scope.submitted = true;
       }
-    }
+    };
+
     $timeout(function(){
       $('#enroll_start').jHsDate({
         maxDate : '2025-12-31',
@@ -68,6 +70,7 @@ angular
           $scope.$apply();
         }
       });
+
       $('#attend_time').jHsDate({
         maxDate : '2025-12-31',
         format  : 'yyyy-MM-dd hh时mm分',
@@ -76,6 +79,7 @@ angular
           $scope.$apply();
         }
       });
+
       $('#time_start').jHsDate({
         maxDate : '2025-12-31',
         format  : 'yyyy-MM-dd hh时mm分',
@@ -84,6 +88,7 @@ angular
           $scope.$apply();
         }
       });
+
       $('#time_end').jHsDate({
         maxDate : '2025-12-31',
         format  : 'yyyy-MM-dd hh时mm分',
@@ -92,7 +97,7 @@ angular
           $scope.$apply();
         }
       });
-    }, 1000)
+    }, 1000);
 
     //上传图片
     function ajaxupload_banner(data){
@@ -118,7 +123,8 @@ angular
           ajaxupload_banner(img.src);
         }
       });
-    }
+    };
+
     $scope.icon = function(){
       $('#icon').localResizeIMG({
         width  : 200,
@@ -130,12 +136,13 @@ angular
           ajaxupload_icon(img.src);
         }
       });
-    }
+    };
 
     //取消
     $scope.back = function(){
       history.back();
-    }
+    };
+
     //获取下拉省份信息
     $http
       .get('/region/province/drop.json')
