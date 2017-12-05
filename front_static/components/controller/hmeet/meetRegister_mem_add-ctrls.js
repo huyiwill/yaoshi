@@ -19,26 +19,12 @@ angular
         }
         $http
           .post('/meeting/add.json', {
-            phone       : $scope.phone,
-            name        : $scope.updates.name,
-            name_english: $scope.updates.name_english,
-            contacts    : $scope.updates.contacts,
-            mobile      : $scope.updates.mobile,
-            banner      : $scope.updates.banner,
-            icon        : $scope.updates.icon,
-            enroll_start: $scope.updates.enroll_start,
-            enroll_end  : $scope.updates.enroll_end,
-            time_start  : $scope.updates.time_start,
-            time_end    : $scope.updates.time_end,
-            attend_time : $scope.updates.attend_time,
-            province_id : $scope.updates.province_id,
-            city_id     : $scope.updates.city_id,
-            address     : $scope.updates.address,
-            venue_name  : $scope.updates.venue_name,
-            is_credit   : $scope.updates.is_credit,
-            credis      : $scope.updates.credis,
-            type        : $scope.updates.type,
-            subject     : $scope.updates.subject
+            phone           : $scope.phone,
+            name            : $scope.name_english,
+            certificate_type: $scope.certificate_type,
+            sex             : $scope.sex,
+            banner          : $scope.updates.banner,
+            icon            : $scope.updates.icon,
           })
           .success(function(data){
             if(data.status){
