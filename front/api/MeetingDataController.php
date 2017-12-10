@@ -324,17 +324,29 @@ class MeetingDataController extends Controller{
         }
         return $response->withHeader('Content-type', 'application/json')->write(json_encode($return));
     }
+
     /**
      * 会议资料 会员个人注册
      */
     public function actionMemberOneReg(Request $request, Response $response){
-
+        $post = $request->getParsedBody();
+        $data = array(
+            'phone'            => $post['phone'],
+            'name'             => $post['name'],
+            'certificate_type' => $post['certificate_type'],
+            'sex'              => $post['sex'],
+            'province_id'      => $post['province_id'],
+            'city_id'          => $post['city_id'],
+            'address'          => $post['address'],
+            'venue_name'       => $post['venue_name'],
+        );
+        p($data);
     }
+
     /**
      *会议资料   会员团体注册
      */
     public function actionMemberOrganizationReg(Request $request, Response $response){
-
     }
 
     /* 详细信息添加 */

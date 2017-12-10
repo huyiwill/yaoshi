@@ -72,7 +72,7 @@
                     <div class="form-group">
                       <label><span class="red">*</span>所在单位：</label>
                       <input type="text" name="address" class="meeting-input" placeholder="请输入会议详细地址"
-                             ng-model="updates.address" required>
+                             ng-model="address" required>
                       <div class="common-err mar-l" ng-show="resets.address.$invalid && submitted">
                         请输入会议详细地址
                       </div>
@@ -80,38 +80,38 @@
                     <div class="form-group">
                       <label><span class="red">*</span>职称：</label>
                       <input type="text" name="venue_name" class="meeting-input" placeholder="请输入现场报道时间"
-                             ng-model="updates.venue_name" required>
+                             ng-model="venue_name" required>
                       <div class="common-err mar-l" ng-show="resets.venue_name.$invalid && submitted">
                         请输入会场名称
                       </div>
                     </div>
 
 
-                    <div class="form-group">
-                      <label><span class="red">*</span>会议类型：</label>
-                      <select class="meeting-input" name="type" ng-model="updates.type" required>
-                        <option value="">请选择</option>
-                        <option value="年会">年会</option>
-                        <option value="峰会">峰会</option>
-                        <option value="交流会">交流会</option>
-                        <option value="专题会">专题会</option>
-                        <option value="论坛">论坛</option>
-                        <option value="研讨会">研讨会</option>
-                        <option value="学习班">学习班</option>
-                        <option value="研修班">研修班</option>
-                        <option value="展会">展会</option>
-                        <option value="培训班">培训班</option>
-                        <option value="取证班">取证班</option>
-                        <option value="其他">其他</option>
-                      </select>
-                      <div class="common-err mar-l" ng-show="resets.type.$invalid && submitted">
-                        请选择会议类型
-                      </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                      <!--<label><span class="red">*</span>会议类型：</label>-->
+                      <!--<select class="meeting-input" name="type" ng-model="updates.type" required>-->
+                        <!--<option value="">请选择</option>-->
+                        <!--<option value="年会">年会</option>-->
+                        <!--<option value="峰会">峰会</option>-->
+                        <!--<option value="交流会">交流会</option>-->
+                        <!--<option value="专题会">专题会</option>-->
+                        <!--<option value="论坛">论坛</option>-->
+                        <!--<option value="研讨会">研讨会</option>-->
+                        <!--<option value="学习班">学习班</option>-->
+                        <!--<option value="研修班">研修班</option>-->
+                        <!--<option value="展会">展会</option>-->
+                        <!--<option value="培训班">培训班</option>-->
+                        <!--<option value="取证班">取证班</option>-->
+                        <!--<option value="其他">其他</option>-->
+                      <!--</select>-->
+                      <!--<div class="common-err mar-l" ng-show="resets.type.$invalid && submitted">-->
+                        <!--请选择会议类型-->
+                      <!--</div>-->
+                    <!--</div>-->
 
                     <div class="btn-container">
                       <button class="btn button-click" ng-click="back()">取消</button>
-                      <button class="btn button-click huang-bg" ng-click="next(resets)">下一步</button>
+                      <button class="btn button-click huang-bg" ng-click="next(resets)">保存</button>
                     </div>
                   </div>
                 </form>

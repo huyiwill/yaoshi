@@ -14,22 +14,21 @@ angular
 
     $scope.next = function(form){
       if(form.$valid){
-        if($scope.updates.is_credit == 2){
-          $scope.updates.credis = 0;
-        }
         $http
-          .post('/meeting/add.json', {
+          .post('/meetingdata/memReg.json', {
             phone           : $scope.phone,
             name            : $scope.name_english,
             certificate_type: $scope.certificate_type,
             sex             : $scope.sex,
-            banner          : $scope.updates.banner,
-            icon            : $scope.updates.icon,
+            province_id     : $scope.province_id,
+            city_id         : $scope.city_id,
+            address         : $scope.address,
+            venue_name      : $scope.venue_name,
           })
           .success(function(data){
             if(data.status){
               swal("干得漂亮！", "新增成功！", "success");
-              $state.go('main.bs.meetMore', {id: data.data})
+              //$state.go('main.bs.meetMore', {id: data.data})
             }else{
               swal("OMG!", data.message, "error");
             }
