@@ -1023,11 +1023,13 @@ angular
       }
     };
 
+
+
     this.routes[ '404' ] =
         {
             url: '/404.html',
             title: '404',
-            templateUrl: 'front_static/views/404.html',
+            templateUrl: 'front_static/views/404.html'
         };
     this.$get = function()
     {

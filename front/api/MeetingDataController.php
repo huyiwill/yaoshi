@@ -403,6 +403,17 @@ class MeetingDataController extends Controller{
         }
     }
 
+    /**
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return mixed
+     * 个人注册  团体注册  列表
+     */
+    public function actionRegList(Request $request, Response $response){
+
+    }
+
     /* 详细信息添加 */
     public function actionDetailAdd(Request $request, Response $response){
         $post = $request->getParsedBody();

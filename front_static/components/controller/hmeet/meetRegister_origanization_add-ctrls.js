@@ -1,6 +1,6 @@
 angular
   .module('ohapp')
-  .controller('meetRegister_mem_origanizationCtrl', function meetRegister_mem_origanizationCtrl($scope, $injector, $rootScope){
+  .controller('meetRegister_origanization_addCtrl', function meetRegister_mem_origanizationCtrl($scope, $injector, $rootScope){
     var $http = $injector.get('$http');
     var $location = $injector.get('$location');
     var $state = $injector.get('$state');
