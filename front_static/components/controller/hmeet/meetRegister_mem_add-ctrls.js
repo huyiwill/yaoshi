@@ -23,7 +23,7 @@ angular
             province_id     : $scope.province_id,
             city_id         : $scope.city_id,
             address         : $scope.address,
-            venue_name      : $scope.venue_name,
+            venue_name      : $scope.venue_name
           })
           .success(function(data){
             if(data.status){
@@ -132,6 +132,9 @@ angular
     $http
       .get('/region/province/drop.json')
       .success(function(data){
+        if(!data.status){
+          swal("OMG!", data.message, "error");
+        }
         $scope.provinces = data.data;
       });
 

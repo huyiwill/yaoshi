@@ -339,14 +339,68 @@ class MeetingDataController extends Controller{
             'city_id'          => $post['city_id'],
             'address'          => $post['address'],
             'venue_name'       => $post['venue_name'],
+            'start_time'       => time()
         );
-        p($data);
+        if(!$this->formControlEmpty(array_keys($data), $data)){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '必填参数错误'
+            ]));
+        }
+        $cache_user_info             = $this->getLogin('_ys_front_login', $request);
+        $data['operation_user_id']   = $cache_user_info['id'];
+        $data['operation_user_name'] = $cache_user_info['name'];
+        $result                      = $this->db->mem_reg()->insert($data);
+        if($result){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => true,
+                'message' => '添加成功'
+            ]));
+        }else{
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '添加失败'
+            ]));
+        }
     }
 
     /**
      *会议资料   会员团体注册
      */
     public function actionMemberOrganizationReg(Request $request, Response $response){
+        $post = $request->getParsedBody();
+        $data = array(
+            'phone'            => $post['phone'],
+            'name'             => $post['name'],
+            'certificate_type' => $post['certificate_type'],
+            'sex'              => $post['sex'],
+            'province_id'      => $post['province_id'],
+            'city_id'          => $post['city_id'],
+            'address'          => $post['address'],
+            'venue_name'       => $post['venue_name'],
+            'start_time'       => time()
+        );
+        if(!$this->formControlEmpty(array_keys($data), $data)){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '必填参数错误'
+            ]));
+        }
+        $cache_user_info             = $this->getLogin('_ys_front_login', $request);
+        $data['operation_user_id']   = $cache_user_info['id'];
+        $data['operation_user_name'] = $cache_user_info['name'];
+        $result                      = $this->db->organization_reg()->insert($data);
+        if($result){
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => true,
+                'message' => '报名成功'
+            ]));
+        }else{
+            return $response->withHeader('Content-type', 'application/json')->write(json_encode([
+                'status'  => false,
+                'message' => '报名失败'
+            ]));
+        }
     }
 
     /* 详细信息添加 */
