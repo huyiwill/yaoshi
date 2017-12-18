@@ -23,7 +23,7 @@ angular
       p[filter] = id;
 
       $http
-        .get('/subject/list.json', {params: p})
+        .get('/meetingdata/getMemRegList.json', {params: p})
         .success(function(data){
           if(data.status){
             $scope.cheackTotal = 0;

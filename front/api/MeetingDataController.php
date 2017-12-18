@@ -404,14 +404,20 @@ class MeetingDataController extends Controller{
     }
 
     /**
-     * @param Request  $request
-     * @param Response $response
-     *
-     * @return mixed
-     * 个人注册  团体注册  列表
+     * 个人注册
      */
-    public function actionRegList(Request $request, Response $response){
+    public function actionGetMemRegList(Request $request, Response $response){
+        $get             = $request->getParsedBody();
+        $cache_auth_info = $this->getLogin('_ys_front_login', $request);
+        $result = $this -> db -> mem_reg()->fetch();
+        $result = json_decode($result,true);
+        p($result);
+    }
 
+    /**
+     * 团体注册  列表
+     */
+    public function actionGetOrganizationRegList(Request $request, Response $response){
     }
 
     /* 详细信息添加 */

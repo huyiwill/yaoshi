@@ -202,6 +202,12 @@ $app->post('/meetingdata/data.json', 'front\api\MeetingDataController:actionUplo
 $app->any('/meetingdata/memReg.json', 'front\api\MeetingDataController:actionMemberOneReg')->setName('meetingdata.memReg')->add($login_middleware);
 $app->any('/meetingdata/organizationReg.json', 'front\api\MeetingDataController:actionMemberOrganizationReg')->setName('meetingdata.organizationReg')->add($login_middleware);
 
+//meet list   GetOrganizationRegList
+$app->any('/meetingdata/getMemRegList.json','front\api\MeetingDataController:actionGetMemRegList')->setName('meetdata.getMemRegList')->add($login_middleware);
+
+$app->any('/meetingdata/getOrganizationRegList.json','front\api\MeetingDataController:actionGetOrganizationRegList')->setName('meetdata.getOrganizationRegList')->add($login_middleware);
+
+
 /* Meeting*/
 
 //$app->any('/test/', function () {
