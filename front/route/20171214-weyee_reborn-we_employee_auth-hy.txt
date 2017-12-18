@@ -1,0 +1,67 @@
+
+一 #更新代码和SQL后,进入weyee_reborn目录下,执行以下命令
+#加入开机启动
+
+#先kill掉 resque inventory 进程，再重新启动   -马超 执行盘点队列启动
+nohup php yii queue/worker --queue=inventory >>/home/data/inventory.log &
+
+==========================================
+
+二 #reborn下执行  -默言   服务费即将到期发送提醒短信定时任务
+00 13 * * * php yii user/service-fee-sms
+
+==========================================
+
+三 #更新代码,进入weyee_reborn的目录运行命令：
+
+#cli模式执行以下代码：-空见 商品管理列表添加索引字段
+
+1.停止所有后台进程：supervisorctl shutdown
+
+2.删除商品es索引：php yii es/delete-stock-index
+
+3.创建商品es索引：php yii es/create-stock-item-index
+
+4.推送所有商品数据到es：php yii es/query-all-items-and-add-to-es
+
+5.重启所有后台进程：supervisord -c /etc/supervisord.conf
+
+==========================================
+
+四 #进入reborn目录 由方世玉跟进执行 - 方世玉 同步盘点单盈亏脚本
+php yii inventory-sku/index2 
+
+==========================================
+
+五 #进入reborn目录下执行 需在任我行盘点脚本之后执行-任我行 盘点报表初始化
+php yii report/stock-order-consumer/init-inventoryorder-stock
+
+==========================================
+
+六 #进入reborn目标下由-任我行 跟进执行-任我行 对账单的旧数据处理
+php yii statement/update-order-statement 
+
+==========================================
+
+七 #进入reborn目录 由任我行跟进执行 -任我行 发送对账单的旧数据处理
+php yii statement/update-send-statement 
+
+八 #进入reborn目录执行  删除客户多分组数据，只保留一个客户只在一个分组    ----郭奉孝    
+php yii customer-group-user/del-customer-group-user
+
+九 #进入reborn目录 470是参数，大约执行2小时  ----廖国庆
+php yii report/stock-balance-consumer/init-balance-price-mcache 470
+
+#新公式重新计算今天的结存金额
+php yii report/stock-balance-consumer/init-today-balance-price-from-mcache
+
+
+十 # 所有单据补充毛利判断  --------郭靖
+php yii report/order-snap/add-profit-type-order-snap
+
+# 所有单据下的商品补充毛利判断
+php yii report/order-snap/add-profit-type-order-item-snap
+
+# 所有单据下的SKU补充毛利判断
+php yii report/order-snap/add-profit-type-order-item-sku-snap
+
